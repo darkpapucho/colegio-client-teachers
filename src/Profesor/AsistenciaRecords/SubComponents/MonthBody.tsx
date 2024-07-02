@@ -13,16 +13,21 @@ export default function MonthBody({ monthName, days, records }: { records: Asist
   return (
     <Container $direction="row" $width="100%">
       {days.map((day) => {
-        const {
-          asistencia: { value, justificado },
-        } = getAsistenciaValueFromRecords({ monthName, day, records });
+        const result = getAsistenciaValueFromRecords({ monthName, day, records });
+        if (!result) {
+          return (
+            <DayCellValue $justifyContent="center" $width={`${dayCellWidth}rem`} $bgColor="black" key={day}>
+              X
+            </DayCellValue>
+          );
+        }
         return (
           <DayCellValue
             $justifyContent="center"
             $width={`${dayCellWidth}rem`}
-            $bgColor={getBgColorOfCell({ asistenciaValue: value, justificado })}
+            $bgColor={getBgColorOfCell({ asistenciaValue: result.asistencia.value, justificado: result.asistencia.justificado })}
             key={day}>
-            {value ? value : '-'}
+            {result.asistencia.value ? result.asistencia.value : '-'}
           </DayCellValue>
         );
       })}

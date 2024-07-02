@@ -4,13 +4,16 @@ import { API_URL } from '../../var/envData';
 import { API_END_POINTS } from '../../config/axios/endPoints';
 import { Grado, Periodo, Seccion } from '../../types/gradoSalon';
 import { AsistenciaRecord } from '../../Profesor/AsistenciaRecords/types';
+import { MONTH_NAME } from '../../Profesor/AsistenciaRecords/utils';
 setupAxiosInterceptorsTo(axios);
 export default class Calendario {
   static async getRecordAsistenciaAlumnos({ periodo, grado, seccion }: { periodo: Periodo; grado: Grado; seccion: Seccion }) {
-    const response = await axios.post<AxiosResponseSchema<{ nombreCompleto: string; alumnoId: string; records: AsistenciaRecord[] }[]>>(
-      API_URL + API_END_POINTS.getRecordAsistenciaAlumnos,
-      { grado, seccion, periodo }
-    );
+    const response = await axios.post<
+      AxiosResponseSchema<{
+        asistencias: { nombreCompleto: string; alumnoId: string; records: AsistenciaRecord[] }[];
+        availableDays: { month: MONTH_NAME; day: number }[];
+      }>
+    >(API_URL + API_END_POINTS.getRecordAsistenciaAlumnos, { grado, seccion, periodo });
     return response;
   }
   static async fetchCurrentPeriodo() {

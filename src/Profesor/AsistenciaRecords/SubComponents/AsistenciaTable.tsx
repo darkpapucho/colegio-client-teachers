@@ -2,12 +2,18 @@ import { Fragment } from 'react/jsx-runtime';
 import { Container } from '../../../components/Shared/Container/Container';
 import Table from '../../../components/Shared/Table/Table';
 import { AsistenciasList } from '../types';
-import { alumnoNameWidthCell, getMonthsFromAsistenciaRecord } from '../utils';
+import { alumnoNameWidthCell, getMonthsFromAsistenciaRecord, MONTH_NAME } from '../utils';
 import MonthBody from './MonthBody';
 import MonthHeader from './MonthHeader';
 
-export default function AsistenciaTable({ asistencias }: { asistencias: AsistenciasList }) {
-  const { monthNames, daysByMonth, gridTemplateCols } = getMonthsFromAsistenciaRecord(asistencias[0].records);
+export default function AsistenciaTable({
+  asistencias,
+  availableDays,
+}: {
+  availableDays: { month: MONTH_NAME; day: number }[];
+  asistencias: AsistenciasList;
+}) {
+  const { monthNames, daysByMonth, gridTemplateCols } = getMonthsFromAsistenciaRecord(availableDays);
 
   return (
     <Table $gridTempCols={gridTemplateCols} $width="max-content" $border="1px solid black">

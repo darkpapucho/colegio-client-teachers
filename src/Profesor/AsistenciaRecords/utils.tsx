@@ -20,7 +20,7 @@ export function sortMonthNames(monthNames: MONTH_NAME[]) {
     return VALID_MONTHS.indexOf(prev) > VALID_MONTHS.indexOf(curr) ? 1 : -1;
   });
 }
-export function getMonthsFromAsistenciaRecord(records: AsistenciaRecord[]) {
+export function getMonthsFromAsistenciaRecord(records: { month: MONTH_NAME; day: number }[]) {
   const tmpMonths: MONTH_NAME[] = [];
   const daysByMonth: { [key: string]: number[] } = {};
   records.forEach((record) => {
@@ -51,12 +51,20 @@ function getGridTemplateColsForAsistenciaTable({ months, daysByMonth }: { months
   return gridTemplateCols;
 }
 
-export function getAsistenciaValueFromRecords({ records, day, monthName }: { day: number; monthName: MONTH_NAME; records: AsistenciaRecord[] }) {
+export function getAsistenciaValueFromRecords({
+  records,
+  day,
+  monthName,
+}: {
+  day: number;
+  monthName: MONTH_NAME;
+  records: AsistenciaRecord[];
+}): { asistencia: { value: AsistenciaValue; justificado: true | undefined }; dayId: string } | undefined {
   const result = records.find((record) => {
     return record.month === monthName && record.day === day;
   });
   if (!result) {
-    return { asistencia: { value: '' as AsistenciaValue, justificado: undefined }, dayId: '' as string };
+    return undefined;
   }
   const justificado = result.justificado;
   return { asistencia: { value: result.asistencia, justificado }, dayId: result!.dayId };

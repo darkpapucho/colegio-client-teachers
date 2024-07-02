@@ -26,12 +26,7 @@ export default function AsistenciaAlumnos() {
   });
   const currentYear = new Date().getFullYear(); // YYYY
   const { grado, seccion, setSearchParams, searchParams } = useGradoSeccionSearchParams();
-  const {
-    data: asistencias,
-    isFetching,
-    error,
-    refetch,
-  } = useQuery({
+  const { data, isFetching, error, refetch } = useQuery({
     queryKey: ['asistencia-list', grado, seccion, searchParams.get('periodoo')],
     queryFn: () => requestRecords({ grado, seccion }),
     enabled: false,
@@ -68,9 +63,9 @@ export default function AsistenciaAlumnos() {
             Ver Lista
           </Button>
         </Container>
-        {asistencias && asistencias.length > 0 && (
+        {data?.asistencias && data.asistencias.length > 0 && (
           <Container>
-            <AsistenciaTable asistencias={asistencias!} />
+            <AsistenciaTable asistencias={data.asistencias} availableDays={data.availableDays} />
           </Container>
         )}
       </Container>
