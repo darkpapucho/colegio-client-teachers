@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Button = styled.button<{
   $primary?: boolean;
@@ -15,8 +15,8 @@ export const Button = styled.button<{
   transition: all 0.2s ease;
   color: white;
   font-size: 1.4rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray.dark};
-  background-color: ${({ theme }) => theme.colors.gray.normal};
+  border: 1px solid ${({ theme }) => theme.colors.tertiary.dark};
+  background-color: ${({ theme }) => theme.colors.tertiary.normal};
   box-shadow: 0px 0px 2px black;
   transition: all 0.3s ease;
   user-select: none;
@@ -24,18 +24,18 @@ export const Button = styled.button<{
     filter: brightness(110%);
   }
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray.light};
+    background-color: ${({ theme }) => theme.colors.tertiary.light};
     cursor: pointer;
   }
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.gray.dark};
-    filter: grayscale(60%);
+    background-color: ${({ theme }) => theme.colors.tertiary.dark};
+    filter: tertiaryscale(60%);
     cursor: not-allowed;
   }
   &:active {
     &:not(:disabled) {
       scale: 1.05;
-      background-color: ${({ theme }) => theme.colors.gray.normal};
+      background-color: ${({ theme }) => theme.colors.tertiary.normal};
     }
   }
   ${({ $small }) =>
@@ -53,42 +53,42 @@ export const Button = styled.button<{
   ${({ $primary }) =>
     $primary &&
     css`
-      background-color: ${({ theme }) => theme.colors.orange.normal};
-      border-color: ${({ theme }) => theme.colors.orange.dark};
+      background-color: ${({ theme }) => theme.colors.primary.normal};
+      border-color: ${({ theme }) => theme.colors.primary.dark};
       &:hover {
-        background-color: ${({ theme }) => theme.colors.orange.light};
+        background-color: ${({ theme }) => theme.colors.primary.light};
         cursor: pointer;
       }
       &:disabled {
-        background-color: ${({ theme }) => theme.colors.orange.dark};
-        filter: grayscale(60%);
+        background-color: ${({ theme }) => theme.colors.primary.dark};
+        filter: tertiaryscale(60%);
         cursor: not-allowed;
       }
       &:active {
         &:not(:disabled) {
           scale: 1.05;
-          background-color: ${({ theme }) => theme.colors.orange.normal};
+          background-color: ${({ theme }) => theme.colors.primary.normal};
         }
       }
     `}
   ${({ $secondary }) =>
     $secondary &&
     css`
-      background-color: ${({ theme }) => theme.colors.indigo.normal};
-      border-color: ${({ theme }) => theme.colors.indigo.dark};
+      background-color: ${({ theme }) => theme.colors.secondary.normal};
+      border-color: ${({ theme }) => theme.colors.secondary.dark};
       &:hover {
-        background-color: ${({ theme }) => theme.colors.indigo.light};
+        background-color: ${({ theme }) => theme.colors.secondary.light};
         cursor: pointer;
       }
       &:disabled {
-        background-color: ${({ theme }) => theme.colors.indigo.dark};
-        filter: grayscale(60%);
+        background-color: ${({ theme }) => theme.colors.secondary.dark};
+        filter: tertiaryscale(60%);
         cursor: not-allowed;
       }
       &:active {
         &:not(:disabled) {
           scale: 1.05;
-          background-color: ${({ theme }) => theme.colors.indigo.normal};
+          background-color: ${({ theme }) => theme.colors.secondary.normal};
         }
       }
     `}
@@ -103,7 +103,7 @@ export const Button = styled.button<{
       }
       &:disabled {
         background-color: ${theme.colors.red.dark};
-        filter: grayscale(60%);
+        filter: tertiaryscale(60%);
         cursor: not-allowed;
       }
       &:active {

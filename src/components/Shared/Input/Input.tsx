@@ -15,7 +15,7 @@ export const InputContainer = styled.div<{
   .input-icon {
     background-color: white;
     height: 30px;
-    border-bottom: ${({ $isError, theme }) => ($isError ? '2px solid red' : `2px solid ${theme.colors.gray.dark}`)};
+    border-bottom: ${({ $isError, theme }) => ($isError ? '2px solid red' : `2px solid ${theme.colors.tertiary.dark}`)};
     padding-top: 5px;
     padding-inline: 4px;
   }
@@ -25,7 +25,7 @@ export const InputContainer = styled.div<{
     font-size: ${({ theme }) => theme.fontSizes.text.normal};
     outline: none;
     border: none;
-    border-bottom: ${({ $isError, theme }) => ($isError ? '2px solid red' : `2px solid ${theme.colors.gray.dark}`)};
+    border-bottom: ${({ $isError, theme }) => ($isError ? '2px solid red' : `2px solid ${theme.colors.tertiary.dark}`)};
   }
   label {
     color: white;

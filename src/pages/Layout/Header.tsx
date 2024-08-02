@@ -53,7 +53,7 @@ export default function Header() {
           $width="40px"
           $borderRadius="50%"
           $small
-          $bgColor={theme.colors.gray.light}
+          $bgColor={theme.colors.tertiary.light}
           $pointer
           $primary
           onClick={() => toggleSideBar()}
@@ -64,12 +64,18 @@ export default function Header() {
       </div>
       <div className="content">
         <div className="cog-container">
-          <Icon $width="40px" $borderRadius="50%" $small $pointer $bgColor={theme.colors.gray.light} onClick={() => setShowDropDown((old) => !old)}>
+          <Icon
+            $width="40px"
+            $borderRadius="50%"
+            $small
+            $pointer
+            $bgColor={theme.colors.tertiary.light}
+            onClick={() => setShowDropDown((old) => !old)}>
             <BiCog />
           </Icon>
           {showDropDown && <DropDownMenu handler={() => setShowDropDown(false)}></DropDownMenu>}
         </div>
-        <Icon $width="40px" $borderRadius="50%" $small $bgColor={theme.colors.gray.light} $pointer $danger onClick={() => HandleLogOut()}>
+        <Icon $width="40px" $borderRadius="50%" $small $bgColor={theme.colors.tertiary.light} $pointer $danger onClick={() => HandleLogOut()}>
           <BiLogOut />
         </Icon>
       </div>

@@ -26,7 +26,7 @@ const StyledHoverable = styled.div<{
 const StyledMessage = styled.div<{ $offset: number }>`
   position: absolute;
   padding: 4px;
-  background-color: ${({ theme }) => theme.colors.orange.dark};
+  background-color: ${({ theme }) => theme.colors.primary.dark};
   color: white;
   top: -23px;
   left: ${({ $offset }) => $offset + 'px'};

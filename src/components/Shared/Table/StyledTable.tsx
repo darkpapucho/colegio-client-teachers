@@ -50,7 +50,7 @@ export const StyledTableHeaderItem = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme, $bgColor }) => $bgColor || theme.colors.indigo.normal};
+  background-color: ${({ theme, $bgColor }) => $bgColor || theme.colors.secondary.normal};
   padding: ${({ $padding }) => $padding || '0'};
   &:not(:last-child) {
     border-right: 1px solid black;
@@ -58,7 +58,7 @@ export const StyledTableHeaderItem = styled.div<{
 `;
 
 export const StyledTableBodyItem = styled(StyledTableItem)`
-  background-color: ${({ theme, $bgColor }) => $bgColor || theme.colors.gray.light};
+  background-color: ${({ theme, $bgColor }) => $bgColor || theme.colors.tertiary.light};
   font-weight: 300;
   padding: ${({ $padding }) => $padding || '0'};
   border-right: 1px solid black;

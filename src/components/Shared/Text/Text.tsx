@@ -44,12 +44,12 @@ export const Text = styled.p<{
     if (props.$danger) {
       return props.theme.colors.red.normal;
     } else if (props.$primary) {
-      return props.theme.colors.orange.normal;
+      return props.theme.colors.primary.normal;
     } else if (props.$secondary) {
-      return props.theme.colors.indigo.normal;
+      return props.theme.colors.secondary.normal;
     }
     //else {
-    //   return props.theme.colors.gray.normal;
+    //   return props.theme.colors.tertiary.normal;
     // }
   }};
   ${({ $color }) =>

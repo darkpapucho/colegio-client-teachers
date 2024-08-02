@@ -55,7 +55,7 @@ export default function AsistenciaAlumnos() {
     <>
       {isFetching && <Loader />}
       <Container $padding="2rem" $direction="column" $gap="2rem">
-        <Container $direction="row" $width="100%" $bgColor={theme.colors.gray.light} $padding="1rem" $gap="1rem">
+        <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem" $gap="1rem">
           <Select options={SELECT_PERIODOS} width="14rem" name="periodo" label="periodo" />
           <Select options={generateGrados(salonesList!)} width="14rem" name="grado" label="grado" />
           {grado && <Select key={grado} options={generateSecciones(grado, salonesList!)} width="9rem" name="seccion" label="sección" />}

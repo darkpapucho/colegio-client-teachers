@@ -12,7 +12,7 @@ const DropDownMenuContainer = styled.div`
 `;
 const DropDownMenuItem = styled.div`
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.indigo.light};
+  background-color: ${({ theme }) => theme.colors.secondary.light};
   font-size: 1.8rem;
   padding: 4px 1rem;
   color: white;
@@ -24,7 +24,7 @@ const DropDownMenuItem = styled.div`
     border-bottom: 1px solid black;
   }
   &:hover {
-    background-color: ${({ theme }) => theme.colors.orange.normal};
+    background-color: ${({ theme }) => theme.colors.primary.normal};
     color: white;
   }
 `;

@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import SideBar from "./SideBar";
-import { Outlet } from "react-router-dom";
-import Header from "./Header";
-import { screenBreakingPoint } from "../../config/styled/styled";
+import styled from 'styled-components';
+import SideBar from './SideBar';
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import { screenBreakingPoint } from '../../config/styled/styled';
 
 const LayoutContainer = styled.div`
   display: grid;
@@ -20,7 +20,7 @@ const MainContainer = styled.div`
   padding: 1rem;
   display: flex;
   justify-content: flex-start;
-  background-color: gray;
+  background-color: tertiary;
   @media (width>${screenBreakingPoint}) {
     grid-column: 2 / 3;
     padding: 2rem;

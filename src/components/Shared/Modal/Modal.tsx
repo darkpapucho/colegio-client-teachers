@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { motion, useDragControls } from "framer-motion";
-import { ReactNode, useEffect, useRef } from "react";
+import styled from 'styled-components';
+import { motion, useDragControls } from 'framer-motion';
+import { ReactNode, useEffect, useRef } from 'react';
 
-import { Button } from "../Button/Button";
-import { Container } from "../Container/Container";
-import { Overlay } from "../Overlay/Overlay";
-import { createPortal } from "react-dom";
+import { Button } from '../Button/Button';
+import { Container } from '../Container/Container';
+import { Overlay } from '../Overlay/Overlay';
+import { createPortal } from 'react-dom';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const ModalContainer = styled.div`
 `;
 const StyledModal = styled.div<{ $width: string; $marginTop?: string }>`
   position: absolute;
-  top: ${({ $marginTop }) => $marginTop || "35%"};
+  top: ${({ $marginTop }) => $marginTop || '35%'};
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 101;
@@ -39,7 +39,7 @@ const StyledModal = styled.div<{ $width: string; $marginTop?: string }>`
 `;
 const ModalHeader = styled.div`
   width: 100%;
-  background-color: ${({ theme }) => theme.colors.indigo.dark};
+  background-color: ${({ theme }) => theme.colors.secondary.dark};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,9 +67,9 @@ export default function Modal({
   const controls = useDragControls();
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    document.getElementById("root")!.style.userSelect = "none";
+    document.getElementById('root')!.style.userSelect = 'none';
     return () => {
-      document.getElementById("root")!.style.userSelect = "auto";
+      document.getElementById('root')!.style.userSelect = 'auto';
     };
   }, []);
   return createPortal(
@@ -82,27 +82,21 @@ export default function Modal({
           dragControls={controls}
           dragElastic={0}
           dragMomentum={false}
-          dragConstraints={ref}
-        >
+          dragConstraints={ref}>
           <ModalHeader onPointerDown={(e) => controls.start(e)}>
             {title}
             <Button $danger onClick={() => onCloseModal()} $width="max-content">
               X
             </Button>
           </ModalHeader>
-          <Container
-            $direction="row"
-            $width="100%"
-            $bgColor="white"
-            $padding="2rem"
-          >
+          <Container $direction="row" $width="100%" $bgColor="white" $padding="2rem">
             {children}
           </Container>
         </motion.div>
       </StyledModal>
       <Overlay />
     </ModalContainer>,
-    document.querySelector("#portal")!
+    document.querySelector('#portal')!
   );
   // function onDrag(event:React.PointerEvent<HTMLDivElement>){
   //   const target = event.target;

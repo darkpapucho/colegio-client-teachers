@@ -120,7 +120,7 @@ export default function Registro() {
           </EditConClusionesDescriptivasModal>
         )}
         <Container $direction="column" $width="100%" $gap="2rem">
-          <Container $direction="row" $width="100%" $bgColor={theme.colors.gray.light} $padding="1rem" $gap="1rem">
+          <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem" $gap="1rem">
             <Select options={generateGrados(salones)} width="14rem" name="grado" label="grado" />
             {grado && <Select key={grado} options={generateSecciones(grado, salones)} width="9rem" name="seccion" label="sección" />}
             {data && registro && (
@@ -130,7 +130,7 @@ export default function Registro() {
             )}
           </Container>
           {currentPeriodo && (
-            <Container $bgColor={theme.colors.gray.light} $width="100%" $padding="1rem">
+            <Container $bgColor={theme.colors.tertiary.light} $width="100%" $padding="1rem">
               <Text $primary $large $fontWeight="700">
                 {convertPeriodoKeyToLabel(currentPeriodo as Periodo)}
               </Text>

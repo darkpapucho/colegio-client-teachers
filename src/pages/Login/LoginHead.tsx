@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { COLEGIO_NAME } from "../../var/colegioData";
-import { screenBreakingPoint } from "../../config/styled/styled";
+import styled from 'styled-components';
+import { COLEGIO_NAME } from '../../var/colegioData';
+import { screenBreakingPoint } from '../../config/styled/styled';
 
 export const LoginHeadContainer = styled.header`
   grid-column: 1 / -1;
@@ -9,7 +9,7 @@ export const LoginHeadContainer = styled.header`
   align-items: center;
   justify-content: center;
   padding-inline: 1rem;
-  background-color: ${({ theme }) => theme.colors.indigo.dark};
+  background-color: ${({ theme }) => theme.colors.secondary.dark};
   padding: 2rem 0;
   h1 {
     color: white;

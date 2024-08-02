@@ -17,7 +17,7 @@ const StyledSideBarHeader = styled.header`
     font-size: ${({ theme }) => theme.fontSizes.headers.small};
     margin-top: -1rem;
     font-weight: 800;
-    color: ${({ theme }) => theme.colors.indigo.normal};
+    color: ${({ theme }) => theme.colors.secondary.normal};
   }
   .image {
     width: 100%;

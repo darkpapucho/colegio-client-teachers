@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Icon = styled.div<{
   $small?: boolean;
@@ -54,11 +54,11 @@ export const Icon = styled.div<{
       `;
     } else if ($primary) {
       return css`
-        color: ${theme.colors.orange.normal};
+        color: ${theme.colors.primary.normal};
       `;
     } else if ($secondary) {
       return css`
-        color: ${theme.colors.indigo.normal};
+        color: ${theme.colors.secondary.normal};
       `;
     } else {
       return css`
@@ -68,7 +68,7 @@ export const Icon = styled.div<{
   }};
 
   //width
-  width: ${({ $width }) => $width || "100%"};
+  width: ${({ $width }) => $width || '100%'};
   ${({ $fontSize }) =>
     $fontSize &&
     css`

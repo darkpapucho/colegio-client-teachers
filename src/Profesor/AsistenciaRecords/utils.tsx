@@ -1,19 +1,7 @@
 import { AsistenciaRecord, AsistenciaValue } from './types';
 export const alumnoNameWidthCell = 36;
 export const dayCellWidth = 2;
-export const VALID_MONTHS = [
-  'enero',
-  'febrero',
-  'marzo',
-  'abril',
-  'junio',
-  'julio',
-  'agosto',
-  'septiembre',
-  'octubre',
-  'noviembre',
-  'diciembre',
-] as const;
+export const VALID_MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'] as const;
 export type MONTH_NAME = (typeof VALID_MONTHS)[number];
 export function sortMonthNames(monthNames: MONTH_NAME[]) {
   return monthNames.sort((prev, curr) => {
@@ -42,7 +30,7 @@ export function getMonthsFromAsistenciaRecord(records: { month: MONTH_NAME; day:
 
 function getGridTemplateColsForAsistenciaTable({ months, daysByMonth }: { months: MONTH_NAME[]; daysByMonth: { [key: string]: number[] } }) {
   let gridTemplateCols: string = `${alumnoNameWidthCell}rem`;
-  const minLength = 12;
+  const minLength = 8;
   months.forEach((month) => {
     const length = daysByMonth[month].length;
     const lengthToAdd = length * dayCellWidth;
@@ -72,15 +60,15 @@ export function getAsistenciaValueFromRecords({
 export function getBgColorOfCell({ asistenciaValue, justificado }: { asistenciaValue: AsistenciaValue; justificado: undefined | true }) {
   switch (asistenciaValue) {
     case '':
-      return 'gray';
+      return '#9a9c9c';
     case 'A':
-      return 'green';
+      return '#059212';
     case 'T':
-      return 'orange';
+      return '#E8751A';
     case 'F':
-      if (justificado === true) return 'hotpink';
-      return '#973131';
+      if (justificado === true) return '#FFAAAA';
+      return '#C21010';
     default:
-      return 'gray';
+      return '#535353';
   }
 }

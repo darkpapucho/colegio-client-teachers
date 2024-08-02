@@ -31,7 +31,7 @@ const LoginFormContainer = styled.div`
   form {
     a {
       align-self: flex-end;
-      color: ${({ theme }) => theme.colors.orange.light};
+      color: ${({ theme }) => theme.colors.primary.light};
       text-align: right;
       margin-bottom: 3rem;
     }
@@ -43,7 +43,7 @@ const LoginFormContainer = styled.div`
     flex-direction: column;
     gap: 1rem;
     padding: 4rem;
-    background-color: ${theme.colors.indigo.light};
+    background-color: ${theme.colors.secondary.light};
     .form-button {
       align-self: center;
     }

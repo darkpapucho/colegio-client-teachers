@@ -1,11 +1,12 @@
-import { useState } from "react";
-import styled, { css } from "styled-components";
-import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { Icon } from "../Icon/Icon";
-import { theme } from "../../../config/styled/styled";
-import { publishEvent } from "../../../utils/customEvent";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { Container } from "../Container/Container";
+import { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
+import { Icon } from '../Icon/Icon';
+import { theme } from '../../../config/styled/styled';
+import { publishEvent } from '../../../utils/customEvent';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import { Container } from '../Container/Container';
+import useClickOutside from '../../../hooks/useClickOutside';
 
 const StyledSelect = styled.div<{
   $width: string;
@@ -13,7 +14,7 @@ const StyledSelect = styled.div<{
   $heigth?: string;
   $rect?: boolean;
 }>`
-  background-color: ${({ theme }) => theme.colors.indigo.normal};
+  background-color: ${({ theme }) => theme.colors.secondary.normal};
   border-radius: 6px;
   color: white;
   position: relative;
@@ -57,7 +58,7 @@ const StyledOpt = styled.div<{
   $primary?: boolean;
 }>`
   cursor: pointer;
-  background-color: ${({ theme }) => theme.colors.indigo.dark};
+  background-color: ${({ theme }) => theme.colors.secondary.dark};
   width: 100%;
   ${({ $small, theme }) => {
     if ($small) {
@@ -73,14 +74,14 @@ const StyledOpt = styled.div<{
     }
   }}
   &:hover {
-    background-color: ${({ theme }) => theme.colors.indigo.normal};
+    background-color: ${({ theme }) => theme.colors.secondary.normal};
   }
   &:last-child {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }
 `;
-const StyledSelectedOpt = styled.div<{ $small?: boolean }>`
+const StyledSelectedOpt = styled.div<{ $small?: boolean; $bgColor?: string }>`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -99,6 +100,11 @@ const StyledSelectedOpt = styled.div<{ $small?: boolean }>`
       `;
     }
   }}
+  ${({ $bgColor }) =>
+    $bgColor &&
+    css`
+      background-color: ${$bgColor};
+    `}
 `;
 
 //#MAIN FUNCTIONAL COMPONENT
@@ -112,29 +118,22 @@ interface SelectProps<T> {
   label: string;
   rect?: boolean;
   heigth?: string;
+  bgColor?: string;
 }
 
-export default function Select<T>({
-  options,
-  width,
-  small,
-  defaultValue,
-  name,
-  label,
-  heigth,
-  rect,
-}: SelectProps<T>) {
+export default function Select<T>({ options, width, small, defaultValue, name, label, heigth, rect, bgColor }: SelectProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<{
     label: string;
     value: T | null;
   }>(defaultValue ? defaultValue : { label: label, value: null });
+  const { ref } = useClickOutside<HTMLDivElement>(() => setIsOpen(false));
   function toggle() {
     setIsOpen((old) => !old);
   }
   return (
-    <StyledSelect $width={width} $small={small} $heigth={heigth} $rect={rect}>
-      <StyledSelectedOpt onClick={() => toggle()} $small={small}>
+    <StyledSelect $width={width} $small={small} $heigth={heigth} $rect={rect} ref={ref}>
+      <StyledSelectedOpt onClick={() => toggle()} $small={small} $bgColor={bgColor}>
         <Container $width={`calc( 100% - 15px)`} $justifyContent="flex-end">
           {selectedOption.label}
         </Container>
@@ -151,11 +150,7 @@ export default function Select<T>({
       <StyledSelectOpts $isOpen={isOpen}>
         {options.map((option) => {
           return (
-            <StyledOpt
-              key={option.label}
-              onClick={() => handleClick(option)}
-              $small={small}
-            >
+            <StyledOpt key={option.label} onClick={() => handleClick(option)} $small={small}>
               {option.label}
             </StyledOpt>
           );
@@ -166,7 +161,7 @@ export default function Select<T>({
 
   function handleClick(option: { label: string; value: T }) {
     setSelectedOption(option);
-    publishEvent<T>("customSelect", { name, value: option.value });
+    publishEvent<T>('customSelect', { name, value: option.value });
     setIsOpen(false);
   }
 }

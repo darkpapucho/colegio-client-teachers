@@ -1,6 +1,6 @@
-import "styled-components";
-import { CssColor } from "./config/styled/types";
-declare module "styled-components" {
+import 'styled-components';
+import { CssColor } from './config/styled/types';
+declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
       yellow: {
@@ -13,17 +13,17 @@ declare module "styled-components" {
         normal: string;
         dark: string;
       };
-      orange: {
+      primary: {
         light: CssColor;
         normal: CssColor;
         dark: CssColor;
       };
-      indigo: {
+      secondary: {
         light: CssColor;
         normal: CssColor;
         dark: CssColor;
       };
-      gray: {
+      tertiary: {
         light: CssColor;
         normal: CssColor;
         dark: CssColor;

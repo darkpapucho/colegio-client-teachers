@@ -7,16 +7,9 @@ import { CursoInfo, RegistroProfesor } from '../../../models/Profesor/types';
 import { Periodo } from '../../../types/gradoSalon';
 import ConclusionesDescriptivasUI from './ConclusionesDescriptivasUI';
 import { Container } from '../../../components/Shared/Container/Container';
+import { Text } from '../../../components/Shared/Text/Text';
 
-export default function RegistroTableBody({
-  registro,
-  cursosList,
-  periodo,
-}: {
-  cursosList: CursoInfo[];
-  registro: RegistroProfesor;
-  periodo: Periodo;
-}) {
+export default function RegistroTableBody({ registro, cursosList, periodo }: { cursosList: CursoInfo[]; registro: RegistroProfesor; periodo: Periodo }) {
   if (registro.isTutor) {
     return (
       <Table.Body>
@@ -25,8 +18,10 @@ export default function RegistroTableBody({
             <Fragment key={record.alumnoId}>
               <Table.Body.Item>
                 <Container $direction="row" $width="100%" $gap=".5rem" $padding="0 0 0 .5rem">
-                  <div>{`[${index + 1}]`}</div>
-                  <div>{record.apellidos + ', ' + record.nombres}</div>
+                  <Text $color="black" $fontWeight="600">{`[${index + 1}]`}</Text>
+                  <Text $color="black" $fontWeight="600">
+                    {record.apellidos + ', ' + record.nombres}
+                  </Text>
                 </Container>
               </Table.Body.Item>
               {cursosList.map((curso) => {

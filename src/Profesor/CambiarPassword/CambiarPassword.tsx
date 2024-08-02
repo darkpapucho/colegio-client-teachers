@@ -30,7 +30,7 @@ export default function CambiarPassword() {
         type="password"
         isError={newPasswordError}></Input>
       {newPasswordError && (
-        <Container $bgColor={theme.colors.gray.light} $width="38rem">
+        <Container $bgColor={theme.colors.tertiary.light} $width="38rem">
           <Text $color={theme.colors.red.dark}>
             la nueva contraseña debe ser de 8 caracteres y contener al menos una letra y un numero sin símbolos ni caracteres especiales
           </Text>
@@ -48,7 +48,7 @@ export default function CambiarPassword() {
       />
 
       {confirmPasswordError && (
-        <Container $bgColor={theme.colors.gray.light} $width="38rem">
+        <Container $bgColor={theme.colors.tertiary.light} $width="38rem">
           <Text $color={theme.colors.red.dark}>confirme su nueva contraseña</Text>
         </Container>
       )}

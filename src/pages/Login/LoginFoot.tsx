@@ -1,14 +1,10 @@
-import styled from "styled-components";
-import {
-  COLEGIO_DIRECCION,
-  COLEGIO_EMAIL,
-  COLEGIO_TELEFONO,
-} from "../../var/colegioData";
-import { CiMail } from "react-icons/ci";
-import logo from "/logo.png";
-import { FaWhatsapp } from "react-icons/fa";
-import { screenBreakingPoint } from "../../config/styled/styled";
-import { TbCurrentLocation } from "react-icons/tb";
+import styled from 'styled-components';
+import { COLEGIO_DIRECCION, COLEGIO_EMAIL, COLEGIO_TELEFONO } from '../../var/colegioData';
+import { CiMail } from 'react-icons/ci';
+import logo from '/logo.png';
+import { FaWhatsapp } from 'react-icons/fa';
+import { screenBreakingPoint } from '../../config/styled/styled';
+import { TbCurrentLocation } from 'react-icons/tb';
 const LoginFootContainer = styled.div`
   padding-inline: 1rem;
   grid-column: 1 / -1;
@@ -19,7 +15,7 @@ const LoginFootContainer = styled.div`
   justify-content: space-around;
   gap: 0.5rem;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.indigo.dark};
+  background-color: ${({ theme }) => theme.colors.secondary.dark};
   padding: 2rem 0;
   @media (min-width: ${screenBreakingPoint}) {
     padding: 3rem 0;
@@ -64,7 +60,7 @@ const LoginFootContainer = styled.div`
       }
       &:nth-child(2) {
         svg {
-          color: ${({ theme }) => theme.colors.gray.light};
+          color: ${({ theme }) => theme.colors.tertiary.light};
         }
       }
       &:nth-child(3) {

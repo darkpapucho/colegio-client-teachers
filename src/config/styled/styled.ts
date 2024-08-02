@@ -1,57 +1,57 @@
-import { DefaultTheme, createGlobalStyle } from "styled-components";
+import { DefaultTheme, createGlobalStyle } from 'styled-components';
 
-export const screenBreakingPoint = "600px";
+export const screenBreakingPoint = '600px';
 
 export const theme: DefaultTheme = {
   colors: {
     yellow: {
-      light: "hsla(55, 100%, 60%,1)",
-      normal: "hsla(55, 100%, 47%,1)",
-      dark: "hsla(55, 100%, 40%,1)",
+      light: 'hsla(55, 100%, 60%,1)',
+      normal: 'hsla(55, 100%, 47%,1)',
+      dark: 'hsla(55, 100%, 40%,1)',
     },
     green: {
-      light: "hsla(143, 66%, 53%,1)",
-      normal: "hsla(143, 66%, 37%,1)",
-      dark: "hsla(143, 66%, 30%,1)",
+      light: 'hsla(143, 66%, 53%,1)',
+      normal: '#32b448',
+      dark: 'hsla(143, 66%, 30%,1)',
     },
-    indigo: {
-      light: "hsl(228, 100%, 65%,1)",
-      normal: "hsl(228, 100%, 60%,1)",
-      dark: "hsl(228, 80%, 35%,1)",
+    secondary: {
+      light: '#495F7E',
+      normal: '#253F65',
+      dark: '#0D2A54',
     },
-    orange: {
-      light: "hsl(35, 100%, 60%,1)",
-      normal: "hsl(35, 100%, 51%,1)",
-      dark: "hsl(35, 100%, 42%,1)",
+    primary: {
+      light: '#85C8EA',
+      normal: '#48ADE0',
+      dark: '#0B92D6',
     },
-    gray: {
-      light: "hsl(0, 0%, 85%,1)",
-      normal: "hsl(0, 0%, 40%,1)",
-      dark: "hsl(0, 0%, 15%,1)",
+    tertiary: {
+      light: '#fff',
+      normal: '#fff',
+      dark: '#6F7777',
     },
     red: {
-      light: "hsl(0, 100%, 66%,1)",
-      normal: "hsl(0, 80%, 58%,1)",
-      dark: "hsl(0, 100%, 50%,1)",
+      light: '#ed7c54',
+      normal: 'hsl(0, 80%, 58%,1)',
+      dark: 'hsl(0, 100%, 50%,1)',
     },
   },
   fontSizes: {
     text: {
-      small: "1.2rem",
-      normal: "1.4rem",
-      large: "1.8rem",
+      small: '1.2rem',
+      normal: '1.4rem',
+      large: '1.8rem',
     },
     headers: {
-      small: "2.4rem",
-      normal: "3rem",
-      large: "3.6rem",
-      extraLarge: "4rem",
+      small: '2.4rem',
+      normal: '3rem',
+      large: '3.6rem',
+      extraLarge: '4rem',
     },
   },
   paddings: {
-    small: "3px",
-    normal: "5px",
-    large: "8px",
+    small: '3px',
+    normal: '5px',
+    large: '8px',
   },
 };
 
@@ -69,7 +69,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 300;
-    color: ${theme.colors.gray.dark};
+    color: ${theme.colors.tertiary.dark};
   }
   body{
     box-sizing: inherit;
@@ -82,7 +82,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   a,a:visited,a:active{
     text-decoration: none;
-    color:${theme.colors.gray.dark}
+    color:${theme.colors.tertiary.dark}
   }
   h1{
     font-size: ${theme.fontSizes.headers.large};

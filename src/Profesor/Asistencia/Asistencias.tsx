@@ -59,7 +59,7 @@ export default function Asistencias() {
   return (
     <Container $direction="column" $gap="2rem" $width="100%">
       {isFetching || (isLoading && <Loader />)}
-      <Container $direction="row" $width="100%" $bgColor={theme.colors.gray.light} $padding="1rem" $gap="1rem">
+      <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem" $gap="1rem">
         <Select options={generateGrados(salonesList)} width="14rem" name="grado" label="grado" />
         {grado && <Select key={grado} options={generateSecciones(grado, salonesList)} width="9rem" name="seccion" label="sección" />}
         {data && registroAsistencia && (
@@ -69,7 +69,7 @@ export default function Asistencias() {
         )}
       </Container>
       {grado && seccion && (
-        <Container $bgColor={theme.colors.gray.light} $width="100%" $padding="1rem">
+        <Container $bgColor={theme.colors.tertiary.light} $width="100%" $padding="1rem">
           <Text $large $secondary $fontWeight="600">{`Asistencia ${new Date().toLocaleDateString('ES-es', {
             day: '2-digit',
             month: 'long',
