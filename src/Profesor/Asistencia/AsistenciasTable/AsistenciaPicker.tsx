@@ -6,13 +6,14 @@ import { AsistenciaValue } from '../../../models/Alumno/types';
 export default function AsistenciaPicker({ alumnoId, value }: { value: AsistenciaValue; alumnoId: string }) {
   if (value === 'T') {
     return (
-      <Container $height="100%" $width="100%" $bgColor={theme.colors.red.dark} $color="white" $justifyContent="center" $alignItems="center">
+      <Container $height="100%" $width="100%" $bgColor={theme.colors.red.normal} $color="white" $justifyContent="center" $alignItems="center">
         {value}
       </Container>
     );
   }
   return (
     <Select
+      bgColor={value === 'F' ? theme.colors.red.dark : theme.colors.secondary.normal}
       small
       heigth="100%"
       rect

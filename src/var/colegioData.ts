@@ -1,4 +1,4 @@
-export const COLEGIO_NAME = 'COLEGIO PÉREZ DE CUÉLLAR';
-export const COLEGIO_DIRECCION = 'Ingresar aquí la dirección del colegio';
-export const COLEGIO_EMAIL = 'correodelcolegio@gmail.com';
-export const COLEGIO_TELEFONO = '123456789';
+export const COLEGIO_NAME = 'JESÚS EL NAZARENO';
+export const COLEGIO_DIRECCION = 'Calle Coronel Portillo Mz 43 Lt 3 Asociación Popular Lomas de Ancón';
+export const COLEGIO_EMAIL = 'jasusnazarenocolegio@gmail.com';
+export const COLEGIO_TELEFONO = '925355517';

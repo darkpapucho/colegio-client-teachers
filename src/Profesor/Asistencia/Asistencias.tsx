@@ -53,6 +53,7 @@ export default function Asistencias() {
   }, [data]);
 
   useCustomEvent('customSelect', listener);
+
   if (!salonesList || salonesList.length === 0) {
     return <>Usted no es tutor de ningun salón</>;
   }
