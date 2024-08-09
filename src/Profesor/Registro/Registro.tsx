@@ -23,6 +23,7 @@ import { updateToken } from '../../utils/axiosUtils';
 import useCurrentPeriodo from '../../hooks/useCurrentPeriodo';
 import { Text } from '../../components/Shared/Text/Text';
 import { convertPeriodoKeyToLabel } from '../../utils/periodo';
+
 export const RegistroContext = createContext<{
   dispatch: (action: RegistroReducerAction) => void;
   setConclusionesDescriptivasModalData: Dispatch<
@@ -119,7 +120,7 @@ export default function Registro() {
             <ConclusionesDescriptivasModalForm />
           </EditConClusionesDescriptivasModal>
         )}
-        <Container $direction="column" $width="100%" $gap="2rem">
+        <Container $direction="column" $width="100%" $gap="2rem" $padding="0 0 3rem 0">
           <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem" $gap="1rem">
             <Select options={generateGrados(salones)} width="14rem" name="grado" label="grado" />
             {grado && <Select key={grado} options={generateSecciones(grado, salones)} width="9rem" name="seccion" label="sección" />}
@@ -136,9 +137,7 @@ export default function Registro() {
               </Text>
             </Container>
           )}
-          {currentPeriodo && data && registro && (
-            <RegistroTable periodo={currentPeriodo as Periodo} registro={{ isTutor: isTutor!, notas: registro as any }}></RegistroTable>
-          )}
+          {currentPeriodo && data && registro && <RegistroTable periodo={currentPeriodo as Periodo} registro={{ isTutor: isTutor!, notas: registro as any }}></RegistroTable>}
         </Container>
       </RegistroContext.Provider>
     </>

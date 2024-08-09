@@ -60,7 +60,7 @@ export default function Asistencias() {
   return (
     <Container $direction="column" $gap="2rem" $width="100%">
       {isFetching || (isLoading && <Loader />)}
-      <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem" $gap="1rem">
+      <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem 1rem 4rem 1rem" $gap="1rem">
         <Select options={generateGrados(salonesList)} width="14rem" name="grado" label="grado" />
         {grado && <Select key={grado} options={generateSecciones(grado, salonesList)} width="9rem" name="seccion" label="sección" />}
         {data && registroAsistencia && (

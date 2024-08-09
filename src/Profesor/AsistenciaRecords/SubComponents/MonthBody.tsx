@@ -14,7 +14,7 @@ export default function MonthBody({ monthName, days, records }: { records: Asist
     <Container $direction="row" $width="100%">
       {days.map((day) => {
         const result = getAsistenciaValueFromRecords({ monthName, day, records });
-        if (!result) {
+        if (result === undefined) {
           return (
             <DayCellValue $justifyContent="center" $width={`${dayCellWidth}rem`} $bgColor="black" key={day}>
               X
