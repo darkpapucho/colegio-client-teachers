@@ -13,7 +13,7 @@ export default class Calendario {
         asistencias: { nombreCompleto: string; alumnoId: string; records: AsistenciaRecord[] }[];
         availableDays: { month: MONTH_NAME; day: number }[];
       }>
-    >(API_URL + API_END_POINTS.getRecordAsistenciaAlumnos, { grado, seccion, periodo });
+    >(API_URL + API_END_POINTS.getRecordAsistenciaAlumnos, { grado, seccion, periodo, estadosMatricula: ['DEFINITIVA', 'EN PROCESO'] });
     return response;
   }
   static async fetchCurrentPeriodo() {
