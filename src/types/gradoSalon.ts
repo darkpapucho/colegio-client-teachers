@@ -6,6 +6,7 @@ export type Nota = (typeof VALID_NOTAS)[number];
 // estados matricula
 export const ESTADOS_MATRICULA = ['DEFINITIVA', 'EN PROCESO', 'TRASLADADO', 'RETIRADO'] as const;
 export type EstadoMatricula = (typeof ESTADOS_MATRICULA)[number];
+
 //years
 export const VALID_YEARS = ['2020', '2021', '2022', '2023', '2024', '2025'] as const;
 export type Year = (typeof VALID_YEARS)[number];

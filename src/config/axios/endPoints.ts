@@ -8,4 +8,5 @@ export const API_END_POINTS = {
   loginProfesor: '/user/login-profesor',
   convertDateToPeriodo: '/calendario/convert-date-to-periodo',
   getRecordAsistenciaAlumnos: '/calendario/get-record-asistencias-grado-seccion-periodo',
+  getPDFAsistenciaList: '/documento/get-attendance-list',
 };

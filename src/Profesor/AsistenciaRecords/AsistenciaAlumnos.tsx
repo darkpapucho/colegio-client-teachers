@@ -11,7 +11,7 @@ import AsistenciaTable from './SubComponents/AsistenciaTable';
 import { useQuery } from '@tanstack/react-query';
 import { Text } from '../../components/Shared/Text/Text';
 import ErrorHandler from '../../utils/errorManagment';
-import { Grado, Periodo, Seccion } from '../../types/gradoSalon';
+import { EstadoMatricula, Grado, Periodo, Seccion } from '../../types/gradoSalon';
 import { useProfesor } from '../../hooks/useProfesor';
 import { generateGrados, generateSecciones } from '../../utils/profesor';
 import { theme } from '../../config/styled/styled';
@@ -62,6 +62,9 @@ export default function AsistenciaAlumnos() {
           <Button $width="max-content" $primary onClick={() => refetch()} type="button" disabled={isFetching} $small>
             Ver Lista
           </Button>
+          <Button $width="max-content" $primary onClick={() => downloadPDF()} type="button" disabled={isFetching} $small>
+            Descargar PDF
+          </Button>
         </Container>
         {data?.asistencias && data.asistencias.length > 0 && (
           <Container>
@@ -89,5 +92,32 @@ export default function AsistenciaAlumnos() {
     updateToken(response);
     if (!response.data.ok) throw new Error(response.data.message);
     return response.data.payload;
+  }
+
+  async function downloadPDF() {
+    try {
+      if (!grado || !seccion) throw new Error('Ningun grado ni sección fue especificado');
+      const periodo = searchParams.get('periodo') as Periodo;
+      const estadosMatricula: EstadoMatricula[] = ['DEFINITIVA', 'EN PROCESO'];
+      if (!periodo || !estadosMatricula) throw new Error('[EstadosMatricula - Con Datos - Periodo] error');
+
+      const response = await Calendario.downloadPDFAsistenciaList({
+        estadosMatricula,
+        grado,
+        seccion,
+        periodo,
+        withData: true,
+      });
+      updateToken(response);
+      const blob = new Blob([response.data]);
+      const url = URL.createObjectURL(blob);
+      const alink = document.createElement('a');
+      alink.href = url;
+      alink.download = `asistencia-${grado}-${seccion}-${periodo}.pdf`;
+      alink.click();
+      alink.remove();
+    } catch (err) {
+      ErrorHandler(err);
+    }
   }
 }
