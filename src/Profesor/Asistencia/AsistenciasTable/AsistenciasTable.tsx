@@ -1,9 +1,11 @@
 import { Fragment } from 'react/jsx-runtime';
 import Table from '../../../components/Shared/Table/Table';
-import { AsistenciasReducerState } from '../AsistenciasReducer';
+import { AsistenciasReducerAction, AsistenciasReducerState } from '../AsistenciasReducer';
 import AsistenciaPicker from './AsistenciaPicker';
+import { AsistenciaAlumno } from '../../../models/Alumno/types';
+import { Container } from '../../../components/Shared/Container/Container';
 
-export default function AsistenciasTable({ alumnos }: { alumnos: AsistenciasReducerState }) {
+export default function AsistenciasTable({ alumnos, dispatch }: { dispatch: React.Dispatch<AsistenciasReducerAction>; alumnos: AsistenciasReducerState }) {
   return (
     <Table $gridTempCols="45px 360px 45px" $justifyContent="center" $alignItems="center" $headerPadding="5px" $height="30px">
       <Table.Header>
@@ -15,13 +17,34 @@ export default function AsistenciasTable({ alumnos }: { alumnos: AsistenciasRedu
         {alumnos.map((record, index) => (
           <Fragment key={index}>
             <Table.Body.Item>{index + 1}</Table.Body.Item>
-            <Table.Body.Item>{record.nombreCompleto}</Table.Body.Item>
             <Table.Body.Item>
-              <AsistenciaPicker alumnoId={record.alumnoId} value={record.asistencia === '' ? 'A' : record.asistencia} />
+              <Container $pointer $width="100%" $padding="0 1rem 0 0" $justifyContent="right" onClick={() => onClickAlumnoName(record)}>
+                {record.nombreCompleto}
+              </Container>
+            </Table.Body.Item>
+            <Table.Body.Item>
+              <AsistenciaPicker key={record.asistencia} alumnoId={record.alumnoId} value={record.asistencia === '' ? 'A' : record.asistencia} />
             </Table.Body.Item>
           </Fragment>
         ))}
       </Table.Body>
     </Table>
   );
+
+  function onClickAlumnoName(record: AsistenciaAlumno) {
+    if (record.asistencia === 'T') return;
+    dispatch({ type: 'updateAsistencia', payload: { alumnoId: record.alumnoId, value: getNextAsistenciaValue(record.asistencia === '' ? 'A' : record.asistencia) } });
+  }
+
+  function getNextAsistenciaValue(asistenciaValue: 'A' | 'F' | 'T') {
+    if (asistenciaValue === 'A') {
+      return 'F';
+    } else if (asistenciaValue === 'F') {
+      return 'A';
+    } else if (asistenciaValue === 'T') {
+      return 'T';
+    } else {
+      throw new Error('invalid asistencia value');
+    }
+  }
 }

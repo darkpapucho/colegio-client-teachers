@@ -52,7 +52,7 @@ export default function Asistencias() {
     setDayId(data.dayId);
   }, [data]);
 
-  useCustomEvent('customSelect', listener);
+  useCustomEvent('customSelect', selectListener);
 
   if (!salonesList || salonesList.length === 0) {
     return <>Usted no es tutor de ningun salón</>;
@@ -78,11 +78,11 @@ export default function Asistencias() {
           })}`}</Text>
         </Container>
       )}
-      {data && registroAsistencia && <AsistenciasTable alumnos={registroAsistencia}></AsistenciasTable>}
+      {data && registroAsistencia && <AsistenciasTable alumnos={registroAsistencia} dispatch={dispatch}></AsistenciasTable>}
     </Container>
   );
 
-  function listener(event: CustomEvent) {
+  function selectListener(event: CustomEvent) {
     const { name, value } = event.detail;
     const params = name.split('-');
     if (params[0] === 'asistencia') {

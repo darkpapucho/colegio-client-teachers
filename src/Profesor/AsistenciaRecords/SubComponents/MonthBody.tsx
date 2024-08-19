@@ -9,7 +9,19 @@ const DayCellValue = styled(DayCell)`
   color: white;
 `;
 
-export default function MonthBody({ monthName, days, records }: { records: AsistenciaRecord[]; monthName: MONTH_NAME; days: number[] }) {
+export default function MonthBody({
+  monthName,
+  days,
+  records,
+  selectedRow,
+  alumnoId,
+}: {
+  alumnoId: string;
+  selectedRow: string;
+  records: AsistenciaRecord[];
+  monthName: MONTH_NAME;
+  days: number[];
+}) {
   return (
     <Container $direction="row" $width="100%">
       {days.map((day) => {
@@ -21,11 +33,12 @@ export default function MonthBody({ monthName, days, records }: { records: Asist
             </DayCellValue>
           );
         }
+
         return (
           <DayCellValue
             $justifyContent="center"
             $width={`${dayCellWidth}rem`}
-            $bgColor={getBgColorOfCell({ asistenciaValue: result.asistencia.value, justificado: result.asistencia.justificado })}
+            $bgColor={selectedRow === alumnoId ? 'black' : getBgColorOfCell({ asistenciaValue: result.asistencia.value, justificado: result.asistencia.justificado })}
             key={day}>
             {result.asistencia.value ? result.asistencia.value : '-'}
           </DayCellValue>
