@@ -4,6 +4,7 @@ import { AsistenciasReducerState } from '../Profesor/Asistencia/AsistenciasReduc
 import { Grado, Periodo, Seccion } from '../types/gradoSalon';
 import { updateToken } from './axiosUtils';
 import toaster from 'react-hot-toast';
+
 export async function fetchAsistenciaList({ grado, seccion, month, day }: { day: number; grado: Grado | null; seccion: Seccion | null; month: string }) {
   if (!grado || !seccion) throw new Error('Debes seleccionar un grado y una sección');
   const response = await Alumno.fetchAsistenciaList({ grado, seccion, month, day });

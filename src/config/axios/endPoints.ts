@@ -9,4 +9,12 @@ export const API_END_POINTS = {
   convertDateToPeriodo: '/calendario/convert-date-to-periodo',
   getRecordAsistenciaAlumnos: '/calendario/get-record-asistencias-grado-seccion-periodo',
   getPDFAsistenciaList: '/documento/get-attendance-list',
+  GET_PENSIONES_GLOBAL_REPORT: '/pensiones/get-pensiones-global-report',
+  GET_ALUMNOS_BY_NUMERO_PENSIONES_ATRASADAS: '/pensiones/get-lista-by-numero-pensiones-atrasadas',
+  EDITAR_PENSION_PAGADA: '/pensiones/editar-pension-pagada',
+  EDITAR_COMENTARIO_PENSION: '/pensiones/editar-comentario-pension',
+  GET_RECORD_PENSIONES_BY_DATE_RANGE: '/pensiones/get-record-pensiones-pagadas-by-date-range',
+  FETCH_PENSIONES_LIST_BY_GRADO_SECCION: '/pensiones/get-lista-by-grado-seccion',
+  PAGAR_PENSION_ALUMNOID_MES: '/pensiones/pagar-pension-alumnoid-mes',
+  UPDATE_MONTO_PAGAR_PENSIONES: '/pensiones/update-monto-pagar-pensiones',
 };

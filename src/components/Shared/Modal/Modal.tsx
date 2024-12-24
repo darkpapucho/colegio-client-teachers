@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { motion, useDragControls } from 'framer-motion';
 import { ReactNode, useEffect, useRef } from 'react';
-
 import { Button } from '../Button/Button';
 import { Container } from '../Container/Container';
 import { Overlay } from '../Overlay/Overlay';
@@ -75,14 +74,7 @@ export default function Modal({
   return createPortal(
     <ModalContainer ref={ref}>
       <StyledModal $width={width} $marginTop={marginTop}>
-        <motion.div
-          className="modal-container"
-          drag
-          dragListener={false}
-          dragControls={controls}
-          dragElastic={0}
-          dragMomentum={false}
-          dragConstraints={ref}>
+        <motion.div className="modal-container" drag dragListener={false} dragControls={controls} dragElastic={0} dragMomentum={false} dragConstraints={ref}>
           <ModalHeader onPointerDown={(e) => controls.start(e)}>
             {title}
             <Button $danger onClick={() => onCloseModal()} $width="max-content">

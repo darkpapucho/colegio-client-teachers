@@ -9,6 +9,8 @@ import CambiarPassword from './Profesor/CambiarPassword/CambiarPassword';
 import MenuIndex from './pages/Menu/MenuIndex';
 import DefaultPage from './pages/DefaultPage/DefaultPage';
 import AsistenciaAlumnos from './Profesor/AsistenciaRecords/AsistenciaAlumnos';
+import Board from './Profesor/Board/Board';
+import PensionesByGradoSeccion from './Profesor/Pensiones/PorSalon/PensionesByGradoSeccion';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route element={<Asistencias />} path="asistencias" />
           <Route element={<AsistenciaAlumnos />} path="lista-asistencia" />
           <Route element={<CambiarPassword />} path="cambiar-password" />
+          <Route element={<Board />} path="board" />
+          <Route element={<PensionesByGradoSeccion />} path="pensiones" />
           <Route path="*" element={<DefaultPage />}></Route>
         </Route>
       </Route>

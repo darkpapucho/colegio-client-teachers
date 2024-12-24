@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { CiMoneyCheck1 } from 'react-icons/ci';
 import { BiCalendarCheck, BiFoodMenu, BiSpreadsheet, BiX } from 'react-icons/bi';
 import SideBarMenuItem, { MItem } from './sidebar/SideBarItem';
 import SideBarHeader from './sidebar/SideBarHeader';
@@ -12,6 +12,8 @@ const SideBarItems: MItem[] = [
   { label: 'Pasar Asistencias', url: 'asistencias', icon: <BiCalendarCheck /> },
   { label: 'Ver Asistencias', url: 'lista-asistencia', icon: <PiUserList /> },
   { label: 'Asignaciones', url: '', icon: <BiFoodMenu /> },
+  { label: 'Pensiones', url: 'pensiones', icon: <CiMoneyCheck1 /> },
+  { label: 'Board', url: 'board', icon: <BiFoodMenu /> },
 ];
 
 const SideBarContainer = styled.nav`
