@@ -32,7 +32,7 @@ export default function AsistenciasTable({ alumnos, dispatch }: { dispatch: Reac
   );
 
   function onClickAlumnoName(record: AsistenciaAlumno) {
-    if (record.asistencia === 'T') return;
+    // if (record.asistencia === 'T') return;
     dispatch({ type: 'updateAsistencia', payload: { alumnoId: record.alumnoId, value: getNextAsistenciaValue(record.asistencia === '' ? 'A' : record.asistencia) } });
   }
 
@@ -40,9 +40,9 @@ export default function AsistenciasTable({ alumnos, dispatch }: { dispatch: Reac
     if (asistenciaValue === 'A') {
       return 'F';
     } else if (asistenciaValue === 'F') {
-      return 'A';
-    } else if (asistenciaValue === 'T') {
       return 'T';
+    } else if (asistenciaValue === 'T') {
+      return 'A';
     } else {
       throw new Error('invalid asistencia value');
     }
