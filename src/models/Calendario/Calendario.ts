@@ -10,12 +10,14 @@ setupAxiosInterceptorsTo(axios);
 
 export default class Calendario {
   static async getRecordAsistenciaAlumnos({ periodo, grado, seccion }: { periodo: Periodo; grado: Grado; seccion: Seccion }) {
+    console.log('requesting');
     const response = await axios.post<
       AxiosResponseSchema<{
         asistencias: { nombreCompleto: string; alumnoId: string; records: AsistenciaRecord[] }[];
         availableDays: { month: MONTH_NAME; day: number }[];
       }>
     >(API_URL + API_END_POINTS.getRecordAsistenciaAlumnos, { grado, seccion, periodo, estadosMatricula: ['DEFINITIVA', 'EN PROCESO'] });
+    console.log({ response });
     return response;
   }
   static async fetchCurrentPeriodo() {

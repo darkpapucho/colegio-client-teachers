@@ -8,7 +8,7 @@ export const API_END_POINTS = {
   loginProfesor: '/user/login-profesor',
   convertDateToPeriodo: '/calendario/convert-date-to-periodo',
   getRecordAsistenciaAlumnos: '/calendario/get-record-asistencias-grado-seccion-periodo',
-  getPDFAsistenciaList: '/documento/get-attendance-list',
+  getPDFAsistenciaList: '/calendario/get-pdf-attendance-list-by-grado-seccion-periodo',
   GET_PENSIONES_GLOBAL_REPORT: '/pensiones/get-pensiones-global-report',
   GET_ALUMNOS_BY_NUMERO_PENSIONES_ATRASADAS: '/pensiones/get-lista-by-numero-pensiones-atrasadas',
   EDITAR_PENSION_PAGADA: '/pensiones/editar-pension-pagada',
