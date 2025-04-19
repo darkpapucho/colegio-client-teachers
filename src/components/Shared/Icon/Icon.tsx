@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Icon = styled.div<{
+  $tiny?: boolean;
   $small?: boolean;
   $large?: boolean;
   $primary?: boolean;
@@ -37,11 +38,13 @@ export const Icon = styled.div<{
       }
     `};
 
-  font-size: ${({ $small, $large, theme }) => {
+  font-size: ${({ $small, $large, $tiny, theme }) => {
     if ($small) {
       return theme.fontSizes.headers.small;
     } else if ($large) {
       return theme.fontSizes.headers.large;
+    } else if ($tiny) {
+      return '12px';
     } else {
       return theme.fontSizes.headers.normal;
     }

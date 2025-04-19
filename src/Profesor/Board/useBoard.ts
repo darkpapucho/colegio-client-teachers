@@ -50,7 +50,7 @@ export default function useBoard(canvasRef: RefObject<HTMLCanvasElement>) {
 
   function onPointerDownListener(event: MouseEvent, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
     setPath([{ x: event.offsetX, y: event.offsetY }]);
-    console.log('a');
+
     ctx.strokeStyle = 'rgba(255,255,255,1)';
     ctx.lineWidth = 2;
     ctx.moveTo(event.offsetX, event.offsetY);

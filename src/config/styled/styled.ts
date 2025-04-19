@@ -117,4 +117,7 @@ export const GlobalStyle = createGlobalStyle`
   .border-right{
     border-right: 1px solid black;
   }
+  .no-scroll{
+    overflow:hidden;
+  }
 `;

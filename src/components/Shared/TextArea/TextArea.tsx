@@ -7,5 +7,4 @@ export const TextArea = styled.textarea<{ $width?: string; $padding?: string; $b
   border: ${({ $border }) => $border || '1px solid black'};
   font-size: 16px;
   resize: none;
-  outline: none;
 `;

@@ -12,16 +12,19 @@ const ModalContainer = styled.div`
   justify-content: center;
   height: inherit;
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  touch-action: none;
+  user-select: none;
 `;
-const StyledModal = styled.div<{ $width: string; $marginTop?: string }>`
+const StyledModal = styled.div<{ $width: string; $marginTop?: string; $marginLeft?: string }>`
   position: absolute;
   top: ${({ $marginTop }) => $marginTop || '35%'};
-  left: 50%;
+  touch-action: none;
+  left: ${({ $marginLeft }) => $marginLeft || '50%'};
   transform: translate(-50%, -50%);
   z-index: 101;
   width: ${({ $width }) => $width};
@@ -55,8 +58,10 @@ export default function Modal({
   width,
   title,
   onCloseModal,
+  marginLeft,
   marginTop,
 }: {
+  marginLeft?: string;
   marginTop?: string;
   children: ReactNode;
   width: string;
@@ -67,14 +72,26 @@ export default function Modal({
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     document.getElementById('root')!.style.userSelect = 'none';
+    document.body.classList.add('no-scroll');
+    document.body.style.touchAction = 'none';
     return () => {
       document.getElementById('root')!.style.userSelect = 'auto';
+      document.body.classList.remove('no-scroll');
+      document.body.style.touchAction = '';
     };
   }, []);
   return createPortal(
     <ModalContainer ref={ref}>
-      <StyledModal $width={width} $marginTop={marginTop}>
-        <motion.div className="modal-container" drag dragListener={false} dragControls={controls} dragElastic={0} dragMomentum={false} dragConstraints={ref}>
+      <StyledModal $width={width} $marginTop={marginTop} $marginLeft={marginLeft}>
+        <motion.div
+          whileTap={{ scale: 1.05 }}
+          className="modal-container"
+          drag
+          dragListener={false}
+          dragControls={controls}
+          dragElastic={0}
+          dragMomentum={false}
+          dragConstraints={ref}>
           <ModalHeader onPointerDown={(e) => controls.start(e)}>
             {title}
             <Button $danger onClick={() => onCloseModal()} $width="max-content">

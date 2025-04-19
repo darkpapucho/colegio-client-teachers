@@ -26,8 +26,8 @@ export default function DisplayAsistenciasTardanzas({
   periodo: Periodo;
   alumnoId: string;
 }) {
-  console.log({ alumnoId, name });
   // const { dispatch } = useContext(RegistroContext)!;
+  console.log({ alumnoId, name });
   return (
     <Container $width="100%" $height="100%">
       <StyledContainer $width="50%" className="border-right" $justifyContent="center" $height="100%" $alignItems="center">

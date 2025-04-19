@@ -4,10 +4,27 @@ import setupAxiosInterceptorsTo, { AxiosResponseSchema } from '../../config/axio
 import { API_END_POINTS } from '../../config/axios/endPoints';
 import { API_URL } from '../../var/envData';
 import { RegistroNotasProfesor } from './types';
+import { HorarioCell } from '../../types/horario';
 
 setupAxiosInterceptorsTo(axios);
 
 export class Profesor {
+  static async deleteAnuncio({ anuncioId, profesorId }: { profesorId: string; anuncioId: string }) {
+    const response = await axios.post<AxiosResponseSchema<null>>(API_URL + API_END_POINTS.DELETE_ANUNCIO_PROFESOR, { anuncioId, profesorId });
+    return response;
+  }
+  static async agregarAnuncio({ content, title, date, profesorId }: { profesorId: string; title: string; content: string; date: string }) {
+    const response = await axios.post<AxiosResponseSchema<string>>(API_URL + API_END_POINTS.AGREGAR_ANUNCIO_PROFESOR, { title, content, date, profesorId });
+    return response;
+  }
+  static async eliminarHorarioCell({ startTime, endTime, profesorId, curso, salon }: { startTime: Date; endTime: Date; profesorId: string; curso: string; salon: string }) {
+    const response = await axios.post<AxiosResponseSchema<boolean>>(API_URL + API_END_POINTS.ELIMINAR_HORARIO_CELL, { startTime, endTime, profesorId, curso, salon });
+    return response;
+  }
+  static async agregarHorarioCell({ startTime, endTime, profesorId, curso, salon }: { startTime: Date; endTime: Date; profesorId: string; curso: string; salon: string }) {
+    const response = await axios.post<AxiosResponseSchema<HorarioCell[]>>(API_URL + API_END_POINTS.AGREGAR_HORARIO_CELL, { startTime, endTime, profesorId, curso, salon });
+    return response;
+  }
   static async changeProfesorPassword({ newPassword, userId, currentPassword }: { currentPassword: string; newPassword: string; userId: string }) {
     const response = await axios.post<AxiosResponseSchema<null>>(API_URL + API_END_POINTS.changeProfesorPassword, {
       newPassword,

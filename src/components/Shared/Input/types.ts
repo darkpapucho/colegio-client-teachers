@@ -8,4 +8,5 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   type: 'text' | 'password' | 'number';
   vertical?: boolean;
+  labelColor?: string;
 }

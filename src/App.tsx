@@ -6,11 +6,12 @@ import RequireProfesor from './components/Guards/RequireProfesor';
 import Registro from './Profesor/Registro/Registro';
 import Asistencias from './Profesor/Asistencia/Asistencias';
 import CambiarPassword from './Profesor/CambiarPassword/CambiarPassword';
-import MenuIndex from './pages/Menu/MenuIndex';
 import DefaultPage from './pages/DefaultPage/DefaultPage';
 import AsistenciaAlumnos from './Profesor/AsistenciaRecords/AsistenciaAlumnos';
 import Board from './Profesor/Board/Board';
 import PensionesByGradoSeccion from './Profesor/Pensiones/PorSalon/PensionesByGradoSeccion';
+
+import IndexTeacher from './Profesor/IndexTeacher/Index';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <Route path="/" element={<Login />}></Route>
       <Route path="/menu" element={<Menu />}>
         <Route element={<RequireProfesor />}>
-          <Route element={<MenuIndex />} index></Route>
+          <Route element={<IndexTeacher />} index></Route>
           <Route element={<Registro />} path="registro" />
           <Route element={<Asistencias />} path="asistencias" />
           <Route element={<AsistenciaAlumnos />} path="lista-asistencia" />

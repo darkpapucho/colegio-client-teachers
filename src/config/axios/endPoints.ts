@@ -17,4 +17,9 @@ export const API_END_POINTS = {
   FETCH_PENSIONES_LIST_BY_GRADO_SECCION: '/pensiones/get-lista-by-grado-seccion',
   PAGAR_PENSION_ALUMNOID_MES: '/pensiones/pagar-pension-alumnoid-mes',
   UPDATE_MONTO_PAGAR_PENSIONES: '/pensiones/update-monto-pagar-pensiones',
+  AGREGAR_HORARIO_CELL: '/empleado/agregar-horario-cell',
+  ELIMINAR_HORARIO_CELL: '/empleado/eliminar-horario-cell',
+  FETCH_ANNOUNCEMENTS: '/announcements/fetch-announcements',
+  AGREGAR_ANUNCIO_PROFESOR: '/empleado/agregar-anuncio-profesor',
+  DELETE_ANUNCIO_PROFESOR: '/empleado/delete-anuncio-profesor',
 };

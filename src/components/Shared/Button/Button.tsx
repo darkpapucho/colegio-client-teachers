@@ -7,6 +7,8 @@ export const Button = styled.button<{
   $small?: boolean;
   $large?: boolean;
   $width: string;
+  $color?: string;
+  $tiny?: boolean;
 }>`
   width: ${({ $width }) => $width};
   padding: 0.8rem;
@@ -16,10 +18,12 @@ export const Button = styled.button<{
   color: white;
   font-size: 1.4rem;
   border: 1px solid ${({ theme }) => theme.colors.tertiary.dark};
-  background-color: ${({ theme }) => theme.colors.tertiary.normal};
+  background-color: ${({ theme, $color }) => ($color ? $color : theme.colors.tertiary.normal)};
   box-shadow: 0px 0px 2px black;
   transition: all 0.3s ease;
   user-select: none;
+  display: flex;
+  align-items: center;
   &:hover {
     filter: brightness(110%);
   }
@@ -38,6 +42,12 @@ export const Button = styled.button<{
       background-color: ${({ theme }) => theme.colors.tertiary.normal};
     }
   }
+  ${({ $tiny }) =>
+    $tiny &&
+    css`
+      padding: 2px 8px;
+      font-size: 1rem;
+    `}
   ${({ $small }) =>
     $small &&
     css`
@@ -50,6 +60,7 @@ export const Button = styled.button<{
       padding: 1rem;
       font-size: 1.6rem;
     `}
+  
   ${({ $primary }) =>
     $primary &&
     css`
