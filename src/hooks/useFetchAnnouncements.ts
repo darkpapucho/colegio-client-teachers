@@ -11,7 +11,12 @@ export default function useFetchAnnouncements() {
   const nivel = nivelState((state) => state.nivel);
   const year = yearState((state) => state.year);
   const profesorId = useProfesor((state) => state.profesor?._id)!;
-  const { data, isFetching, error } = useQuery({ queryKey: ['announcements', nivel, year, profesorId], queryFn: fetchAnnouncements });
+  const { data, isFetching, error } = useQuery({
+    queryKey: ['announcements', nivel, year, profesorId],
+    queryFn: fetchAnnouncements,
+    refetchOnWindowFocus: false,
+    staleTime: 10 * 60 * 1000,
+  });
   useEffect(() => {
     if (!error) return;
     ErrorHandler(error);

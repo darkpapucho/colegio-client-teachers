@@ -84,7 +84,7 @@ export default function Modal({
     <ModalContainer ref={ref}>
       <StyledModal $width={width} $marginTop={marginTop} $marginLeft={marginLeft}>
         <motion.div
-          whileTap={{ scale: 1.05 }}
+          // whileTap={{ scale: 1.05 }}
           className="modal-container"
           drag
           dragListener={false}

@@ -30,7 +30,7 @@ export default function AnnouncementsDisplayer({ title, announcements, type }: P
         </p>
 
         {type === 'teacher' && (
-          <Button $primary $width="max-content" $tiny onClick={onClickButton}>
+          <Button $primary $width="max-content" $tiny onClick={displayAddAnuncioModal}>
             <Icon $fontSize="14px">
               <IoMdAdd />
             </Icon>
@@ -40,7 +40,10 @@ export default function AnnouncementsDisplayer({ title, announcements, type }: P
       {announcements.length > 0 ? (
         <div className="w-full flex flex-col gap-[1rem]">
           {announcements.map((record, index) => {
-            return <AnuncioCard key={index} title={record.title} date={record.date} content={record.content} type={type} _id={record._id} />;
+            if (type === 'general') {
+              return <AnuncioCard key={index} type={type} anuncio={record as Announcement} />;
+            }
+            return <AnuncioCard key={index} type={type} anuncio={record as ProfesorAnnouncement} />;
           })}
         </div>
       ) : (
@@ -51,7 +54,7 @@ export default function AnnouncementsDisplayer({ title, announcements, type }: P
       )}
     </div>
   );
-  function onClickButton(event: React.MouseEvent<HTMLButtonElement>) {
+  function displayAddAnuncioModal(event: React.MouseEvent<HTMLButtonElement>) {
     setMousePosition({ x: event.clientX, y: event.clientY });
   }
   function onCloseModal() {

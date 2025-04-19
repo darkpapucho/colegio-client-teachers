@@ -7,39 +7,60 @@ import { useProfesor } from '../../hooks/useProfesor';
 import { Profesor } from '../../models/Profesor/Profesor';
 import { updateToken } from '../../utils/axiosUtils';
 import toast from 'react-hot-toast';
-export default function AnuncioCard({ title, date, content, type, _id }: { _id: string; type: 'teacher' | 'general'; title: string; date: string; content: string }) {
+import { Announcement, ProfesorAnnouncement } from '../../types/announcements';
+interface AnuncioCardProfesorProps {
+  type: 'teacher';
+  anuncio: ProfesorAnnouncement;
+}
+interface AnuncioCardGeneralProps {
+  type: 'general';
+  anuncio: Announcement;
+}
+
+export default function AnuncioCard({ type, anuncio }: AnuncioCardProfesorProps | AnuncioCardGeneralProps) {
   const [loading, setLoading] = useState(false);
   const { profesor, setAnuncios } = useProfesor((state) => state);
+  console.log({ profesor });
   return (
     <>
       {loading && <Loader />}
-      <div className="w-[100%] flex flex-col items-center gap-[1rem]  rounded-xl min-h-[70px] bg-white odd:border-[#d1795e] even:border-[#faac7e] border-t-2 nth">
+      <div className="w-[100%] flex flex-col items-center gap-[1rem]  min-h-[110px] bg-white border-[#cecece] border-t-2 border-b-2 nth">
         <div className="flex flex-col justify-start @[420px]:flex-row @[420px]:justify-between w-[95%]">
-          <p className="text-[16px] font-semibold">{title}</p>
           <div className="flex gap-4">
-            <p className="text-[12px] font-light text-[#8b8b8b] @[420px]:text-[14px]">{date}</p>
-            {type === 'teacher' && (
+            {type == 'teacher' && (
               <Button $width="max-content" $tiny $danger disabled={loading} onClick={deleteAnuncio}>
                 <FaTrashCan />
               </Button>
             )}
+            <p className="text-[16px] font-bold">{anuncio.title}</p>
           </div>
+          <p className="text-[12px] font-light text-[#8b8b8b] @[420px]:text-[14px]">{anuncio.date}</p>
         </div>
-        <div className="w-[95%]">
-          <p>{content}</p>
+        {type === 'teacher' && (
+          <div className="w-full flex gap-2 h-[30px]">
+            {anuncio.salones.map((salon, i) => (
+              <p className="bg-green-400 flex items-center font-semibold" key={i}>
+                {salon}
+              </p>
+            ))}
+          </div>
+        )}
+        <div className="w-[95%] text-[14px] line-clamp-5">
+          <p>{anuncio.content}</p>
         </div>
       </div>
     </>
   );
   async function deleteAnuncio() {
+    if (type === 'general') return;
     try {
-      if (!confirm(`seguro que deseas eliminar el anuncio ${title}?`)) setLoading(true);
-      const response = await Profesor.deleteAnuncio({ anuncioId: _id, profesorId: profesor!._id });
+      if (!confirm(`seguro que deseas eliminar el anuncio ${anuncio.title}?`)) setLoading(true);
+      const response = await Profesor.deleteAnuncio({ anuncioId: anuncio._id, profesorId: profesor!._id });
       updateToken(response);
       if (!response.data.ok) throw new Error(response.data.message);
       toast.success('anuncio eliminado');
       const anuncios = profesor!.anuncios;
-      setAnuncios(anuncios.filter((anuncio) => anuncio._id !== _id));
+      setAnuncios(anuncios.filter((anuncio) => anuncio._id !== anuncio._id));
     } catch (err) {
       ErrorHandler(err);
     } finally {

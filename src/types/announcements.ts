@@ -3,6 +3,7 @@ export type ProfesorAnnouncement = {
   title: string;
   content: string;
   _id: string;
+  salones: string[];
 };
 export type Announcement = {
   date: string;
