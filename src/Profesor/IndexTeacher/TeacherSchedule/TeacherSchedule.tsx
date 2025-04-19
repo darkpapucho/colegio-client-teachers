@@ -14,7 +14,7 @@ import { convertNumberToDayName, parseSalonToDisplayCalendarSalon, praseCursoToD
 import { updateToken } from '../../../utils/axiosUtils';
 import toast from 'react-hot-toast';
 import moment from 'moment-timezone';
-
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 moment.locale('es');
 moment.tz.setDefault('America/Lima');
 const localizer = momentLocalizer(moment);
@@ -30,6 +30,7 @@ interface MyEvent extends Event {
   horaFin?: string; //10:30
 }
 
+const TouchCalendar = withDragAndDrop(Calendar<MyEvent>);
 const CustomEvent = ({ event }: EventProps<MyEvent>) => {
   return (
     <div className="rbc-event-content">
@@ -78,8 +79,11 @@ export default function TeacherSchedule() {
           </Button>
         )}
       </div>
-      <div className="w-full h-[90%] bg-white">
-        <Calendar<MyEvent>
+      <div className="w-full h-[90%] bg-white ">
+        <TouchCalendar
+          // Important for mobile
+          // Mobile-specific props:
+          longPressThreshold={200}
           components={{ event: CustomEvent }}
           onNavigate={() => {}}
           onSelectSlot={handleClickSlot}

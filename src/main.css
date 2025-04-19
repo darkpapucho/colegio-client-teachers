@@ -211,5 +211,12 @@ body {
 }
 .rbc-calendar {
   height: max-content !important;
+  /* Prevent touch delay on mobile */
+  touch-action: manipulation !important;
+}
+/* Better touch targets */
+.rbc-month-view,
+.rbc-time-view {
+  -webkit-tap-highlight-color: transparent !important;
 }
 /* BIG CALENDAR END */
