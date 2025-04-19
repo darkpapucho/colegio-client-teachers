@@ -15,6 +15,7 @@ import { updateToken } from '../../../utils/axiosUtils';
 import toast from 'react-hot-toast';
 import moment from 'moment-timezone';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+
 moment.locale('es');
 moment.tz.setDefault('America/Lima');
 const localizer = momentLocalizer(moment);
@@ -63,6 +64,7 @@ export default function TeacherSchedule() {
   const [view, setView] = useState<View>('work_week');
   const [selectedEmptySlot, setSelectedEmptySlot] = useState<Date | null>(null);
   const [editMode, setEditMode] = useState(false);
+
   return (
     <div className="w-full h-max p-4">
       {loading && <Loader />}

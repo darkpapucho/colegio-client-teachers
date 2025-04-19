@@ -25,26 +25,27 @@ export default function AgregarCeldaHorario({ onCloseModal, startTime }: { onClo
   const day = startTime.getDate();
   //start time and date time are dates
   const endTime = new Date(startTime.getTime() + 45 * 60 * 1000); // add 45 minutes
-
   useCustomEvent('customSelect', customSelectListener);
+
   return (
-    <Modal onCloseModal={onCloseModal} title="Agregar celda horario" width="480px">
-      <div className="flex flex-col gap-2 w-full bg-blue-200">
+    <Modal onCloseModal={onCloseModal} title="Agregar celda horario" width="400px">
+      <div className="flex flex-col gap-4 w-full ">
         <div className="flex gap-4 w-full p-4 bg-yellow-200 items-center justify-center">
           {/* <Select options={diasSelectOpts} name="dia" label="Día" width="80px" /> */}
-          <p className="text-[20px] font-bold">{convertNumberToDayName(day)}</p>
-          <p className="text-[20px] font-bold">{startTime.getHours().toString().padStart(2, '0') + ':' + startTime.getMinutes().toString().padStart(2, '0') + ' - '}</p>
-          <p className="text-[20px] font-bold">{endTime.getHours().toString().padStart(2, '0') + ':' + endTime.getMinutes().toString().padStart(2, '0')} </p>
+          <p className="text-[16px] font-bold">{convertNumberToDayName(day).toUpperCase()}</p>
+          <p className="text-[16px] font-bold">{startTime.getHours().toString().padStart(2, '0') + ':' + startTime.getMinutes().toString().padStart(2, '0') + ' - '}</p>
+          <p className="text-[16px] font-bold">{endTime.getHours().toString().padStart(2, '0') + ':' + endTime.getMinutes().toString().padStart(2, '0')} </p>
         </div>
-        {
-          <div className="flex gap-2 items-center justify-between">
-            <Select options={salones} name="salon" label="Salón" width="140px" />
-            <Select options={cursos} name="curso" label="Curso" width="210px" />
-            <Button disabled={loading} $primary $width="max-content" $small onClick={agregarCeldaHorario}>
-              Agregar
-            </Button>
-          </div>
-        }
+
+        <div className="flex gap-2 items-center justify-between">
+          <Select options={salones} name="salon" label="Salón" width="140px" />
+          <Select options={cursos} name="curso" label="Curso" width="210px" />
+        </div>
+        <div className="flex w-[100%] justify-center mt-4">
+          <Button disabled={loading} $primary $width="100%" $small onClick={agregarCeldaHorario}>
+            <div className="flex w-[100%] justify-center">Agregar</div>
+          </Button>
+        </div>
       </div>
     </Modal>
   );
@@ -80,11 +81,11 @@ export default function AgregarCeldaHorario({ onCloseModal, startTime }: { onClo
       if (!response.data.ok) throw new Error(response.data.message);
       setHorario(response.data.payload);
       toast.success('agregado!');
+      onCloseModal();
     } catch (err) {
       ErrorHandler(err);
     } finally {
       setLoading(false);
-      onCloseModal();
     }
   }
 }
