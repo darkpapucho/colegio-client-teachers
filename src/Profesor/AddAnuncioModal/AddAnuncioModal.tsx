@@ -35,7 +35,7 @@ export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number;
           )}
         </div>
         <Input type="text" placeholder="Título" width="100%" name="titulo" label="Título" vertical labelColor="black" ref={tituloRef} maxLength={60} />
-        <p className="text-[16px]">Contenido (200 caracteres máximo)</p>
+        <p className="text-[16px]">Contenido (300 caracteres máximo)</p>
         <textarea
           maxLength={300}
           rows={4}

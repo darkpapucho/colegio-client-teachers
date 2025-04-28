@@ -4,6 +4,13 @@ export const COMPETENCIA_WIDTH = 40;
 
 export const CURSOS_MAP_BY_NIVEL: CursosMapNivel = {
   primaria: {
+    computacion: {
+      label: 'Computación',
+      key: 'computacion',
+      code: 'CP',
+      numCompetencias: 1,
+      competencias: ['utiliza la computación como herramienta para resolver sus tareas'],
+    },
     matematica: {
       label: 'Matemática',
       key: 'matematica',
@@ -28,11 +35,7 @@ export const CURSOS_MAP_BY_NIVEL: CursosMapNivel = {
       key: 'cienciaTecnologia',
       code: 'CT',
       numCompetencias: 3,
-      competencias: [
-        'Indaga mediante métodos científicos.',
-        'Explica el mundo basándose en hechos científicos.',
-        'Diseña y construye soluciones tecnológicas.',
-      ],
+      competencias: ['Indaga mediante métodos científicos.', 'Explica el mundo basándose en hechos científicos.', 'Diseña y construye soluciones tecnológicas.'],
     },
     personalSocial: {
       label: 'Personal Social',
@@ -103,12 +106,7 @@ export const CURSOS_MAP_BY_NIVEL: CursosMapNivel = {
       key: 'comunicacion',
       code: 'CO',
       numCompetencias: 4,
-      competencias: [
-        'Se comunica oralmente.',
-        'Lee diversos tipos de textos.',
-        'Escribe diversos tipos de textos.',
-        'Crea proyectos desde los lenguajes del arte.',
-      ],
+      competencias: ['Se comunica oralmente.', 'Lee diversos tipos de textos.', 'Escribe diversos tipos de textos.', 'Crea proyectos desde los lenguajes del arte.'],
     },
     cienciaTecnologia: {
       label: 'Ciencia y Tecnología',
