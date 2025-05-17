@@ -81,7 +81,6 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
                 </Table.Body.Item>
 
                 {cursosProfesor.map((curso) => {
-                  console.log({ row, curso });
                   const nota = row.cursos[curso.key][ConvertPeriodoToIndex(periodo)] ?? 0;
                   return (
                     <Table.Body.Item key={curso.key}>
@@ -159,7 +158,7 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
       periodo,
       value,
     };
-    console.log({ payload });
+
     dispatch({
       type: 'update-conclusiones-descriptivas',
       payload: payload,

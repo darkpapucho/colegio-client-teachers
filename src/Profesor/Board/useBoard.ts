@@ -4,16 +4,16 @@ const canvasProperties = {
   width: window.innerWidth <= 600 ? window.innerWidth : window.innerWidth - 300,
   height: window.innerHeight,
 };
-const canvasWidth = canvasProperties.width <= 960 ? canvasProperties.width : 960;
-const canvasHeight = canvasProperties.height <= 720 ? canvasProperties.height : 720;
-const canvasStage = {
-  width: canvasWidth,
-  height: canvasHeight,
-  origin: {
-    x: (canvasProperties.width - canvasWidth) / 2,
-    y: (canvasProperties.height - canvasHeight) / 2,
-  },
-};
+// const canvasWidth = canvasProperties.width <= 960 ? canvasProperties.width : 960;
+// const canvasHeight = canvasProperties.height <= 720 ? canvasProperties.height : 720;
+// const canvasStage = {
+//   width: canvasWidth,
+//   height: canvasHeight,
+//   origin: {
+//     x: (canvasProperties.width - canvasWidth) / 2,
+//     y: (canvasProperties.height - canvasHeight) / 2,
+//   },
+// };
 
 type Point = {
   x: number;
@@ -25,12 +25,11 @@ type Shapes = Path[];
 // const path: Path = [];
 
 export default function useBoard(canvasRef: RefObject<HTMLCanvasElement>) {
-  console.log({ canvasProperties, canvasStage });
   const canvas = canvasRef.current;
   const ctx = canvas?.getContext('2d') as CanvasRenderingContext2D;
-  const [shapes, setShapes] = useState<Shapes>([]);
+  const [_shapes, setShapes] = useState<Shapes>([]);
   const [path, setPath] = useState<Path>([]);
-  console.log({ shapes });
+
   useEffect(() => {
     canvas?.addEventListener('pointerdown', (event) => onPointerDownListener(event, canvas, ctx));
   }, [canvas]);

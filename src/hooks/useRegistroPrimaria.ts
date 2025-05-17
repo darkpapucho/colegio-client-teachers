@@ -19,7 +19,7 @@ export default function useRegistroPrimaria() {
   const profesor = useProfesor((state) => state.profesor)!;
   const [mutableRegistro, dispatch] = useImmerReducer<RecordNotas[], RegistroPrimariaActions>(RegistroPrimariaReducer, []);
   const cursosProfesor = profesor.salones.find((salon) => salon.label === `${grado} ${seccion}`)?.cursos ?? [];
-  console.log({ cursosProfesor, mutableRegistro });
+
   const { data, error, isFetching, refetch } = useQuery({
     staleTime: Infinity,
     refetchOnWindowFocus: false,

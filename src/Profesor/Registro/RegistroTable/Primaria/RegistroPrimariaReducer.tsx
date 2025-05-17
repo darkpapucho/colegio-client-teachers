@@ -55,14 +55,14 @@ export default function RegistroPrimariaReducer(state: RecordNotas[], action: Re
       const index = state.findIndex((row) => row.alumnoId === alumnoId);
 
       const periodoIndex = ConvertPeriodoToIndex(periodo);
-      console.log({ index, periodoIndex, alumnoId, value, cursoKey, periodo });
+
       state[index].cursos[cursoKey][periodoIndex] = value;
       return;
     }
     case 'update-conducta-alumno': {
       const { value, periodo, alumnoId } = action.payload;
       const index = state.findIndex((row) => row.alumnoId === alumnoId);
-      console.log({ value, periodo, alumnoId });
+
       state[index].conducta[ConvertPeriodoToIndex(periodo)] = value;
 
       return;
