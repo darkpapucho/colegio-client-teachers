@@ -62,7 +62,7 @@ export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number;
       if (!response.data.ok) throw new Error(response.data.message);
       toast.success('anuncio agregado');
       const nuevosAnuncios = profesor!.anuncios;
-      console.log(response.data.payload);
+
       nuevosAnuncios!.push({ content, title, date, _id: response.data.payload, salones: selectedSalones });
       setAnuncios(nuevosAnuncios);
       onCloseModal();

@@ -1,21 +1,22 @@
-import { ReactNode } from 'react';
 import Modal from '../../../components/Shared/Modal/Modal';
+import { Periodo } from '../../../types/gradoSalon';
+import ConclusionesDescriptivasModalForm from './ConclusionesDescriptivasModalForm';
 
 export default function EditConClusionesDescriptivasModal({
-  children,
+  saveHandler,
   onCloseModal,
   data,
 }: {
+  saveHandler: (value: string) => void;
   onCloseModal: () => void;
-  children: ReactNode;
-  data: { periodo: string; alumnoId: string; data: string; nombres: string; apellidos: string } | null;
+  data: { periodo: Periodo; alumnoId: string; data: string; nombres: string; apellidos: string } | null;
 }) {
   if (!data) {
     return null;
   }
   return (
     <Modal width="500px" onCloseModal={onCloseModal} title={`Editando: ${data.apellidos}, ${data.nombres}`}>
-      {children}
+      <ConclusionesDescriptivasModalForm conclusionesDescriptivasModalData={data!} saveHandler={saveHandler} onClose={onCloseModal} />
     </Modal>
   );
 }

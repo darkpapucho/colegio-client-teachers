@@ -1,15 +1,15 @@
 import { Fragment } from 'react/jsx-runtime';
-import Table from '../../../components/Shared/Table/Table';
-import DisplayAsistenciasTardanzas from './DisplayAsistenciasTardanzas';
+import Table from '../../../../components/Shared/Table/Table';
+import DisplayAsistenciasTardanzas from '../DisplayAsistenciasTardanzas';
 import DisplayNotasCurso from './DisplayNotasCurso';
-import { ConvertPeriodoToIndex } from './utils';
-import { CursoInfo, RegistroProfesor } from '../../../models/Profesor/types';
-import { Periodo } from '../../../types/gradoSalon';
-import ConclusionesDescriptivasUI from './ConclusionesDescriptivasUI';
-import { Container } from '../../../components/Shared/Container/Container';
-import { Text } from '../../../components/Shared/Text/Text';
+import { ConvertPeriodoToIndex } from '../utils';
+import { CursoInfo, RegistroInicialProfesor } from '../../../../models/Profesor/types';
+import { Periodo } from '../../../../types/gradoSalon';
+import ConclusionesDescriptivasUI from '../ConclusionesDescriptivasUI';
+import { Container } from '../../../../components/Shared/Container/Container';
+import { Text } from '../../../../components/Shared/Text/Text';
 
-export default function RegistroTableBody({ registro, cursosList, periodo }: { cursosList: CursoInfo[]; registro: RegistroProfesor; periodo: Periodo }) {
+export default function RegistroTableBody({ registro, cursosList, periodo }: { cursosList: CursoInfo[]; registro: RegistroInicialProfesor; periodo: Periodo }) {
   if (registro.isTutor) {
     return (
       <Table.Body>
@@ -35,11 +35,11 @@ export default function RegistroTableBody({ registro, cursosList, periodo }: { c
               })}
 
               <Table.Body.Item>
-                <DisplayAsistenciasTardanzas periodo={periodo} record={record.tardanzas} alumnoId={record.alumnoId} name="tardanzas" />
+                <DisplayAsistenciasTardanzas periodo={periodo} record={record.tardanzas} />
               </Table.Body.Item>
 
               <Table.Body.Item>
-                <DisplayAsistenciasTardanzas periodo={periodo} record={record.inasistencias} name="inasistencias" alumnoId={record.alumnoId} />
+                <DisplayAsistenciasTardanzas periodo={periodo} record={record.inasistencias} />
               </Table.Body.Item>
 
               <Table.Body.Item classN="border-right">

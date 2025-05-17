@@ -2,7 +2,7 @@ import { BiCheckCircle, BiXCircle } from 'react-icons/bi';
 import { Icon } from '../../../components/Shared/Icon/Icon';
 import { Periodo } from '../../../types/gradoSalon';
 import { useContext } from 'react';
-import { RegistroContext } from '../Registro';
+import { RegistroContext } from './Inicial/RegistroTableInicial';
 
 export default function ConclusionesDescriptivasUI({
   alumnoId,

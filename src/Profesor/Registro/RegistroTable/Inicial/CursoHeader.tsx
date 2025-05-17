@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Container } from '../../../components/Shared/Container/Container';
-import DisplayHoverMessage from '../../../components/Shared/DisplayHoverMessage/DisplayHoverMessage';
-import { CursoInfo } from '../../../models/Profesor/types';
+import { Container } from '../../../../components/Shared/Container/Container';
+import DisplayHoverMessage from '../../../../components/Shared/DisplayHoverMessage/DisplayHoverMessage';
+import { CursoInfo } from '../../../../models/Profesor/types';
 
 const StyledCursoHeader = styled(Container)`
   width: 100%;

@@ -7,7 +7,7 @@ export type SalonProfesor = {
   label: string;
   value: { grado: Grado; seccion: Seccion };
   order: number;
-  cursos: { label: string; key: string }[];
+  cursos: { label: string; key: string; short: string; code: string }[];
 };
 export type Profesor = {
   nombres: string;

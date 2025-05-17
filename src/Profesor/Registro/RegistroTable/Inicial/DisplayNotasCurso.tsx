@@ -1,14 +1,15 @@
 import styled from 'styled-components';
-import { Container } from '../../../components/Shared/Container/Container';
-import { Nota, Periodo } from '../../../types/gradoSalon';
+import { Container } from '../../../../components/Shared/Container/Container';
+import { Nota, Periodo } from '../../../../types/gradoSalon';
 
-import Select from '../../../components/Shared/Select/Select';
-import useCustomEvent from '../../../hooks/useCustomEvent';
+import Select from '../../../../components/Shared/Select/Select';
+import useCustomEvent from '../../../../hooks/useCustomEvent';
 import { useContext } from 'react';
-import { RegistroContext } from '../Registro';
-import { CursoRegistro } from '../../../models/Profesor/types';
-import { SELECT_NOTAS } from '../../../var/selectOptions';
-import { theme } from '../../../config/styled/styled';
+
+import { CursoRegistro } from '../../../../models/Profesor/types';
+import { SELECT_NOTAS } from '../../../../var/selectOptions';
+import { theme } from '../../../../config/styled/styled';
+import { RegistroContext } from './RegistroTableInicial';
 
 const DisplayNotasCursoContainer = styled(Container)`
   height: 100%;

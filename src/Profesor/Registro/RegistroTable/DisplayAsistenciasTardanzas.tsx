@@ -18,16 +18,16 @@ const StyledContainer = styled(Container)`
 export default function DisplayAsistenciasTardanzas({
   record,
   periodo,
-  alumnoId,
-  name,
-}: {
-  name: 'tardanzas' | 'inasistencias';
+}: // alumnoId,
+// name,
+{
   record: Tardanzas;
   periodo: Periodo;
-  alumnoId: string;
+  // alumnoId: string;
+  // name: 'tardanzas' | 'inasistencias';
 }) {
   // const { dispatch } = useContext(RegistroContext)!;
-  console.log({ alumnoId, name });
+
   return (
     <Container $width="100%" $height="100%">
       <StyledContainer $width="50%" className="border-right" $justifyContent="center" $height="100%" $alignItems="center">

@@ -16,7 +16,7 @@ export default function AgregarCeldaHorario({ onCloseModal, startTime }: { onClo
   const salonCursosData = profesor.salones.map((record) => {
     return { salon: record.label, cursos: record.cursos };
   });
-  console.log({ salones: profesor.salones });
+
   const [loading, setLoading] = useState(false);
   const salones = salonCursosData.map((row) => ({ label: row.salon, value: row.salon }));
   const [cursos, setCursos] = useState<{ label: string; value: string }[]>([]);

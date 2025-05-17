@@ -22,4 +22,6 @@ export const API_END_POINTS = {
   FETCH_ANNOUNCEMENTS: '/announcements/fetch-announcements',
   AGREGAR_ANUNCIO_PROFESOR: '/empleado/agregar-anuncio-profesor',
   DELETE_ANUNCIO_PROFESOR: '/empleado/delete-anuncio-profesor',
+  GET_NOTAS_PRIMARIA_BY_GRADO_SECCION: '/notas/get-notas-by-grado-seccion-profesor',
+  UPDATE_RECORD_NOTAS_PRIMARIA: '/notas/update-record-notas-primaria-by-teacher',
 };

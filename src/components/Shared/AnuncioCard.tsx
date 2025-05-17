@@ -20,7 +20,7 @@ interface AnuncioCardGeneralProps {
 export default function AnuncioCard({ type, anuncio }: AnuncioCardProfesorProps | AnuncioCardGeneralProps) {
   const [loading, setLoading] = useState(false);
   const { profesor, setAnuncios } = useProfesor((state) => state);
-  console.log({ profesor });
+
   return (
     <>
       {loading && <Loader />}

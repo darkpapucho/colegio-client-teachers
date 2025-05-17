@@ -63,7 +63,7 @@ export type CursoNotas = {
   cuartoPeriodo: Nota[];
 };
 
-export type RegistroNotasProfesor = {
+export type RegistroNotasInicialProfesor = {
   alumnoId: string;
   tardanzas?: Tardanzas;
   inasistencias?: Inasistencias;
@@ -85,4 +85,4 @@ export type RegistroNoTutor = {
   notas: NotasRecordNoTutor[];
 };
 
-export type RegistroProfesor = RegistroTutor | RegistroNoTutor;
+export type RegistroInicialProfesor = RegistroTutor | RegistroNoTutor;

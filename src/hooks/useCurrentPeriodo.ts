@@ -17,5 +17,5 @@ export default function useCurrentPeriodo() {
     if (!error) return;
     ErrorHandler(error);
   }, [error]);
-  return { data, isLoading, error };
+  return { currentPeriodo: data, isLoading, error };
 }

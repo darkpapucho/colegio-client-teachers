@@ -3,7 +3,7 @@ import { SalonProfesor } from '../../hooks/useProfesor';
 import setupAxiosInterceptorsTo, { AxiosResponseSchema } from '../../config/axios/axios';
 import { API_END_POINTS } from '../../config/axios/endPoints';
 import { API_URL } from '../../var/envData';
-import { RegistroNotasProfesor } from './types';
+import { RegistroNotasInicialProfesor } from './types';
 import { HorarioCell } from '../../types/horario';
 
 setupAxiosInterceptorsTo(axios);
@@ -35,10 +35,10 @@ export class Profesor {
   }
   static async fetchRegistroBySalon({ salon }: { salon: SalonProfesor }) {
     const API_END_POINT = API_END_POINTS.profesorGetRegistroNotasBySalon;
-    const response = await axios.post<AxiosResponseSchema<RegistroNotasProfesor[]>>(API_URL + API_END_POINT, { salon });
+    const response = await axios.post<AxiosResponseSchema<RegistroNotasInicialProfesor[]>>(API_URL + API_END_POINT, { salon });
     return response;
   }
-  static async updateRegistroProfesor({ registro, isTutor }: { registro: RegistroNotasProfesor; isTutor: boolean }) {
+  static async updateRegistroProfesor({ registro, isTutor }: { registro: RegistroNotasInicialProfesor[]; isTutor: boolean }) {
     const API_END_POINT = API_END_POINTS.updateRegistroProfesor;
     const response = await axios.post<AxiosResponseSchema<null>>(API_URL + API_END_POINT, { registro, isTutor });
     return response;

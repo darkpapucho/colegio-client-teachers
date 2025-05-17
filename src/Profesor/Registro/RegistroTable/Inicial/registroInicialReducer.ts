@@ -1,12 +1,10 @@
-import { RegistroNotasProfesor } from '../../models/Profesor/types';
-import { Nota, Periodo } from '../../types/gradoSalon';
-import { ConvertPeriodoToIndex } from './RegistroTable/utils';
-
-export type RegistroReducerState = RegistroNotasProfesor[];
+import { RegistroNotasInicialProfesor } from '../../../../models/Profesor/types';
+import { Nota, Periodo } from '../../../../types/gradoSalon';
+import { ConvertPeriodoToIndex } from '../utils';
 
 type SetRegistroAction = {
   type: 'setRegistro';
-  payload: RegistroReducerState;
+  payload: RegistroNotasInicialProfesor[];
 };
 type ClearRegistroAction = {
   type: 'clearRegistro';
@@ -39,13 +37,13 @@ type UpdateConclusionesDescriptivasAction = {
     data: string;
   };
 };
-export type RegistroReducerAction =
+export type RegistroInicialReducerAction =
   | UpdateTardanzasInasistenciasAction
   | UpdateNotaCursoAction
   | UpdateConclusionesDescriptivasAction
   | SetRegistroAction
   | ClearRegistroAction;
-export default function RegistroReducer(state: RegistroReducerState, action: RegistroReducerAction) {
+export default function RegistroInicialReducer(state: RegistroNotasInicialProfesor[], action: RegistroInicialReducerAction) {
   switch (action.type) {
     case 'setRegistro': {
       state = action.payload;

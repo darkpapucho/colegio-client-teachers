@@ -1,8 +1,8 @@
-import DisplayHoverMessage from '../../../components/Shared/DisplayHoverMessage/DisplayHoverMessage';
-import Table from '../../../components/Shared/Table/Table';
-import { CursoInfo } from '../../../models/Profesor/types';
+import DisplayHoverMessage from '../../../../components/Shared/DisplayHoverMessage/DisplayHoverMessage';
+import Table from '../../../../components/Shared/Table/Table';
+import { CursoInfo } from '../../../../models/Profesor/types';
 import CursoHeader from './CursoHeader';
-import TardanzaAsistenciaHeader from './TardanzaAsistenciaHeader';
+import TardanzaAsistenciaHeader from '../TardanzaAsistenciaHeader';
 
 export default function RegistroTableHeader({ cursosList, isTutor }: { isTutor: boolean; cursosList: CursoInfo[] }) {
   if (isTutor) {
