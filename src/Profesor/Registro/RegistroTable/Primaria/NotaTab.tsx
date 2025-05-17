@@ -23,13 +23,13 @@ export default function NotaTab({
   alumnoId: string;
   periodo: Periodo;
 }) {
-  const { bgColor } = getColorsByNota(initValue);
+  const { bgColor, textColor } = getColorsByNota(initValue);
 
   return (
     <Container $width="100%" $alignItems="center" $direction="row" $height="30px">
       <NotaCell width="50%" type="curso" field={cursoKey} alumnoId={alumnoId} periodo={periodo} initValue={initValue} />
-      <Container $width="50%" $justifyContent="center" $alignItems="center" $border="1px solid #cacaca" $bgColor={'#f8f8f8'} $height="30px">
-        <NotaText $color={bgColor}>{convertNumberToLetra(initValue)}</NotaText>
+      <Container $width="50%" $justifyContent="center" $alignItems="center" $bgColor={bgColor} $height="30px">
+        <NotaText $color={textColor}>{convertNumberToLetra(initValue)}</NotaText>
       </Container>
     </Container>
   );
