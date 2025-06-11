@@ -13,6 +13,8 @@ import ErrorHandler from '../../../utils/errorManagment';
 import Pensiones from '../../../models/Pensiones/Pension';
 import { useProfesor } from '../../../hooks/useProfesor';
 import { generateGrados, generateSecciones } from '../../../utils/profesor';
+import usePensionesLastUpdateDate from '../../../hooks/usePensionesLastUpdateDate';
+import { Text } from '../../../components/Shared/Text/Text';
 
 export const PensionesByGradoSeccionContext = createContext<{
   setData: React.Dispatch<
@@ -37,15 +39,25 @@ export default function PensionesByGradoSeccion() {
   });
   const { grado, seccion } = useGradoSeccionSearchParams();
   const [data, setData] = useState<{ alumnoId: string; numPensionesPagadas: number; pensiones: Pension[]; estudiante: AMatriculado }[]>([]);
-
   const [loading, setLoading] = useState(false);
+  const { date, isFetching } = usePensionesLastUpdateDate();
   if (!salonesList || salonesList.length === 0) {
     return <>Usted no es tutor de ningun salón</>;
   }
   return (
     <PensionesByGradoSeccionContext.Provider value={{ setData }}>
-      {loading && <Loader />}
+      {(loading || isFetching) && <Loader />}
       <Container $direction="column" $padding="0 0 3rem 0" $width="100%" $gap="1.5rem">
+        {date && (
+          <Container $direction="row" $gap="1rem" $alignItems="center">
+            <Text $color="#401004" $large $fontWeight="bold">
+              Última actualización:{' '}
+            </Text>
+            <Text $color="#401004" $large $fontWeight="bold">
+              {new Date(date).toLocaleDateString('es-PE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
+            </Text>
+          </Container>
+        )}
         <Container $direction="row" $width="max-content" $gap=".5rem">
           <Select options={generateGrados(salonesList)} label="grado" name="grado" width={`${nivel === 'inicial' ? '12rem' : '9rem'}`}></Select>
           {grado && <Select key={grado} options={generateSecciones(grado, salonesList)} width="9rem" name="seccion" label="sección" />}{' '}

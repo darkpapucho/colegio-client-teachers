@@ -6,7 +6,12 @@ import { EstadoMatricula, Grado, Seccion } from '../../types/gradoSalon';
 import { AMatriculado } from '../../types/alumno';
 
 setupAxiosInterceptorsTo(axios);
+
 export default class Pensiones {
+  static async getLastUpdateDate() {
+    const response = await axios.get<AxiosResponseSchema<string>>(API_URL + API_END_POINTS.GET_LAST_UPDATE_DATE);
+    return response;
+  }
   static async getRecordPensionesPagadasByDateRange({ initDate, endDate }: { initDate: string; endDate: string }) {
     const response = await axios.post<AxiosResponseSchema<{ alumno: { dni: string; nombreCompleto: string; grado: Grado; seccion: Seccion }; pensiones: Pension[] }[]>>(
       API_URL + API_END_POINTS.GET_RECORD_PENSIONES_BY_DATE_RANGE,
