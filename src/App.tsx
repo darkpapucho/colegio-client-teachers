@@ -12,6 +12,8 @@ import Board from './Profesor/Board/Board';
 import PensionesByGradoSeccion from './Profesor/Pensiones/PorSalon/PensionesByGradoSeccion';
 
 import IndexTeacher from './Profesor/IndexTeacher/Index';
+import AsistenciaDiaria from './Profesor/Asistencia/AsistenciaDiaria/AsistenciaDiaria';
+import AsistenciaGeneral from './Profesor/Asistencia/AsistenciaGeneral/AsistenciaGeneral';
 
 function App() {
   return (
@@ -20,8 +22,11 @@ function App() {
       <Route path="/menu" element={<Menu />}>
         <Route element={<RequireProfesor />}>
           <Route element={<IndexTeacher />} index></Route>
-          <Route element={<Registro />} path="registro" />
-          <Route element={<Asistencias />} path="asistencias" />
+          <Route element={<Registro />} path="registro"></Route>
+          <Route element={<Asistencias />} path="asistencias">
+            <Route element={<AsistenciaDiaria />} path="diaria" />
+            <Route element={<AsistenciaGeneral />} path="general" />
+          </Route>
           <Route element={<AsistenciaAlumnos />} path="lista-asistencia" />
           <Route element={<CambiarPassword />} path="cambiar-password" />
           <Route element={<Board />} path="board" />

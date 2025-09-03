@@ -12,11 +12,11 @@ export default function useFetchAsistenciaList({
   day,
 }: {
   day: number;
-  grado: Grado | null;
-  seccion: Seccion | null;
+  grado: Grado | null | undefined;
+  seccion: Seccion | null | undefined;
   month: string;
 }) {
-  const { data, isFetching, error } = useQuery({
+  const { data, isFetching, error, refetch } = useQuery({
     queryKey: ['asistencia', grado, seccion],
     queryFn: () => fetchAsistenciaList({ grado, seccion, month, day }),
     refetchOnWindowFocus: false,
@@ -29,5 +29,5 @@ export default function useFetchAsistenciaList({
     ErrorHandler(error);
   }, [error]);
 
-  return { data, isFetching, error };
+  return { data, isFetching, error, refetch };
 }

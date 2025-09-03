@@ -1,9 +1,9 @@
 import { Fragment } from 'react/jsx-runtime';
-import Table from '../../../components/Shared/Table/Table';
-import { AsistenciasReducerAction, AsistenciasReducerState } from '../AsistenciasReducer';
+import Table from '../../../../components/Shared/Table/Table';
+import { AsistenciasReducerAction, AsistenciasReducerState } from '../../AsistenciasReducer';
 import AsistenciaPicker from './AsistenciaPicker';
-import { AsistenciaAlumno } from '../../../models/Alumno/types';
-import { Container } from '../../../components/Shared/Container/Container';
+import { AsistenciaAlumno } from '../../../../models/Alumno/types';
+import { Container } from '../../../../components/Shared/Container/Container';
 
 export default function AsistenciasTable({ alumnos, dispatch }: { dispatch: React.Dispatch<AsistenciasReducerAction>; alumnos: AsistenciasReducerState }) {
   return (

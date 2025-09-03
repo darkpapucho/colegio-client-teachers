@@ -11,6 +11,7 @@ export const Text = styled.p<{
   $textAlign?: string;
   $width?: string;
   $fontWeight?: string;
+  $fontSize?: string;
 }>`
   //fontweigth
   ${({ $fontWeight }) =>
@@ -56,5 +57,10 @@ export const Text = styled.p<{
     $color &&
     css`
       color: ${$color};
+    `}
+  ${({ $fontSize }) =>
+    $fontSize &&
+    css`
+      font-size: ${$fontSize};
     `}
 `;

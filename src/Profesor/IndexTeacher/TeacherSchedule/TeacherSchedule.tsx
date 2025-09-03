@@ -1,5 +1,4 @@
 import { momentLocalizer, Calendar, View, SlotInfo, Event, EventProps } from 'react-big-calendar';
-import './style.css';
 import { useState } from 'react';
 import AgregarCeldaHorario from './AgregarCeldaHorario';
 import { StaticDate } from '../../../var/DateForCalendarBigReact';
@@ -15,6 +14,7 @@ import { updateToken } from '../../../utils/axiosUtils';
 import toast from 'react-hot-toast';
 import moment from 'moment-timezone';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+import './style.css';
 
 moment.locale('es');
 moment.tz.setDefault('America/Lima');

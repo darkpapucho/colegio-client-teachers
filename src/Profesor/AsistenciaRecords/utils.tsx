@@ -1,3 +1,4 @@
+import { CalendarioList } from '../../types/calendar';
 import { AsistenciaRecord, AsistenciaValue } from './types';
 export const alumnoNameWidthCell = 36;
 export const dayCellWidth = 2;
@@ -70,5 +71,95 @@ export function getBgColorOfCell({ asistenciaValue, justificado }: { asistenciaV
       return '#C21010';
     default:
       return '#535353';
+  }
+}
+
+export function getCurrentMonthName(): MONTH_NAME {
+  let currentMonth = new Date().toLocaleDateString('es-PE', { timeZone: 'America/Lima', month: 'long' }).toLowerCase();
+
+  if (currentMonth === 'enero' || currentMonth === 'febrero') {
+    return 'marzo';
+  }
+  if (currentMonth == 'setiembre') {
+    currentMonth = 'septiembre';
+  }
+  return currentMonth as MONTH_NAME;
+}
+
+export function getClosestDay(months: { [key: string]: Omit<CalendarioList, 'month'>[] }, selectedMonth: MONTH_NAME) {
+  console.log({ months, selectedMonth });
+  const currentMonthNumber = mapMonthNameToNumber(new Date().toLocaleDateString('es-ES', { timeZone: 'America/Lima', month: 'long' }));
+  const selectedMonthNumber = mapMonthNameToNumber(selectedMonth);
+  const currentDay = +new Date().toLocaleDateString('es-PE', { timeZone: 'America/Lima', day: 'numeric' });
+
+  console.log({ currentMonthNumber, selectedMonthNumber, currentDay });
+  if (months[selectedMonth].length > 0) {
+    const sortedDays = months[selectedMonth].sort((prev, curr) => (prev.day > curr.day ? 1 : -1));
+    console.log({ sortedDays });
+    //si el mes seleccionado es el mes actual, buscar el dia actual en la lista de dias del mes
+    if (selectedMonthNumber === currentMonthNumber) {
+      return (
+        sortedDays.find((row) => row.day === currentDay) || sortedDays.reduce((prev, curr) => (Math.abs(curr.day - currentDay) < Math.abs(prev.day - currentDay) ? curr : prev))
+      );
+    } else {
+      return sortedDays[0];
+    }
+  }
+  return undefined;
+  // if (currentMonthNumber == selectedMonthNumber) {
+  //   if (months[selectedMonth].length == 0) return undefined;
+  //   const foundDay = months[selectedMonth].find((element) => {
+  //     return element.day === currentDay;
+  //   });
+  //   if (foundDay) {
+  //     return foundDay;
+  //   } else {
+  //     //sort days
+
+  //     const closestDay = sortedDays.reduce((prev, curr) => (Math.abs(curr.day - currentDay) < Math.abs(prev.day - currentDay) ? curr : prev));
+  //     return closestDay;
+  //   }
+  // } else {
+  //   if (currentMonthNumber < selectedMonthNumber) {
+  //     const result = sortedDays[0];
+  //     console.log({ result });
+  //     return result;
+  //   } else {
+  //     const result = sortedDays[sortedDays.length - 1];
+  //     console.log({ result });
+  //     return result;
+  //   }
+  // }
+}
+
+function mapMonthNameToNumber(monthName: string) {
+  switch (monthName) {
+    case 'enero':
+      return 1;
+    case 'febrero':
+      return 2;
+    case 'marzo':
+      return 3;
+    case 'abril':
+      return 4;
+    case 'mayo':
+      return 5;
+    case 'junio':
+      return 6;
+    case 'julio':
+      return 7;
+    case 'agosto':
+      return 8;
+    case 'septiembre':
+    case 'setiembre':
+      return 9;
+    case 'octubre':
+      return 10;
+    case 'noviembre':
+      return 11;
+    case 'diciembre':
+      return 12;
+    default:
+      return 1;
   }
 }

@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../config/reactQuery/reactQuery';
-
 import { Grado, Periodo, Seccion } from '../types/gradoSalon';
 import { fetchAsistenciaList, updateAsistenciaList } from '../utils/asistencia';
 import { useEffect } from 'react';
@@ -17,12 +16,12 @@ export default function useUpdateAsistenciaList({
   day,
 }: {
   registroAsistencia: AsistenciasReducerState;
-  month: string;
-  dayId: string;
-  grado: Grado;
-  seccion: Seccion;
-  periodo: Periodo;
-  day: number;
+  month: string | undefined;
+  dayId: string | undefined;
+  grado: Grado | null;
+  seccion: Seccion | null;
+  periodo: Periodo | null;
+  day: number | undefined;
 }) {
   const { mutate, isPending, error } = useMutation({
     mutationKey: ['asistencia', grado, seccion],

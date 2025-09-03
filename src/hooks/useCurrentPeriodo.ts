@@ -4,6 +4,7 @@ import { yearState } from '../config/zustand/year';
 import { fetchCurrentPeriodo } from '../utils/calendario';
 import { useEffect } from 'react';
 import ErrorHandler from '../utils/errorManagment';
+import { Periodo } from '../types/gradoSalon';
 
 export default function useCurrentPeriodo() {
   const nivel = nivelState.getState().nivel;
@@ -17,5 +18,5 @@ export default function useCurrentPeriodo() {
     if (!error) return;
     ErrorHandler(error);
   }, [error]);
-  return { currentPeriodo: data, isLoading, error };
+  return { currentPeriodo: data as Periodo, isLoading, error };
 }

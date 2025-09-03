@@ -25,4 +25,7 @@ export const API_END_POINTS = {
   GET_NOTAS_PRIMARIA_BY_GRADO_SECCION: '/notas/get-notas-by-grado-seccion-profesor',
   UPDATE_RECORD_NOTAS_PRIMARIA: '/notas/update-record-notas-primaria-by-teacher',
   GET_LAST_UPDATE_DATE: '/pensiones/get-last-update-date',
+  fetchCalendario: '/calendario/fetch-calendario',
+  FETCH_ASISTENCIA_LIST_BY_GRADO_SECCION_DAY_ID: '/calendario/fetch-asistencia-list-by-grado-seccion-day-id',
+  UPDATE_ASISTENCIA_LIST_BY_GRADO_SECCION_DAY_ID: '/calendario/update-asistencia-list-by-grado-seccion-day-id',
 };

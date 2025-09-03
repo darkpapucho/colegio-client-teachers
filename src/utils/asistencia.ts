@@ -5,8 +5,18 @@ import { Grado, Periodo, Seccion } from '../types/gradoSalon';
 import { updateToken } from './axiosUtils';
 import toaster from 'react-hot-toast';
 
-export async function fetchAsistenciaList({ grado, seccion, month, day }: { day: number; grado: Grado | null; seccion: Seccion | null; month: string }) {
-  if (!grado || !seccion) throw new Error('Debes seleccionar un grado y una sección');
+export async function fetchAsistenciaList({
+  grado,
+  seccion,
+  month,
+  day,
+}: {
+  day: number | undefined;
+  grado: Grado | undefined | null;
+  seccion: Seccion | null | undefined;
+  month: string | undefined;
+}) {
+  if (!grado || !seccion || !month || !day) throw new Error('Debes seleccionar un grado y una sección');
   const response = await Alumno.fetchAsistenciaList({ grado, seccion, month, day });
   updateToken(response);
   if (!response.data.ok) throw new Error(response.data.message);
@@ -15,7 +25,16 @@ export async function fetchAsistenciaList({ grado, seccion, month, day }: { day:
 }
 
 //update asistencia
-export async function updateAsistenciaList({ registroAsistencia, dayId, periodo }: { dayId: string; periodo: Periodo; registroAsistencia: AsistenciasReducerState }) {
+export async function updateAsistenciaList({
+  registroAsistencia,
+  dayId,
+  periodo,
+}: {
+  dayId: string | undefined;
+  periodo: Periodo | undefined | null;
+  registroAsistencia: AsistenciasReducerState;
+}) {
+  if (!dayId || !periodo) throw new Error('Id del día inválido');
   const asistenciaList: AsistenciaList = {
     dayId,
     periodo,

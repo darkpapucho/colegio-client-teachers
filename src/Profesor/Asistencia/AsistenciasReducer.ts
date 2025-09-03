@@ -1,10 +1,11 @@
 import { AsistenciaAlumno } from '../../models/Alumno/types';
+import { AsistenciaValue } from '../AsistenciaRecords/types';
 
 export type AsistenciasReducerState = AsistenciaAlumno[];
 type UpdateAsistenciaAction = {
   type: 'updateAsistencia';
   payload: {
-    value: 'A' | 'F' | 'T';
+    value: AsistenciaValue;
     alumnoId: string;
   };
 };
