@@ -87,15 +87,13 @@ export function getCurrentMonthName(): MONTH_NAME {
 }
 
 export function getClosestDay(months: { [key: string]: Omit<CalendarioList, 'month'>[] }, selectedMonth: MONTH_NAME) {
-  console.log({ months, selectedMonth });
   const currentMonthNumber = mapMonthNameToNumber(new Date().toLocaleDateString('es-ES', { timeZone: 'America/Lima', month: 'long' }));
   const selectedMonthNumber = mapMonthNameToNumber(selectedMonth);
   const currentDay = +new Date().toLocaleDateString('es-PE', { timeZone: 'America/Lima', day: 'numeric' });
 
-  console.log({ currentMonthNumber, selectedMonthNumber, currentDay });
   if (months[selectedMonth].length > 0) {
     const sortedDays = months[selectedMonth].sort((prev, curr) => (prev.day > curr.day ? 1 : -1));
-    console.log({ sortedDays });
+
     //si el mes seleccionado es el mes actual, buscar el dia actual en la lista de dias del mes
     if (selectedMonthNumber === currentMonthNumber) {
       return (

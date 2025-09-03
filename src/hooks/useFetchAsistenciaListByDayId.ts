@@ -8,7 +8,7 @@ import ErrorHandler from '../utils/errorManagment';
 export default function useFetchAsistenciaListByDayId({ month, dayId, searchParams }: { searchParams: URLSearchParams; month: MONTH_NAME | undefined; dayId: string | undefined }) {
   const grado = searchParams.get('grado');
   const seccion = searchParams.get('seccion');
-  console.log({ month, dayId, grado, seccion });
+
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['asistencia-general', searchParams.get('grado'), searchParams.get('seccion'), month, dayId],
     queryFn: () =>

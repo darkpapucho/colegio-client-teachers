@@ -1,11 +1,11 @@
 import { Fragment } from 'react/jsx-runtime';
 import { Container } from '../../../components/Shared/Container/Container';
 import { AsistenciaAlumno } from '../../../models/Alumno/types';
-
 import AsistenciaPicker from '../AsistenciaDiaria/AsistenciasTable/AsistenciaPicker';
 import { AsistenciasReducerAction, AsistenciasReducerState } from '../AsistenciasReducer';
 import Table from '../../../components/Shared/Table/Table';
 import { Text } from '../../../components/Shared/Text/Text';
+import { AlumnoNameContainer } from './AlumnoNameContainer';
 
 export default function PasarAsistenciasTable({ alumnos, dispatch }: { dispatch: React.Dispatch<AsistenciasReducerAction>; alumnos: AsistenciasReducerState }) {
   //$justifyContent="center" $alignItems="center" $headerPadding="5px"$height="30px"
@@ -38,7 +38,7 @@ export default function PasarAsistenciasTable({ alumnos, dispatch }: { dispatch:
               </Container>
             </Table.Body.Item>
             <Table.Body.Item>
-              <Container
+              <AlumnoNameContainer
                 $pointer={record.asistencia == undefined ? false : true}
                 $width="100%"
                 $padding="0 1rem 0 0"
@@ -47,7 +47,7 @@ export default function PasarAsistenciasTable({ alumnos, dispatch }: { dispatch:
                 onClick={() => onClickAlumnoName(record)}
                 $alignItems="center">
                 <Text $fontSize="11px">{record.nombreCompleto}</Text>
-              </Container>
+              </AlumnoNameContainer>
             </Table.Body.Item>
             <Table.Body.Item>
               <AsistenciaPicker key={record.asistencia} alumnoId={record.alumnoId} value={record.asistencia} />

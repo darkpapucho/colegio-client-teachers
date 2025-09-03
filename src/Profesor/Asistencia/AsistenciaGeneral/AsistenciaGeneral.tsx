@@ -16,8 +16,8 @@ import useFetchAsistenciaListByDayId from '../../../hooks/useFetchAsistenciaList
 import useGradoSeccionSearchParams from '../../../hooks/useGradoSeccionSearchParams';
 import { useProfesor } from '../../../hooks/useProfesor';
 import { generateGrados, generateSecciones } from '../../../utils/profesor';
-
 import useUpdateAsistenciaListGeneral from '../../../hooks/useUpdateAsistenciaListGeneral';
+import { DaysContainer } from './DaysContainer';
 
 export default function PasarAsistencia() {
   const profesor = useProfesor((state) => state.profesor);
@@ -26,7 +26,7 @@ export default function PasarAsistencia() {
   });
 
   const { months, isLoading: isLoadingCalendario, isFetching, refetch } = useCalendarioEscolar();
-  console.log({ months });
+
   const { searchParams, setSearchParams, grado } = useGradoSeccionSearchParams();
   const [selectedMonth, setSelectedMonth] = useState<MONTH_NAME>(getCurrentMonthName());
   const [selectedDay, setSelectedDay] = useState<Omit<CalendarioList, 'month'> | undefined>(undefined);
@@ -67,8 +67,9 @@ export default function PasarAsistencia() {
       <Container $direction="column" $gap="1rem" $padding="2rem 0" $height="max-content">
         <h2>Pasar asistencia</h2>
         <Container $direction="column" $gap="1rem">
-          <Container $direction="row" $gap="1rem">
+          <Container $direction="row" $gap="1rem" $height="30px">
             <Select
+              heigth="30px"
               width="10rem"
               options={MONTHS_SELECT_OPTIONS}
               defaultValue={selectedMonth ? { label: selectedMonth, value: selectedMonth } : undefined}
@@ -79,14 +80,15 @@ export default function PasarAsistencia() {
               Reload Calendar Days
             </Button>
           </Container>
-
           {selectedMonth && (
-            <Container $direction="row" $gap="0.5rem">
+            <DaysContainer $direction="row" $gap="0.3rem">
               {[...months[selectedMonth]]
                 .sort((prev, curr) => (prev.day > curr.day ? 1 : -1))
                 .map((element) => {
                   return (
                     <Container
+                      $width="25px"
+                      $justifyContent="center"
                       key={element._id}
                       $padding=".5rem"
                       $border="1px solid black"
@@ -97,10 +99,10 @@ export default function PasarAsistencia() {
                     </Container>
                   );
                 })}
-            </Container>
+            </DaysContainer>
           )}
         </Container>
-        <Container $gap="1rem">
+        <Container $gap="1rem" $height="30px">
           <Select options={generateGrados(salonesList)} width="14rem" name="grado" label="grado" />
           {grado && <Select key={grado} options={generateSecciones(grado, salonesList)} width="9rem" name="seccion" label="sección" />}
           <Button $primary onClick={() => fetchAsistenciaList()} $width="max-content">
@@ -109,8 +111,8 @@ export default function PasarAsistencia() {
         </Container>
         {data && data.asistenciaList.length > 0 && (
           <Container $direction="column" $gap="1rem">
-            <Button disabled={isUpdating} $primary $width="max-content" onClick={() => mutate()}>
-              Alterar Lista
+            <Button disabled={isUpdating} $color="green" $width="max-content" onClick={() => mutate()} $small>
+              Guardar Cambios
             </Button>
             <PasarAsistenciasTable dispatch={dispatch} alumnos={registroAsistencia} />
           </Container>
