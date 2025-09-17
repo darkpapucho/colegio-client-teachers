@@ -15,7 +15,6 @@ export default function AsistenciaPicker({ alumnoId, value }: { value: Asistenci
     <Select
       bgColor={value === 'F' ? theme.colors.red.dark : value === 'T' ? theme.colors.yellow.dark : theme.colors.secondary.normal}
       small
-      heigth="22px"
       rect
       width="100%"
       name={`asistencia-${alumnoId}`}
