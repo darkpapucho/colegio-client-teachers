@@ -15,9 +15,9 @@ import PasarAsistenciasTable from './PasarAsistenciaTable';
 import useFetchAsistenciaListByDayId from '../../../hooks/useFetchAsistenciaListByDayId';
 import useGradoSeccionSearchParams from '../../../hooks/useGradoSeccionSearchParams';
 import { useProfesor } from '../../../hooks/useProfesor';
-import { generateGrados, generateSecciones } from '../../../utils/profesor';
 import useUpdateAsistenciaListGeneral from '../../../hooks/useUpdateAsistenciaListGeneral';
 import { DaysContainer } from './DaysContainer';
+import SalonesFilter from '../../SalonesFilter.tsx/SalonesFilter';
 
 export default function PasarAsistencia() {
   const profesor = useProfesor((state) => state.profesor);
@@ -27,7 +27,7 @@ export default function PasarAsistencia() {
 
   const { months, isLoading: isLoadingCalendario, isFetching, refetch } = useCalendarioEscolar();
 
-  const { searchParams, setSearchParams, grado } = useGradoSeccionSearchParams();
+  const { searchParams } = useGradoSeccionSearchParams();
   const [selectedMonth, setSelectedMonth] = useState<MONTH_NAME>(getCurrentMonthName());
   const [selectedDay, setSelectedDay] = useState<Omit<CalendarioList, 'month'> | undefined>(undefined);
 
@@ -103,8 +103,7 @@ export default function PasarAsistencia() {
           )}
         </Container>
         <Container $gap="1rem" $height="30px">
-          <Select options={generateGrados(salonesList)} width="14rem" name="grado" label="grado" />
-          {grado && <Select key={grado} options={generateSecciones(grado, salonesList)} width="9rem" name="seccion" label="sección" />}
+          <SalonesFilter salones={salonesList} />
           <Button $primary onClick={() => fetchAsistenciaList()} $width="max-content">
             Descargar Lista
           </Button>
@@ -126,17 +125,7 @@ export default function PasarAsistencia() {
     // const currentMonthName = getCurrentMonthName();
     if (name === 'month') {
       setSelectedMonth(value);
-
-      // if (value !== currentMonthName) {
-      //   setSelectedDay(undefined);
-      // } else {
       setSelectedDay(getClosestDay(months, value));
-      // }
-    } else if (name === 'grado' || name === 'seccion') {
-      setSearchParams((old) => {
-        old.set(name, value);
-        return old;
-      });
     }
   }
   function selectListener(event: CustomEvent) {

@@ -8,12 +8,13 @@ import { useRef } from 'react';
 import { Icon } from '../../components/Shared/Icon/Icon';
 import { PiUserList } from 'react-icons/pi';
 const SideBarItems: MItem[] = [
-  { label: 'Registro', url: 'registro', icon: <BiSpreadsheet /> },
+  { label: 'Registro Notas', url: 'registro', icon: <BiSpreadsheet /> },
   { label: 'Pasar Asistencias', url: 'asistencias', icon: <BiCalendarCheck /> },
-  { label: 'Ver Asistencias', url: 'lista-asistencia', icon: <PiUserList /> },
+  { label: 'Registro Asistencias', url: 'lista-asistencia', icon: <PiUserList /> },
   { label: 'Asignaciones', url: '', icon: <BiFoodMenu /> },
   { label: 'Pensiones', url: 'pensiones', icon: <CiMoneyCheck1 /> },
   { label: 'Board', url: 'board', icon: <BiFoodMenu /> },
+  { label: 'Generar Libretas', url: 'generar-libretas', icon: <BiFoodMenu /> },
 ];
 
 const SideBarContainer = styled.nav`

@@ -14,6 +14,7 @@ import PensionesByGradoSeccion from './Profesor/Pensiones/PorSalon/PensionesByGr
 import IndexTeacher from './Profesor/IndexTeacher/Index';
 import AsistenciaDiaria from './Profesor/Asistencia/AsistenciaDiaria/AsistenciaDiaria';
 import AsistenciaGeneral from './Profesor/Asistencia/AsistenciaGeneral/AsistenciaGeneral';
+import GenerarLibretas from './Profesor/GenerarLibretas/GenerarLibretas';
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
           <Route element={<CambiarPassword />} path="cambiar-password" />
           <Route element={<Board />} path="board" />
           <Route element={<PensionesByGradoSeccion />} path="pensiones" />
-          <Route path="*" element={<DefaultPage />}></Route>
+          <Route element={<GenerarLibretas />} path="generar-libretas" />
+          <Route path="*" element={<DefaultPage />} />
         </Route>
       </Route>
     </Routes>

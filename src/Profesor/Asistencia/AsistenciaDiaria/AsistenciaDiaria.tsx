@@ -2,45 +2,48 @@ import { useState, useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
 import { Button } from '../../../components/Shared/Button/Button';
 import { Container } from '../../../components/Shared/Container/Container';
-import Select from '../../../components/Shared/Select/Select';
 import { theme } from '../../../config/styled/styled';
-import useConvertDateToperiodo from '../../../hooks/useConvertDateToPeriodo';
 import useCustomEvent from '../../../hooks/useCustomEvent';
 import useFetchAsistenciaList from '../../../hooks/useFetchAsistenciaList';
-import useGradoSeccionSearchParams from '../../../hooks/useGradoSeccionSearchParams';
+
 import { useProfesor } from '../../../hooks/useProfesor';
 import useUpdateAsistenciaList from '../../../hooks/useUpdateAsistenciaList';
-import { Periodo } from '../../../types/gradoSalon';
-import { generateGrados, generateSecciones } from '../../../utils/profesor';
+
 import AsistenciasReducer, { AsistenciasReducerState, AsistenciasReducerAction } from '../AsistenciasReducer';
 import AsistenciasTable from './AsistenciasTable/AsistenciasTable';
 import { Text } from '../../../components/Shared/Text/Text';
 import Loader from '../../../components/Shared/Loader/Loader';
+import SalonesFilter from '../../SalonesFilter.tsx/SalonesFilter';
+import { useSearchParams } from 'react-router-dom';
 
 export default function AsistenciaDiaria() {
-  const { data: currentPeriodo, isLoading } = useConvertDateToperiodo();
-  const periodo = currentPeriodo || 'primerPeriodo';
+  const [searchParams] = useSearchParams();
   const month = new Date().toLocaleDateString('ES-es', { month: 'long' });
   const day = new Date().getDate();
   const profesor = useProfesor((state) => state.profesor);
   // const salones = profesor!.salones;
-  const { grado, seccion } = useGradoSeccionSearchParams();
+  // const { grado, seccion } = useGradoSeccionSearchParams();
   const salonesList = profesor?.salones.filter((salon) => {
     return salon.tutor;
   });
   const [dayId, setDayId] = useState('');
-  const { data, isFetching } = useFetchAsistenciaList({ grado, seccion, month, day });
+  const { data, isFetching, refetch } = useFetchAsistenciaList({ month, day });
   const [registroAsistencia, dispatch] = useImmerReducer<AsistenciasReducerState, AsistenciasReducerAction>(AsistenciasReducer, []);
 
   const { mutate, isPending } = useUpdateAsistenciaList({
     registroAsistencia,
     month,
     day,
-    grado: grado!,
-    seccion: seccion!,
-    periodo: periodo as Periodo,
     dayId,
   });
+
+  // useEffect(() => {
+  //   setSearchParams((old) => {
+  //     old.set('periodo', currentPeriodo ? currentPeriodo : 'primerPeriodo');
+  //     console.log(old);
+  //     return old;
+  //   });
+  // }, [currentPeriodo]);
 
   useEffect(() => {
     if (!data) return;
@@ -58,17 +61,21 @@ export default function AsistenciaDiaria() {
   }
   return (
     <>
-      {isFetching || (isLoading && <Loader />)}
+      {(isFetching || isPending) && <Loader />}
       <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem 1rem 4rem 1rem" $gap="1rem">
-        <Select options={generateGrados(salonesList)} width="14rem" name="grado" label="grado" />
-        {grado && <Select key={grado} options={generateSecciones(grado, salonesList)} width="9rem" name="seccion" label="sección" />}
+        <Container $direction="row" $width="max-content" $gap="1rem">
+          <SalonesFilter salones={salonesList} />
+          <Button $primary onClick={() => refetch()} $width="max-content" $small disabled={isFetching}>
+            Descargar Lista
+          </Button>
+        </Container>
         {data && registroAsistencia && (
           <Button $width="max-content" $primary onClick={() => mutate()} type="button" disabled={isPending} $small>
             Grabar Cambios
           </Button>
         )}
       </Container>
-      {grado && seccion && (
+      {searchParams.get('grado') && searchParams.get('seccion') && (
         <Container $bgColor={theme.colors.tertiary.light} $width="100%" $padding="1rem">
           <Text $large $secondary $fontWeight="600">{`Asistencia ${new Date().toLocaleDateString('ES-es', {
             day: '2-digit',

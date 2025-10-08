@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { Button } from '../../components/Shared/Button/Button';
 import { Container } from '../../components/Shared/Container/Container';
 import Loader from '../../components/Shared/Loader/Loader';
-import Select from '../../components/Shared/Select/Select';
-import useCustomEvent from '../../hooks/useCustomEvent';
+
 import useGradoSeccionSearchParams from '../../hooks/useGradoSeccionSearchParams';
 import Calendario from '../../models/Calendario/Calendario';
 import { updateToken } from '../../utils/axiosUtils';
@@ -13,34 +12,35 @@ import { Text } from '../../components/Shared/Text/Text';
 import ErrorHandler from '../../utils/errorManagment';
 import { EstadoMatricula, Grado, Periodo, Seccion } from '../../types/gradoSalon';
 import { useProfesor } from '../../hooks/useProfesor';
-import { generateGrados, generateSecciones } from '../../utils/profesor';
 import { theme } from '../../config/styled/styled';
 import { yearState } from '../../config/zustand/year';
-import { SELECT_PERIODOS } from '../../var/selectOptions';
+
+import SalonesFilter from '../SalonesFilter.tsx/SalonesFilter';
+import useCurrentPeriodo from '../../hooks/useCurrentPeriodo';
 
 export default function AsistenciaAlumnos() {
+  const { currentPeriodo, isLoading } = useCurrentPeriodo();
   const year = yearState((state) => state.year);
   const profesor = useProfesor((state) => state.profesor);
-  const salonesList = profesor?.salones.filter((salon) => {
+  const salonesList = profesor!.salones.filter((salon) => {
     return salon.tutor;
   });
   const currentYear = new Date().getFullYear(); // YYYY
-  const { grado, seccion, setSearchParams, searchParams } = useGradoSeccionSearchParams();
+  const { searchParams } = useGradoSeccionSearchParams();
   const { data, isFetching, error, refetch } = useQuery({
-    queryKey: ['asistencia-list', grado, seccion, searchParams.get('periodoo')],
-    queryFn: () => requestRecords({ grado, seccion }),
+    queryKey: ['asistencia-list', searchParams.get('grado'), searchParams.get('seccion')],
+    queryFn: () => requestRecords(),
     enabled: false,
     refetchOnWindowFocus: false,
     retry: false,
   });
-
-  useCustomEvent('customSelect', periodoListener);
 
   useEffect(() => {
     if (!error) return;
     ErrorHandler(error);
   }, [error]);
 
+  if (isLoading || isFetching) return <Loader />;
   if (year !== currentYear) {
     return (
       <Container $padding="2rem">
@@ -53,12 +53,10 @@ export default function AsistenciaAlumnos() {
   }
   return (
     <>
-      {isFetching && <Loader />}
+      {(isFetching || isLoading) && <Loader />}
       <Container $padding="2rem" $direction="column" $gap="2rem">
         <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem" $gap="1rem">
-          <Select options={SELECT_PERIODOS} width="14rem" name="periodo" label="periodo" />
-          <Select options={generateGrados(salonesList!)} width="14rem" name="grado" label="grado" />
-          {grado && <Select key={grado} options={generateSecciones(grado, salonesList!)} width="9rem" name="seccion" label="sección" />}
+          <SalonesFilter salones={salonesList} />
           <Button $width="max-content" $primary onClick={() => refetch()} type="button" disabled={isFetching} $small>
             Ver Lista
           </Button>
@@ -74,17 +72,11 @@ export default function AsistenciaAlumnos() {
       </Container>
     </>
   );
-  function periodoListener(event: CustomEvent) {
-    const { name, value } = event.detail;
-    if (name === 'periodo') {
-      setSearchParams((prev) => {
-        prev.set('periodo', value);
-        return prev;
-      });
-    }
-  }
-  async function requestRecords({ grado, seccion }: { grado: Grado | null; seccion: Seccion | null }) {
-    const periodo = searchParams.get('periodo') as Periodo | null;
+
+  async function requestRecords() {
+    const periodo = currentPeriodo;
+    const grado = searchParams.get('grado') as Grado | null;
+    const seccion = searchParams.get('seccion') as Seccion | null;
     if (!periodo || !grado || !seccion) {
       throw new Error('Debes seleccioon un grado, una sección y un periodo');
     }
@@ -95,6 +87,8 @@ export default function AsistenciaAlumnos() {
   }
 
   async function downloadPDF() {
+    const grado = searchParams.get('grado') as Grado | null;
+    const seccion = searchParams.get('seccion') as Seccion | null;
     try {
       if (!grado || !seccion) throw new Error('Ningun grado ni sección fue especificado');
       const periodo = searchParams.get('periodo') as Periodo;

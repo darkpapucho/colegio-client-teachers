@@ -1,7 +1,7 @@
 import { SalonProfesor } from '../hooks/useProfesor';
 import { Seccion } from '../types/gradoSalon';
 
-export function generateGrados(salones: SalonProfesor[]) {
+export function generateGrados(salones: SalonProfesor[]): { label: string; value: string }[] {
   const result = [
     ...new Set(
       salones.map((salon) =>

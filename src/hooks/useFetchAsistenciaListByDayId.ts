@@ -19,7 +19,7 @@ export default function useFetchAsistenciaListByDayId({ month, dayId, searchPara
         month,
         estadosMatricula: ['DEFINITIVA', 'EN PROCESO'],
       }),
-    enabled: grado != null && seccion != null && month != undefined && dayId != undefined,
+    enabled: false,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     retry: false,

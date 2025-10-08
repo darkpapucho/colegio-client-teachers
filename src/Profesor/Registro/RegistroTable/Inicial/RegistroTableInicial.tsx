@@ -20,10 +20,9 @@ import Loader from '../../../../components/Shared/Loader/Loader';
 import EditConClusionesDescriptivasModal from '../EditConclusionesDescriptivasModal';
 import { Button } from '../../../../components/Shared/Button/Button';
 import { Container } from '../../../../components/Shared/Container/Container';
-import Select from '../../../../components/Shared/Select/Select';
 import { theme } from '../../../../config/styled/styled';
-import { generateGrados, generateSecciones } from '../../../../utils/profesor';
 import RegistroTableBody from './RegistroTableBody';
+import SalonesFilter from '../../../SalonesFilter.tsx/SalonesFilter';
 
 export const RegistroContext = createContext<{
   dispatch: (action: RegistroInicialReducerAction) => void;
@@ -54,14 +53,16 @@ export default function RegistroTableInicial() {
   const profesor = useProfesor((state) => state.profesor)!;
   const salones = profesor.salones;
   const { grado, seccion } = useGradoSeccionSearchParams();
-  //isTutor?
+  console.log({ grado, seccion });
+  //isTutor? in order to update registro, this field is necesary
   const isTutor = salones.find((salon) => salon.value.grado === grado && salon.value.seccion === seccion)?.tutor ?? false;
   //useQuery
-  const { isFetching, error, data } = useQuery({
+  const { isFetching, error, data, refetch } = useQuery({
     queryKey: ['registro-profesor', grado, seccion],
     queryFn: () => fetchRegistro({ grado, seccion }),
     refetchOnWindowFocus: false,
-    enabled: grado != null && seccion != null,
+    // enabled: grado != null && seccion != null,
+    enabled: false,
   });
   const [registro, dispatchRegistro] = useImmerReducer<RegistroNotasInicialProfesor[], RegistroInicialReducerAction>(RegistroInicialReducer, []);
 
@@ -133,10 +134,15 @@ export default function RegistroTableInicial() {
               saveHandler={saveConclusionesDescriptivas}></EditConClusionesDescriptivasModal>
           )}
           <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem" $gap="1rem">
-            <Select options={generateGrados(salones)} width="14rem" name="grado" label="grado" />
-            {grado && <Select key={grado} options={generateSecciones(grado, salones)} width="9rem" name="seccion" label="sección" />}
+            <SalonesFilter salones={salones} />
+            {/* <Select options={generateGrados(salones)} width="14rem" name="grado" label="grado" defaultValue={generateGrados(salones)[0]} />
+            {grado && <Select key={grado} options={generateSecciones(grado, salones)} width="9rem" name="seccion" label="sección" defaultValue={{ label: 'A', value: 'A' }} />} */}
+            <Button $width="max-content" $primary onClick={() => refetch()} type="button" $small>
+              {' '}
+              Descargar Registro
+            </Button>
             {data && registro && (
-              <Button $width="max-content" $primary onClick={() => mutate()} type="button" disabled={isPending} $small>
+              <Button $width="max-content" $color="green" onClick={() => mutate()} type="button" disabled={isPending} $small>
                 Grabar Cambios
               </Button>
             )}

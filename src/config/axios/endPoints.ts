@@ -28,4 +28,6 @@ export const API_END_POINTS = {
   fetchCalendario: '/calendario/fetch-calendario',
   FETCH_ASISTENCIA_LIST_BY_GRADO_SECCION_DAY_ID: '/calendario/fetch-asistencia-list-by-grado-seccion-day-id',
   UPDATE_ASISTENCIA_LIST_BY_GRADO_SECCION_DAY_ID: '/calendario/update-asistencia-list-by-grado-seccion-day-id',
+  GENERAR_LIBRETAS_PRIMARIA: '/notas/generate-libretas-primaria-grado-seccion',
+  GENERAR_LIBRETAS_INICIAL: '/documento/generar-boletas-notas-grado-seccion',
 };
