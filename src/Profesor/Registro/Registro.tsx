@@ -12,7 +12,7 @@ import RegistroTablePrimaria from './RegistroTable/Primaria/RegistroTablePrimari
 export default function Registro() {
   const { currentPeriodo } = useCurrentPeriodo();
   const periodo = (currentPeriodo || 'primerPeriodo') as Periodo;
-  const [isYearOver, _setIsYearOver] = useState(true);
+  const [isYearOver, _setIsYearOver] = useState(false);
   const nivel = nivelState((state) => state.nivel) as Nivel;
   if (isYearOver) {
     return <h1>El año escolar a concluido.</h1>;
