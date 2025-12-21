@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Container } from '../../components/Shared/Container/Container';
 import { Text } from '../../components/Shared/Text/Text';
 import { theme } from '../../config/styled/styled';
@@ -11,8 +12,11 @@ import RegistroTablePrimaria from './RegistroTable/Primaria/RegistroTablePrimari
 export default function Registro() {
   const { currentPeriodo } = useCurrentPeriodo();
   const periodo = (currentPeriodo || 'primerPeriodo') as Periodo;
+  const [isYearOver, _setIsYearOver] = useState(true);
   const nivel = nivelState((state) => state.nivel) as Nivel;
-
+  if (isYearOver) {
+    return <h1>El año escolar a concluido.</h1>;
+  }
   if (!currentPeriodo) {
     return <>No existe un periodo activo dentro del calendario escolar.</>;
   }

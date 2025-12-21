@@ -7,22 +7,23 @@ import { generateGrados, generateSecciones } from '../../utils/profesor';
 import { nivelState } from '../../config/zustand/nivel';
 
 export default function SalonesFilter({ salones }: { salones: SalonProfesor[] }) {
-  const { grado, setSearchParams } = useGradoSeccionSearchParams();
-
+  const { setSearchParams } = useGradoSeccionSearchParams();
   const grados = useMemo(() => generateGrados(salones), [salones]);
-  const secciones = useMemo(() => generateSecciones(grados[0].value, salones), [grados]);
+  const secciones = useMemo(() => generateSecciones(grados[0].value, salones), [grados[0]]);
   const nivel = nivelState((state) => state.nivel)!;
   useLayoutEffect(() => {
     setSearchParams((old) => {
       old.set('grado', grados[0].value);
       old.set('seccion', secciones[0].value);
+
       return old;
     });
   }, []);
+
   return (
     <Container $direction="row" $width="max-content" $gap="1rem">
       <Select options={grados} width={nivel == 'inicial' ? '13rem' : '10rem'} name="grado" label="Grado" defaultValue={grados[0]} />
-      {grado && <Select options={generateSecciones(grado, salones)} width="8rem" name="seccion" label="Sección" defaultValue={secciones[0]} />}
+      <Select options={secciones} width="8rem" name="seccion" label="Sección" defaultValue={secciones[0]} />
     </Container>
   );
 }

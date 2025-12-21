@@ -37,14 +37,6 @@ export default function AsistenciaDiaria() {
     dayId,
   });
 
-  // useEffect(() => {
-  //   setSearchParams((old) => {
-  //     old.set('periodo', currentPeriodo ? currentPeriodo : 'primerPeriodo');
-  //     console.log(old);
-  //     return old;
-  //   });
-  // }, [currentPeriodo]);
-
   useEffect(() => {
     if (!data) return;
     const registroAsistencias: AsistenciasReducerState = data.asistenciaList.map((record) => {
@@ -62,7 +54,7 @@ export default function AsistenciaDiaria() {
   return (
     <>
       {(isFetching || isPending) && <Loader />}
-      <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem 1rem 4rem 1rem" $gap="1rem">
+      <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem 1rem 1rem 1rem" $gap="1rem">
         <Container $direction="row" $width="max-content" $gap="1rem">
           <SalonesFilter salones={salonesList} />
           <Button $primary onClick={() => refetch()} $width="max-content" $small disabled={isFetching}>

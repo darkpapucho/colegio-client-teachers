@@ -53,7 +53,7 @@ export default function RegistroTableInicial() {
   const profesor = useProfesor((state) => state.profesor)!;
   const salones = profesor.salones;
   const { grado, seccion } = useGradoSeccionSearchParams();
-  console.log({ grado, seccion });
+
   //isTutor? in order to update registro, this field is necesary
   const isTutor = salones.find((salon) => salon.value.grado === grado && salon.value.seccion === seccion)?.tutor ?? false;
   //useQuery

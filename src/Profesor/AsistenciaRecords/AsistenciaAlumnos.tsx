@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Button } from '../../components/Shared/Button/Button';
 import { Container } from '../../components/Shared/Container/Container';
 import Loader from '../../components/Shared/Loader/Loader';
-
 import useGradoSeccionSearchParams from '../../hooks/useGradoSeccionSearchParams';
 import Calendario from '../../models/Calendario/Calendario';
 import { updateToken } from '../../utils/axiosUtils';
@@ -27,6 +26,7 @@ export default function AsistenciaAlumnos() {
   });
   const currentYear = new Date().getFullYear(); // YYYY
   const { searchParams } = useGradoSeccionSearchParams();
+
   const { data, isFetching, error, refetch } = useQuery({
     queryKey: ['asistencia-list', searchParams.get('grado'), searchParams.get('seccion')],
     queryFn: () => requestRecords(),
@@ -64,6 +64,7 @@ export default function AsistenciaAlumnos() {
             Descargar PDF
           </Button>
         </Container>
+
         {data?.asistencias && data.asistencias.length > 0 && (
           <Container>
             <AsistenciaTable asistencias={data.asistencias} availableDays={data.availableDays} />

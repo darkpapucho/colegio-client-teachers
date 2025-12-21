@@ -14,9 +14,11 @@ export default function useCurrentPeriodo() {
     queryFn: () => fetchCurrentPeriodo(),
     refetchOnWindowFocus: false,
   });
+
   useEffect(() => {
     if (!error) return;
     ErrorHandler(error);
   }, [error]);
+
   return { currentPeriodo: data as Periodo, isLoading, error };
 }
