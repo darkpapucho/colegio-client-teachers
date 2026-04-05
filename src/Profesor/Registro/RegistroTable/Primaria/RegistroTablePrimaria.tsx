@@ -25,9 +25,11 @@ export default function RegistroTablePrimaria({ periodo }: { periodo: Periodo })
   // const { grado, setSearchParams } = useGradoSeccionSearchParams();
   const { registro, dispatch, isFetching, cursosProfesor } = useRegistroPrimaria();
   const profesor = useProfesor((state) => state.profesor)!;
+
   const salones = profesor.salones;
 
   const { mutate, isPending } = useUpdateRegistroPrimaria({ registro, cursosProfesor });
+
   if (isFetching) {
     return <Loader />;
   }

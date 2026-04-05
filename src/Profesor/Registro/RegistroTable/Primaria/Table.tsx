@@ -16,6 +16,7 @@ import ConductaTab from './ConductaTab';
 import EditConClusionesDescriptivasModal from '../EditConclusionesDescriptivasModal';
 import { Profesor, useProfesor } from '../../../../hooks/useProfesor';
 import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
+import Loader from '../../../../components/Shared/Loader/Loader';
 export default function RegistroTable({ cursosProfesor, registro, periodo }: { cursosProfesor: CURSO_SALON[]; registro: RecordNotas[]; periodo: Periodo }) {
   const profesor = useProfesor((state) => state.profesor) as Profesor;
   const [showCDModal, setShowCDModal] = useState<boolean>(false);
@@ -25,6 +26,8 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
   const isTutor = profesor.salones.find((salon) => salon.label === `${grado} ${seccion}`)?.tutor ?? false;
 
   const gridTemplateCols = `32rem repeat(${cursosProfesor.length}, 42px) ${isTutor ? '8rem 8rem 32px 32px 4rem' : ''}`;
+  console.log({ cursosProfesor });
+  if (!cursosProfesor || cursosProfesor.length == 0) return <Loader />;
   return (
     <>
       {showCDModal && selectedRecord && (
@@ -81,6 +84,7 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
                 </Table.Body.Item>
 
                 {cursosProfesor.map((curso) => {
+                  console.log({ row, curso });
                   const nota = row.cursos[curso.key][ConvertPeriodoToIndex(periodo)] ?? 0;
                   return (
                     <Table.Body.Item key={curso.key}>
