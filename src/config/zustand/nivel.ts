@@ -1,10 +1,11 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 export const NivelesSelect = [
-  { label: "primaria", value: "primaria" },
-  { label: "inicial", value: "inicial" },
+  { label: 'primaria', value: 'primaria' },
+  { label: 'inicial', value: 'inicial' },
+  { label: 'secundaria', value: 'secundaria' },
 ];
-export type Nivel = "inicial" | "primaria";
+export type Nivel = 'inicial' | 'primaria' | 'secundaria';
 
 type State = {
   nivel: Nivel | null;
