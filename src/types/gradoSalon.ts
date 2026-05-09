@@ -14,11 +14,12 @@ export type Year = (typeof VALID_YEARS)[number];
 export const VALID_SEXOS = ['Hombre', 'Mujer'] as const;
 export type Sexo = (typeof VALID_SEXOS)[number];
 //Niveles
-export const VALID_NIVELES = ['primaria', 'inicial'] as const;
+export const VALID_NIVELES = ['primaria', 'inicial', 'secundaria'] as const;
 export type Nivel = (typeof VALID_NIVELES)[number];
 export enum Niveles {
   PRIMARIA = 'primaria',
   INICIAL = 'inicial',
+  SECUNDARIA = 'secundaria',
 }
 
 //secciones
