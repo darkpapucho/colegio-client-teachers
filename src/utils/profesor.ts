@@ -8,15 +8,16 @@ export function generateGrados(salones: SalonProfesor[]): { label: string; value
         JSON.stringify({
           label: salon.value.grado,
           value: salon.value.grado,
-        })
-      )
+        }),
+      ),
     ),
   ].map((element) => JSON.parse(element));
 
   return result;
 }
 
-export function generateSecciones(grado: string, salones: SalonProfesor[]) {
+export function generateSecciones(grado: string | null, salones: SalonProfesor[]) {
+  if (!grado) return [];
   const options = salones
     .filter((salon) => {
       return salon.value.grado === grado;
