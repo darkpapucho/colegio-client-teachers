@@ -26,7 +26,7 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
   const isTutor = profesor.salones.find((salon) => salon.label === `${grado} ${seccion}`)?.tutor ?? false;
 
   const gridTemplateCols = `32rem repeat(${cursosProfesor.length}, 42px) ${isTutor ? '8rem 8rem 32px 32px 4rem' : ''}`;
-  console.log({ cursosProfesor });
+
   if (!cursosProfesor || cursosProfesor.length == 0) return <Loader />;
   return (
     <>
@@ -75,6 +75,7 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
         </Table.Header>
         <Table.Body>
           {registro.map((row, index) => {
+            console.log({ row, index });
             return (
               <Fragment key={row.alumnoId}>
                 <Table.Body.Item>
@@ -84,7 +85,6 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
                 </Table.Body.Item>
 
                 {cursosProfesor.map((curso) => {
-                  console.log({ row, curso });
                   const nota = row.cursos[curso.key][ConvertPeriodoToIndex(periodo)] ?? 0;
                   return (
                     <Table.Body.Item key={curso.key}>

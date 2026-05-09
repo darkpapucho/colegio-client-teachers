@@ -24,7 +24,7 @@ export default function useRegistroPrimaria() {
     staleTime: Infinity,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    enabled: grado != null && seccion != null,
+    enabled: false,
     queryKey: ['registro-primaria', nivel, year, grado, seccion],
     queryFn: () => fetchRegistroPrimaria(grado, seccion, cursosProfesor!, profesor.salones.find((salon) => salon.label === `${grado} ${seccion}`)?.tutor ?? false),
   });
