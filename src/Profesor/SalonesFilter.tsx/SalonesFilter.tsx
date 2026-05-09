@@ -14,7 +14,7 @@ export default function SalonesFilter({ salones }: { salones: SalonProfesor[] })
   return (
     <Container $direction="row" $width="max-content" $gap="1rem">
       <Select options={grados} width={nivel == 'inicial' ? '13rem' : '10rem'} name="grado" label="Grado" />
-      {grado && <Select options={secciones} width="8rem" name="seccion" label="Sección" defaultValue={secciones[0]} />}
+      {grado && <Select options={secciones} width="8rem" name="seccion" label="Sección" />}
     </Container>
   );
 }
