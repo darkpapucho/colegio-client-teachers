@@ -1,6 +1,6 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-export type Year = 2024 | 2023 | 2022 | 2021;
+export type Year = 2028 | 2027 | 2026 | 2025 | 2024 | 2023 | 2022 | 2021;
 
 type State = {
   year: Year;

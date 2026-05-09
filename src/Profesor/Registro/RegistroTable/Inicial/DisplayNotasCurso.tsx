@@ -47,6 +47,7 @@ export default function DisplayNotasCurso({ curso, periodo, alumnoId, cursoKey }
   function listener(event: CustomEvent) {
     const { name, value } = event.detail;
     const params: string[] = name.split('-');
+
     if (params[0] === 'updateNota') {
       dispatch({
         type: 'updateNotaCurso',

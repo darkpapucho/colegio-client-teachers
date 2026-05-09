@@ -8,7 +8,7 @@ export const ESTADOS_MATRICULA = ['DEFINITIVA', 'EN PROCESO', 'TRASLADADO', 'RET
 export type EstadoMatricula = (typeof ESTADOS_MATRICULA)[number];
 
 //years
-export const VALID_YEARS = [2020, 2021, 2022, 2023, 2024, 2025] as const;
+export const VALID_YEARS = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028] as const;
 export type Year = (typeof VALID_YEARS)[number];
 //sexo
 export const VALID_SEXOS = ['Hombre', 'Mujer'] as const;
