@@ -15,15 +15,17 @@ import { RegistroPrimariaContext } from './RegistroTablePrimaria';
 import ConductaTab from './ConductaTab';
 import EditConClusionesDescriptivasModal from '../EditConclusionesDescriptivasModal';
 import { Profesor, useProfesor } from '../../../../hooks/useProfesor';
-import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
+
 import Loader from '../../../../components/Shared/Loader/Loader';
+import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
+
 export default function RegistroTable({ cursosProfesor, registro, periodo }: { cursosProfesor: CURSO_SALON[]; registro: RecordNotas[]; periodo: Periodo }) {
   const profesor = useProfesor((state) => state.profesor) as Profesor;
   const [showCDModal, setShowCDModal] = useState<boolean>(false);
   const [selectedRecord, setSelectedRecord] = useState<RecordNotas | undefined>(undefined);
   const { dispatch } = useContext(RegistroPrimariaContext)!;
   const { grado, seccion } = useGradoSeccionSearchParams();
-  const isTutor = profesor.salones.find((salon) => salon.label === `${grado} ${seccion}`)?.tutor ?? false;
+  const isTutor = profesor.salones.some((salon) => salon.label === `${grado} ${seccion}` && salon.tutor);
 
   const gridTemplateCols = `32rem repeat(${cursosProfesor.length}, 42px) ${isTutor ? '8rem 8rem 32px 32px 4rem' : ''}`;
 
@@ -75,7 +77,6 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
         </Table.Header>
         <Table.Body>
           {registro.map((row, index) => {
-            console.log({ row, index });
             return (
               <Fragment key={row.alumnoId}>
                 <Table.Body.Item>
@@ -85,7 +86,7 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
                 </Table.Body.Item>
 
                 {cursosProfesor.map((curso) => {
-                  const nota = row.cursos[curso.key][ConvertPeriodoToIndex(periodo)] ?? 0;
+                  const nota = row.cursos[curso.key]?.[ConvertPeriodoToIndex(periodo)] ?? 0;
                   return (
                     <Table.Body.Item key={curso.key}>
                       <NotaTab periodo={periodo} alumnoId={row.alumnoId} cursoKey={curso.key} initValue={nota} />

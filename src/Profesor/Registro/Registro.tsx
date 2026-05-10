@@ -14,7 +14,7 @@ export default function Registro() {
   const periodo = (currentPeriodo || 'primerPeriodo') as Periodo;
   const [isYearOver, _setIsYearOver] = useState(false);
   const nivel = nivelState((state) => state.nivel) as Nivel;
-  console.log({ periodo, nivel });
+
   if (isYearOver) {
     return <h1>El año escolar a concluido.</h1>;
   }
@@ -22,18 +22,17 @@ export default function Registro() {
     return <>No existe un periodo activo dentro del calendario escolar.</>;
   }
   return (
-    <>
-      <Container $direction="column" $width="100%" $gap="2rem" $padding="0 0 3rem 0">
-        {currentPeriodo && (
-          <Container $bgColor={theme.colors.tertiary.light} $width="100%" $padding="1rem">
-            <Text $primary $large $fontWeight="700">
-              {convertPeriodoKeyToLabel(periodo as Periodo)}
-            </Text>
-          </Container>
-        )}
-        {nivel === 'inicial' ? <RegistroTableInicial /> : <RegistroTablePrimaria periodo={periodo} />}
-      </Container>
-    </>
+    <Container $direction="column" $width="100%" $gap="2rem" $padding="0 0 3rem 0">
+      {currentPeriodo && (
+        <Container $bgColor={theme.colors.tertiary.light} $width="100%" $padding="1rem">
+          <Text $primary $large $fontWeight="700">
+            {convertPeriodoKeyToLabel(periodo as Periodo)}
+          </Text>
+        </Container>
+      )}
+
+      {nivel === 'inicial' ? <RegistroTableInicial /> : <RegistroTablePrimaria periodo={periodo} />}
+    </Container>
   );
 
   //functions

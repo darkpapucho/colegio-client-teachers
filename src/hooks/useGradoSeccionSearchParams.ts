@@ -11,10 +11,19 @@ export default function useGradoSeccionSearchParams() {
 
   function listener(event: CustomEvent) {
     const { name, value } = event.detail;
-    setSearchParams((old) => {
-      old.set(name, value);
-      return old;
-    });
+    if (name == 'grado') {
+      setSearchParams((old) => {
+        old.delete('seccion');
+        old.set(name, value);
+        return old;
+      });
+    }
+    if (name === 'seccion') {
+      setSearchParams((old) => {
+        old.set(name, value);
+        return old;
+      });
+    }
   }
 
   return { grado, seccion, searchParams, setSearchParams };

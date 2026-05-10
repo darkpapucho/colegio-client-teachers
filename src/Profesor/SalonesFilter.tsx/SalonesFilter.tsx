@@ -3,9 +3,10 @@ import { SalonProfesor } from '../../hooks/useProfesor';
 import Select from '../../components/Shared/Select/Select';
 import { generateGrados, generateSecciones } from '../../utils/profesor';
 import { nivelState } from '../../config/zustand/nivel';
+import { memo } from 'react';
 import useGradoSeccionSearchParams from '../../hooks/useGradoSeccionSearchParams';
 
-export default function SalonesFilter({ salones }: { salones: SalonProfesor[] }) {
+const SalonesFilter = memo(({ salones }: { salones: SalonProfesor[] }) => {
   const { grado } = useGradoSeccionSearchParams();
   const grados = generateGrados(salones);
   const secciones = generateSecciones(grado, salones);
@@ -17,4 +18,6 @@ export default function SalonesFilter({ salones }: { salones: SalonProfesor[] })
       {grado && <Select options={secciones} width="8rem" name="seccion" label="Sección" />}
     </Container>
   );
-}
+});
+
+export default SalonesFilter;

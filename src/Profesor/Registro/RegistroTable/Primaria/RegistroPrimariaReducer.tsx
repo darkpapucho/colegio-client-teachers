@@ -74,6 +74,15 @@ export default function RegistroPrimariaReducer(state: RecordNotas[], action: Re
 
       return;
     }
+    case 'update-tardanza-inasistencia': {
+      const { alumnoId, field, subfield, value, periodo } = action.payload;
+      const index = state.findIndex((row) => row.alumnoId === alumnoId);
+      const periodoIndex = ConvertPeriodoToIndex(periodo);
+
+      state[index][field][subfield][periodoIndex] = value;
+
+      return;
+    }
     default:
       return state;
   }

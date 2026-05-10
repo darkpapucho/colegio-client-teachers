@@ -7,7 +7,6 @@ import { Grado, Nivel, Periodo, Seccion } from '../../../../types/gradoSalon';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createContext, Dispatch, useEffect, useState } from 'react';
 import useCurrentPeriodo from '../../../../hooks/useCurrentPeriodo';
-import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
 import { useProfesor } from '../../../../hooks/useProfesor';
 import RegistroInicialReducer, { RegistroInicialReducerAction } from './registroInicialReducer';
 import { useImmerReducer } from 'use-immer';
@@ -23,6 +22,7 @@ import { Container } from '../../../../components/Shared/Container/Container';
 import { theme } from '../../../../config/styled/styled';
 import RegistroTableBody from './RegistroTableBody';
 import SalonesFilter from '../../../SalonesFilter.tsx/SalonesFilter';
+import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
 
 export const RegistroContext = createContext<{
   dispatch: (action: RegistroInicialReducerAction) => void;
