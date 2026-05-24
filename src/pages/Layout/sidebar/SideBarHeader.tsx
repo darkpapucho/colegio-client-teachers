@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import logo from '/logo.png';
 import { COLEGIO_NAME } from '../../../var/colegioData';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../config/zustand/user';
 const StyledSideBarHeader = styled.header`
   margin: 2rem 0 3rem 0;
   display: flex;
@@ -30,9 +31,11 @@ const StyledSideBarHeader = styled.header`
 `;
 
 export default function SideBarHeader() {
+  const { user, logout } = useAuth();
+
   const navigate = useNavigate();
   return (
-    <StyledSideBarHeader onClick={() => navigate('/menu')}>
+    <StyledSideBarHeader onClick={() => handleClick()}>
       <span className="image">
         <img src={logo} alt="colegio-logo"></img>
       </span>
@@ -40,4 +43,13 @@ export default function SideBarHeader() {
       <span className="intranet">INTRANET</span>
     </StyledSideBarHeader>
   );
+  function handleClick() {
+    if (user?.rol == 'profesor') {
+      return navigate('/menu/pedagogia');
+    }
+    if (user?.rol == 'psicologo') {
+      return navigate('/menu/psicologia');
+    }
+    logout();
+  }
 }

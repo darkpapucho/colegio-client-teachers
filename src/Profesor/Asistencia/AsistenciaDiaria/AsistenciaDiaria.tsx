@@ -5,22 +5,21 @@ import { Container } from '../../../components/Shared/Container/Container';
 import { theme } from '../../../config/styled/styled';
 import useCustomEvent from '../../../hooks/useCustomEvent';
 import useFetchAsistenciaList from '../../../hooks/useFetchAsistenciaList';
-
-import { useProfesor } from '../../../hooks/useProfesor';
 import useUpdateAsistenciaList from '../../../hooks/useUpdateAsistenciaList';
-
 import AsistenciasReducer, { AsistenciasReducerState, AsistenciasReducerAction } from '../AsistenciasReducer';
 import AsistenciasTable from './AsistenciasTable/AsistenciasTable';
 import { Text } from '../../../components/Shared/Text/Text';
 import Loader from '../../../components/Shared/Loader/Loader';
 import SalonesFilter from '../../SalonesFilter.tsx/SalonesFilter';
 import { useSearchParams } from 'react-router-dom';
+import useAuth from '../../../config/zustand/user';
+import { Teacher } from '../../../types/users/profesor';
 
 export default function AsistenciaDiaria() {
   const [searchParams] = useSearchParams();
   const month = new Date().toLocaleDateString('ES-es', { month: 'long' });
   const day = new Date().getDate();
-  const profesor = useProfesor((state) => state.profesor);
+  const profesor = useAuth().user as unknown as Teacher;
   // const salones = profesor!.salones;
   // const { grado, seccion } = useGradoSeccionSearchParams();
   const salonesList = profesor?.salones.filter((salon) => {

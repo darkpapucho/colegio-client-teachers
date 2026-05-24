@@ -5,7 +5,7 @@ export const API_END_POINTS = {
   updateAsistenciaList: '/alumno/update-asistencia-list',
   fetchCurrentPeriodo: '/calendario/fetch-current-periodo',
   changeProfesorPassword: '/empleado/change-profesor-password',
-  loginProfesor: '/user/login-profesor',
+  loginProfesor: '/user/login-client',
   convertDateToPeriodo: '/calendario/convert-date-to-periodo',
   getRecordAsistenciaAlumnos: '/calendario/get-record-asistencias-grado-seccion-periodo',
   getPDFAsistenciaList: '/calendario/get-pdf-attendance-list-by-grado-seccion-periodo',
@@ -30,4 +30,5 @@ export const API_END_POINTS = {
   UPDATE_ASISTENCIA_LIST_BY_GRADO_SECCION_DAY_ID: '/calendario/update-asistencia-list-by-grado-seccion-day-id',
   GENERAR_LIBRETAS_PRIMARIA: '/notas/generate-libretas-primaria-grado-seccion',
   GENERAR_LIBRETAS_INICIAL: '/documento/generar-boletas-notas-grado-seccion',
+  FETCH_ALUMNOS_GRADO_SECCION: '/alumno/matriculados',
 };

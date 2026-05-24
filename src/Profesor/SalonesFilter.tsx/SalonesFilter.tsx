@@ -1,10 +1,10 @@
 import { Container } from '../../components/Shared/Container/Container';
-import { SalonProfesor } from '../../hooks/useProfesor';
 import Select from '../../components/Shared/Select/Select';
 import { generateGrados, generateSecciones } from '../../utils/profesor';
 import { nivelState } from '../../config/zustand/nivel';
 import { memo } from 'react';
 import useGradoSeccionSearchParams from '../../hooks/useGradoSeccionSearchParams';
+import { SalonProfesor } from '../../types/users/profesor';
 
 const SalonesFilter = memo(({ salones }: { salones: SalonProfesor[] }) => {
   const { grado } = useGradoSeccionSearchParams();

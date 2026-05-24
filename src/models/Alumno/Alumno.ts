@@ -4,6 +4,7 @@ import { API_URL } from '../../var/envData';
 import { Grado, Seccion } from '../../types/gradoSalon';
 import { AsistenciaList, AsistenciaValue, Month } from './types';
 import { API_END_POINTS } from '../../config/axios/endPoints';
+import { AMatriculado } from '../../types/alumno';
 setupAxiosInterceptorsTo(axios);
 
 export default class Alumno {
@@ -22,6 +23,10 @@ export default class Alumno {
   static async updateAsistenciaList({ asistenciaList }: { asistenciaList: AsistenciaList }) {
     const API_END_POINT = API_END_POINTS.updateAsistenciaList;
     const response = await axios.post<AxiosResponseSchema<null>>(API_URL + API_END_POINT, { asistenciaList });
+    return response;
+  }
+  static async fetchByGradoSeccion({ grado, seccion }: { grado: Grado; seccion: Seccion }) {
+    const response = await axios.get<AxiosResponseSchema<AMatriculado[]>>(API_URL + API_END_POINTS.FETCH_ALUMNOS_GRADO_SECCION + `?grado=${grado}&seccion=${seccion}`);
     return response;
   }
 }

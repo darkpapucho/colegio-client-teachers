@@ -10,17 +10,18 @@ import { useQuery } from '@tanstack/react-query';
 import { Text } from '../../components/Shared/Text/Text';
 import ErrorHandler from '../../utils/errorManagment';
 import { EstadoMatricula, Grado, Periodo, Seccion } from '../../types/gradoSalon';
-import { useProfesor } from '../../hooks/useProfesor';
 import { theme } from '../../config/styled/styled';
 import { yearState } from '../../config/zustand/year';
 
 import SalonesFilter from '../SalonesFilter.tsx/SalonesFilter';
 import useCurrentPeriodo from '../../hooks/useCurrentPeriodo';
+import useAuth from '../../config/zustand/user';
+import { Teacher } from '../../types/users/profesor';
 
 export default function AsistenciaAlumnos() {
   const { currentPeriodo, isLoading } = useCurrentPeriodo();
   const year = yearState((state) => state.year);
-  const profesor = useProfesor((state) => state.profesor);
+  const profesor = useAuth().user as unknown as Teacher;
   const salonesList = profesor!.salones.filter((salon) => {
     return salon.tutor;
   });

@@ -7,7 +7,6 @@ import { Grado, Nivel, Periodo, Seccion } from '../../../../types/gradoSalon';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createContext, Dispatch, useEffect, useState } from 'react';
 import useCurrentPeriodo from '../../../../hooks/useCurrentPeriodo';
-import { useProfesor } from '../../../../hooks/useProfesor';
 import RegistroInicialReducer, { RegistroInicialReducerAction } from './registroInicialReducer';
 import { useImmerReducer } from 'use-immer';
 import { queryClient } from '../../../../config/reactQuery/reactQuery';
@@ -23,6 +22,8 @@ import { theme } from '../../../../config/styled/styled';
 import RegistroTableBody from './RegistroTableBody';
 import SalonesFilter from '../../../SalonesFilter.tsx/SalonesFilter';
 import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
+import useAuth from '../../../../config/zustand/user';
+import { Teacher } from '../../../../types/users/profesor';
 
 export const RegistroContext = createContext<{
   dispatch: (action: RegistroInicialReducerAction) => void;
@@ -50,7 +51,7 @@ export default function RegistroTableInicial() {
   const nivel = nivelState((state) => state.nivel) as Nivel;
   const { currentPeriodo, isLoading } = useCurrentPeriodo();
   const periodo = (currentPeriodo || 'primerPeriodo') as Periodo;
-  const profesor = useProfesor((state) => state.profesor)!;
+  const profesor = useAuth().user as unknown as Teacher;
   const salones = profesor.salones;
   const { grado, seccion } = useGradoSeccionSearchParams();
 

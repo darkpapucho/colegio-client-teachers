@@ -1,21 +1,10 @@
 import styled from 'styled-components';
-import { CiMoneyCheck1 } from 'react-icons/ci';
-import { BiCalendarCheck, BiFoodMenu, BiSpreadsheet, BiX } from 'react-icons/bi';
-import SideBarMenuItem, { MItem } from './sidebar/SideBarItem';
+import { BiX } from 'react-icons/bi';
+import SideBarMenuItem, { MenuItem } from './sidebar/SideBarItem';
 import SideBarHeader from './sidebar/SideBarHeader';
 import { screenBreakingPoint } from '../../config/styled/styled';
 import { useRef } from 'react';
 import { Icon } from '../../components/Shared/Icon/Icon';
-import { PiUserList } from 'react-icons/pi';
-const SideBarItems: MItem[] = [
-  { label: 'Registro Notas', url: 'registro', icon: <BiSpreadsheet /> },
-  { label: 'Pasar Asistencias', url: 'asistencias', icon: <BiCalendarCheck /> },
-  { label: 'Registro Asistencias', url: 'lista-asistencia', icon: <PiUserList /> },
-  { label: 'Asignaciones', url: '', icon: <BiFoodMenu /> },
-  { label: 'Pensiones', url: 'pensiones', icon: <CiMoneyCheck1 /> },
-  { label: 'Board', url: 'board', icon: <BiFoodMenu /> },
-  { label: 'Generar Libretas', url: 'generar-libretas', icon: <BiFoodMenu /> },
-];
 
 const SideBarContainer = styled.nav`
   position: fixed;
@@ -56,7 +45,8 @@ const SideBarContainer = styled.nav`
     }
   }
 `;
-export default function SideBar() {
+
+export default function SideBar({ menuItems }: { menuItems: MenuItem[] }) {
   const sideBarRef = useRef<HTMLDivElement | null>(null);
 
   return (
@@ -70,7 +60,7 @@ export default function SideBar() {
       <div className="menu-bar">
         <div className="menu">
           <ul className="menu-items">
-            {SideBarItems.map((item, index) => (
+            {menuItems.map((item, index) => (
               <SideBarMenuItem item={item} key={index}></SideBarMenuItem>
             ))}
           </ul>
@@ -78,6 +68,7 @@ export default function SideBar() {
       </div>
     </SideBarContainer>
   );
+
   function hideSidebar() {
     sideBarRef.current!.style.display = 'none';
   }

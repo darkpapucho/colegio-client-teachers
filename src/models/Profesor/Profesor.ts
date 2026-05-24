@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { SalonProfesor } from '../../hooks/useProfesor';
 import setupAxiosInterceptorsTo, { AxiosResponseSchema } from '../../config/axios/axios';
 import { API_END_POINTS } from '../../config/axios/endPoints';
 import { API_URL } from '../../var/envData';
 import { RegistroNotasInicialProfesor } from './types';
 import { HorarioCell } from '../../types/horario';
+import { SalonProfesor } from '../../types/users/profesor';
 
 setupAxiosInterceptorsTo(axios);
 

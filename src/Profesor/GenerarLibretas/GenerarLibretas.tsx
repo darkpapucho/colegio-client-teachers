@@ -3,7 +3,6 @@ import { Button } from '../../components/Shared/Button/Button';
 import { Container } from '../../components/Shared/Container/Container';
 import { Text } from '../../components/Shared/Text/Text';
 import { nivelState } from '../../config/zustand/nivel';
-import { useProfesor } from '../../hooks/useProfesor';
 import SalonesFilter from '../SalonesFilter.tsx/SalonesFilter';
 import Loader from '../../components/Shared/Loader/Loader';
 import Notas from '../../models/Notas/Notas';
@@ -11,9 +10,11 @@ import { useSearchParams } from 'react-router-dom';
 import { Grado, Seccion } from '../../types/gradoSalon';
 import ErrorHandler from '../../utils/errorManagment';
 import { updateToken } from '../../utils/axiosUtils';
+import useAuth from '../../config/zustand/user';
+import { Teacher } from '../../types/users/profesor';
 
 export default function GenerarLibretas() {
-  const profesor = useProfesor((state) => state.profesor)!;
+  const profesor = useAuth().user as unknown as Teacher;
   const salones = profesor.salones;
   const nivel = nivelState((state) => state.nivel)!;
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,7 +37,7 @@ export default function GenerarLibretas() {
     try {
       const grado = searchParams.get('grado') as Grado | undefined;
       const seccion = searchParams.get('seccion') as Seccion | undefined;
-      console.log({ nivel, grado, seccion });
+
       if (!grado || !seccion) throw new Error('Grado o seccion inválidos');
       setLoading(true);
       const response = await Notas.generateLibretaNotas({ grado, seccion, nivel });

@@ -14,13 +14,15 @@ import { MONTHS_SELECT_OPTIONS } from '../../../var/calendario';
 import PasarAsistenciasTable from './PasarAsistenciaTable';
 import useFetchAsistenciaListByDayId from '../../../hooks/useFetchAsistenciaListByDayId';
 import useGradoSeccionSearchParams from '../../../hooks/useGradoSeccionSearchParams';
-import { useProfesor } from '../../../hooks/useProfesor';
+
 import useUpdateAsistenciaListGeneral from '../../../hooks/useUpdateAsistenciaListGeneral';
 import { DaysContainer } from './DaysContainer';
 import SalonesFilter from '../../SalonesFilter.tsx/SalonesFilter';
+import useAuth from '../../../config/zustand/user';
+import { Teacher } from '../../../types/users/profesor';
 
 export default function PasarAsistencia() {
-  const profesor = useProfesor((state) => state.profesor);
+  const profesor = useAuth().user as unknown as Teacher;
   const salonesList = profesor!.salones.filter((salon) => {
     return salon.tutor;
   });

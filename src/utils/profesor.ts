@@ -1,5 +1,5 @@
-import { SalonProfesor } from '../hooks/useProfesor';
 import { Seccion } from '../types/gradoSalon';
+import { SalonProfesor } from '../types/users/profesor';
 
 export function generateGrados(salones: SalonProfesor[]): { label: string; value: string }[] {
   const result = [

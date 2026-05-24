@@ -3,7 +3,6 @@ import { CURSO_SALON, RecordNotas } from '../../../../types/notas';
 import { Container } from '../../../../components/Shared/Container/Container';
 import { Button } from '../../../../components/Shared/Button/Button';
 import { theme } from '../../../../config/styled/styled';
-import { useProfesor } from '../../../../hooks/useProfesor';
 import { createContext, useEffect, useState } from 'react';
 import RegistroTable from './RegistroTable';
 import { Periodo } from '../../../../types/gradoSalon';
@@ -16,6 +15,8 @@ import Notas from '../../../../models/Notas/Notas';
 import { updateToken } from '../../../../utils/axiosUtils';
 import toaster from 'react-hot-toast';
 import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
+import useAuth from '../../../../config/zustand/user';
+import { Teacher } from '../../../../types/users/profesor';
 
 type ContextType = {
   registro: RecordNotas[];
@@ -29,7 +30,7 @@ export const RegistroPrimariaContext = createContext<ContextType | null>(null);
 export default function RegistroTablePrimaria({ periodo }: { periodo: Periodo }) {
   const [loading, setLoading] = useState<boolean>(false);
   const { grado, seccion } = useGradoSeccionSearchParams();
-  const profesor = useProfesor((state) => state.profesor)!;
+  const profesor = useAuth().user as unknown as Teacher;
   const cursosProfesor = profesor.salones.find((salon) => salon.label === `${grado} ${seccion}`)?.cursos ?? [];
   const isTutor = profesor.salones.some((salon) => salon.label === `${grado} ${seccion}` && salon.tutor);
   const [registro, dispatch] = useImmerReducer<RecordNotas[], RegistroPrimariaActions>(RegistroPrimariaReducer, []);

@@ -1,6 +1,7 @@
 // import logo from '/logo.png';
 
-import { useProfesor } from '../../hooks/useProfesor';
+import useAuth from '../../config/zustand/user';
+import { Teacher } from '../../types/users/profesor';
 import Anouncements from './Anouncements/Anouncements';
 
 import TeacherSchedule from './TeacherSchedule/TeacherSchedule';
@@ -12,7 +13,7 @@ import TeacherSchedule from './TeacherSchedule/TeacherSchedule';
 // ];
 
 export default function IndexTeacher() {
-  const profesor = useProfesor((state) => state.profesor)!;
+  const profesor = useAuth().user as unknown as Teacher;
 
   return (
     <div className="@container w-[100%] bg-white">

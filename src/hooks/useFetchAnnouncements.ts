@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { nivelState } from '../config/zustand/nivel';
 import { yearState } from '../config/zustand/year';
-import { useProfesor } from './useProfesor';
 import Announcements from '../models/Announcements/Announcements';
 import { updateToken } from '../utils/axiosUtils';
 import { useEffect } from 'react';
 import ErrorHandler from '../utils/errorManagment';
+import useAuth from '../config/zustand/user';
+import { Teacher } from '../types/users/profesor';
 
 export default function useFetchAnnouncements() {
   const nivel = nivelState((state) => state.nivel);
   const year = yearState((state) => state.year);
-  const profesorId = useProfesor((state) => state.profesor?._id)!;
+  const profesorId = (useAuth().user as unknown as Teacher)._id;
   const { data, isFetching, error } = useQuery({
     queryKey: ['announcements', nivel, year, profesorId],
     queryFn: fetchAnnouncements,

@@ -2,17 +2,18 @@ import { useState } from 'react';
 import Modal from '../../../components/Shared/Modal/Modal';
 import Select from '../../../components/Shared/Select/Select';
 import useCustomEvent from '../../../hooks/useCustomEvent';
-import { Profesor } from '../../../models/Profesor/Profesor';
-import { useProfesor } from '../../../hooks/useProfesor';
 import { updateToken } from '../../../utils/axiosUtils';
 import { Button } from '../../../components/Shared/Button/Button';
 import toast from 'react-hot-toast';
 import ErrorHandler from '../../../utils/errorManagment';
 import { convertNumberToDayName } from './scheduleData';
+import useAuth from '../../../config/zustand/user';
+import { Teacher } from '../../../types/users/profesor';
+import { Profesor } from '../../../models/Profesor/Profesor';
 
 export default function AgregarCeldaHorario({ onCloseModal, startTime }: { onCloseModal: () => void; startTime: Date }) {
-  const profesor = useProfesor((state) => state.profesor)!;
-  const setHorario = useProfesor((state) => state.setHorario);
+  const { user, updateUser } = useAuth();
+  const profesor = user as unknown as Teacher;
   const salonCursosData = profesor.salones.map((record) => {
     return { salon: record.label, cursos: record.cursos };
   });
@@ -79,7 +80,9 @@ export default function AgregarCeldaHorario({ onCloseModal, startTime }: { onClo
 
       updateToken(response);
       if (!response.data.ok) throw new Error(response.data.message);
-      setHorario(response.data.payload);
+
+      updateUser({ horario: response.data.payload });
+      // setHorario(response.data.payload);
       toast.success('agregado!');
       onCloseModal();
     } catch (err) {

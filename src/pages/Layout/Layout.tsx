@@ -3,6 +3,7 @@ import SideBar from './SideBar';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import { screenBreakingPoint } from '../../config/styled/styled';
+import { MenuItem } from './sidebar/SideBarItem';
 
 const LayoutContainer = styled.div`
   display: grid;
@@ -27,11 +28,11 @@ const MainContainer = styled.div`
     padding: 2rem;
   }
 `;
-export default function Layout() {
+export default function Layout({ menuItems }: { menuItems: MenuItem[] }) {
   return (
     <LayoutContainer>
       <Header></Header>
-      <SideBar />
+      <SideBar menuItems={menuItems} />
       <MainContainer>
         <Outlet />
       </MainContainer>

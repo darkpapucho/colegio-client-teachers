@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Container } from '../../components/Shared/Container/Container';
 import Input from '../../components/Shared/Input/Input';
-import { useProfesor } from '../../hooks/useProfesor';
+
 import ErrorHandler from '../../utils/errorManagment';
 import { Profesor } from '../../models/Profesor/Profesor';
 import { updateToken } from '../../utils/axiosUtils';
@@ -9,9 +9,11 @@ import toaster from 'react-hot-toast';
 import { Button } from '../../components/Shared/Button/Button';
 import { Text } from '../../components/Shared/Text/Text';
 import { theme } from '../../config/styled/styled';
+import useAuth from '../../config/zustand/user';
+import { Teacher } from '../../types/users/profesor';
 export default function CambiarPassword() {
   const currentPasswordRef = useRef<HTMLInputElement | null>(null);
-  const profesor = useProfesor((state) => state.profesor);
+  const profesor = useAuth().user as unknown as Teacher;
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [newPassword, setNewPassword] = useState<string>('');
@@ -31,9 +33,7 @@ export default function CambiarPassword() {
         isError={newPasswordError}></Input>
       {newPasswordError && (
         <Container $bgColor={theme.colors.tertiary.light} $width="38rem">
-          <Text $color={theme.colors.red.dark}>
-            la nueva contraseña debe ser de 8 caracteres y contener al menos una letra y un numero sin símbolos ni caracteres especiales
-          </Text>
+          <Text $color={theme.colors.red.dark}>la nueva contraseña debe ser de 8 caracteres y contener al menos una letra y un numero sin símbolos ni caracteres especiales</Text>
         </Container>
       )}
       <Input
@@ -53,10 +53,7 @@ export default function CambiarPassword() {
         </Container>
       )}
 
-      <Button
-        $width="max-content"
-        $primary
-        onClick={() => handleChangePassword({ userId: profesor!.userId, newPassword, currentPassword: currentPasswordRef.current!.value })}>
+      <Button $width="max-content" $primary onClick={() => handleChangePassword({ userId: profesor!.userId, newPassword, currentPassword: currentPasswordRef.current!.value })}>
         Cambiar contraseña
       </Button>
     </Container>

@@ -11,10 +11,12 @@ import { nivelState } from '../../../config/zustand/nivel';
 import { AMatriculado } from '../../../types/alumno';
 import ErrorHandler from '../../../utils/errorManagment';
 import Pensiones from '../../../models/Pensiones/Pension';
-import { useProfesor } from '../../../hooks/useProfesor';
+
 import { generateGrados, generateSecciones } from '../../../utils/profesor';
 import usePensionesLastUpdateDate from '../../../hooks/usePensionesLastUpdateDate';
 import { Text } from '../../../components/Shared/Text/Text';
+import useAuth from '../../../config/zustand/user';
+import { Teacher } from '../../../types/users/profesor';
 
 export const PensionesByGradoSeccionContext = createContext<{
   setData: React.Dispatch<
@@ -31,7 +33,7 @@ export const PensionesByGradoSeccionContext = createContext<{
 
 export default function PensionesByGradoSeccion() {
   const nivel = nivelState((state) => state.nivel) as Nivel;
-  const profesor = useProfesor((state) => state.profesor);
+  const profesor = useAuth().user as unknown as Teacher;
   // const salones = profesor!.salones;
 
   const salonesList = profesor?.salones.filter((salon) => {

@@ -14,13 +14,14 @@ import NotaTab from './NotaTab';
 import { RegistroPrimariaContext } from './RegistroTablePrimaria';
 import ConductaTab from './ConductaTab';
 import EditConClusionesDescriptivasModal from '../EditConclusionesDescriptivasModal';
-import { Profesor, useProfesor } from '../../../../hooks/useProfesor';
 
 import Loader from '../../../../components/Shared/Loader/Loader';
 import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
+import useAuth from '../../../../config/zustand/user';
+import { Teacher } from '../../../../types/users/profesor';
 
 export default function RegistroTable({ cursosProfesor, registro, periodo }: { cursosProfesor: CURSO_SALON[]; registro: RecordNotas[]; periodo: Periodo }) {
-  const profesor = useProfesor((state) => state.profesor) as Profesor;
+  const profesor = useAuth().user as unknown as Teacher;
   const [showCDModal, setShowCDModal] = useState<boolean>(false);
   const [selectedRecord, setSelectedRecord] = useState<RecordNotas | undefined>(undefined);
   const { dispatch } = useContext(RegistroPrimariaContext)!;

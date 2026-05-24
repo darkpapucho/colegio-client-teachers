@@ -2,7 +2,6 @@ import { momentLocalizer, Calendar, View, SlotInfo, Event, EventProps } from 're
 import { useState } from 'react';
 import AgregarCeldaHorario from './AgregarCeldaHorario';
 import { StaticDate } from '../../../var/DateForCalendarBigReact';
-import { useProfesor } from '../../../hooks/useProfesor';
 import { HorarioCell } from '../../../types/horario';
 import { BiEdit, BiSave } from 'react-icons/bi';
 import { Button } from '../../../components/Shared/Button/Button';
@@ -15,6 +14,8 @@ import toast from 'react-hot-toast';
 import moment from 'moment-timezone';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import './style.css';
+import useAuth from '../../../config/zustand/user';
+import { Teacher } from '../../../types/users/profesor';
 
 moment.locale('es');
 moment.tz.setDefault('America/Lima');
@@ -44,8 +45,8 @@ const CustomEvent = ({ event }: EventProps<MyEvent>) => {
 };
 
 export default function TeacherSchedule() {
-  const profesor = useProfesor((state) => state.profesor)!;
-  const setHorario = useProfesor((state) => state.setHorario);
+  const profesor = useAuth().user as unknown as Teacher;
+  const updateUser = useAuth().updateUser;
   // const setHorario = useProfesor((state) => state.setHorario);
   const horario = profesor.horario.map((record: HorarioCell) => {
     return {
@@ -124,7 +125,7 @@ export default function TeacherSchedule() {
           `Eliminar ${convertNumberToDayName(event.start!.getDate())} ${event.start!.getHours().toString().padStart(2, '0')}-${event
             .start!.getMinutes()
             .toString()
-            .padStart(2, '0')}`
+            .padStart(2, '0')}`,
         )
       )
         return;
@@ -135,7 +136,7 @@ export default function TeacherSchedule() {
         return new Date(record.startTime).toString() != event.start!.toString() && new Date(record.endTime).toString() != event.end!.toString();
       });
 
-      setHorario(updatedHorario);
+      updateUser({ horario: updatedHorario });
       toast.success('eliminado');
     } catch (err) {
       ErrorHandler(err);

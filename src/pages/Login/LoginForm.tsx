@@ -5,7 +5,6 @@ import { theme } from '../../config/styled/styled';
 import { Link, Navigate } from 'react-router-dom';
 import { FormEvent } from 'react';
 import { FaLock, FaUser } from 'react-icons/fa';
-import { Profesor, useProfesor } from '../../hooks/useProfesor';
 import axios from 'axios';
 import Select from '../../components/Shared/Select/Select';
 import useCustomEvent from '../../hooks/useCustomEvent';
@@ -17,6 +16,8 @@ import ErrorHandler from '../../utils/errorManagment';
 import { Container } from '../../components/Shared/Container/Container';
 import { API_END_POINTS } from '../../config/axios/endPoints';
 import { API_URL } from '../../var/envData';
+import useAuth, { User } from '../../config/zustand/user';
+import Loader from '../../components/Shared/Loader/Loader';
 
 const LoginFormContainer = styled.div`
   grid-column: 2 / -2;
@@ -51,27 +52,33 @@ const LoginFormContainer = styled.div`
 `;
 
 export default function LoginForm() {
-  const profesor = useProfesor((state) => state.profesor);
+  const { user, isLoading, login, setIsLoading, logout } = useAuth();
   const setToken = tokenState((state) => state.setToken);
   const setNivel = nivelState((state) => state.setNivel);
-  //const resetNivel = nivelState((state) => state.resetNivel);
+
   const nivel = nivelState((state) => state.nivel);
   const year = yearState((state) => state.year);
-  const setProfesor = useProfesor((state) => state.setProfesor);
 
   useCustomEvent('customSelect', listener);
   function listener(event: CustomEvent) {
     const { name, value } = event.detail;
-
     if (name === 'nivel') {
       setNivel(value);
     }
   }
-  if (profesor !== null) {
-    return <Navigate to={'/menu'} />;
+
+  if (user !== undefined) {
+    if (user.rol == 'profesor') {
+      return <Navigate to={'/menu/pedagogia'} />;
+    }
+    if (user.rol == 'psicologo') {
+      return <Navigate to="/menu/psicologia" />;
+    }
+    logout();
   }
   return (
     <LoginFormContainer>
+      {isLoading && <Loader />}
       <form onSubmit={onSubmit}>
         <h2>Login</h2>
         <Input width="100%" type="text" vertical name="username" label="Usuario" icon={<FaUser />}></Input>
@@ -95,22 +102,24 @@ export default function LoginForm() {
     const url = API_URL + API_END_POINTS.loginProfesor;
 
     try {
-      const response = await axios.post<AxiosResponseSchema<{ profesor: Profesor; token: string }>>(url, {
+      setIsLoading(true);
+      const response = await axios.post<AxiosResponseSchema<{ user: User; token: string }>>(url, {
         year,
         nivel,
         username,
         password,
       });
 
-      if (response.data.ok) {
-        setProfesor(response.data.payload.profesor);
-        setToken(response.data.payload.token);
-      } else {
-        // resetNivel();
-        throw new Error(response.data.message);
-      }
+      const { ok } = response.data;
+      if (!ok) throw new Error(response.data.message);
+      const { payload } = response.data;
+      if (payload.user == undefined) throw new Error('INVALID CREDENTIALS');
+      login(payload.user);
+      setToken(response.data.payload.token);
     } catch (error) {
       ErrorHandler(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 }

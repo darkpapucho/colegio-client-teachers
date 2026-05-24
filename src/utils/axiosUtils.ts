@@ -1,11 +1,13 @@
 import { AxiosResponse } from 'axios';
 import toaster from 'react-hot-toast';
-import { useProfesor } from '../hooks/useProfesor';
 import { nivelState } from '../config/zustand/nivel';
 import { AxiosResponseSchema } from '../config/axios/axios';
 import { ErrorMessages } from './error';
+import useAuth from '../config/zustand/user';
+
+const logout = useAuth.getState().logout;
 export function HandleLogOut() {
-  useProfesor.getState().clearProfesor();
+  logout();
   nivelState.getState().resetNivel();
   toaster.error('Tu sesión ha finalizado, por favor ingrese nuevamente.');
 }

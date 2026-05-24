@@ -7,13 +7,15 @@ import { Profesor } from '../../models/Profesor/Profesor';
 import { updateToken } from '../../utils/axiosUtils';
 import toast from 'react-hot-toast';
 import ErrorHandler from '../../utils/errorManagment';
-import { useProfesor } from '../../hooks/useProfesor';
 import Select from '../../components/Shared/Select/Select';
 import useCustomEvent from '../../hooks/useCustomEvent';
 import SalonCard from '../../components/Shared/SalonCard/SalonCard';
+import useAuth from '../../config/zustand/user';
+import { Teacher } from '../../types/users/profesor';
 
 export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number; onCloseModal: () => void }) {
-  const { setAnuncios, profesor } = useProfesor((state) => state);
+  const profesor = useAuth().user as unknown as Teacher;
+  const updateUser = useAuth().updateUser;
   const [loading, setLoading] = useState(false);
   const tituloRef = useRef<HTMLInputElement | null>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -64,7 +66,7 @@ export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number;
       const nuevosAnuncios = profesor!.anuncios;
 
       nuevosAnuncios!.push({ content, title, date, _id: response.data.payload, salones: selectedSalones });
-      setAnuncios(nuevosAnuncios);
+      updateUser({ anuncios: nuevosAnuncios });
       onCloseModal();
     } catch (err) {
       ErrorHandler(err);

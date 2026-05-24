@@ -3,11 +3,12 @@ import { Button } from './Button/Button';
 import { FaTrashCan } from 'react-icons/fa6';
 import Loader from './Loader/Loader';
 import ErrorHandler from '../../utils/errorManagment';
-import { useProfesor } from '../../hooks/useProfesor';
 import { Profesor } from '../../models/Profesor/Profesor';
 import { updateToken } from '../../utils/axiosUtils';
 import toast from 'react-hot-toast';
 import { Announcement, ProfesorAnnouncement } from '../../types/announcements';
+import useAuth from '../../config/zustand/user';
+import { Teacher } from '../../types/users/profesor';
 interface AnuncioCardProfesorProps {
   type: 'teacher';
   anuncio: ProfesorAnnouncement;
@@ -19,8 +20,8 @@ interface AnuncioCardGeneralProps {
 
 export default function AnuncioCard({ type, anuncio }: AnuncioCardProfesorProps | AnuncioCardGeneralProps) {
   const [loading, setLoading] = useState(false);
-  const { profesor, setAnuncios } = useProfesor((state) => state);
-
+  const profesor = useAuth().user as unknown as Teacher;
+  const updateUser = useAuth().updateUser;
   return (
     <>
       {loading && <Loader />}
@@ -60,7 +61,7 @@ export default function AnuncioCard({ type, anuncio }: AnuncioCardProfesorProps 
       if (!response.data.ok) throw new Error(response.data.message);
       toast.success('anuncio eliminado');
       const anuncios = profesor!.anuncios;
-      setAnuncios(anuncios.filter((anuncio) => anuncio._id !== anuncio._id));
+      updateUser({ anuncios: anuncios.filter((anuncio) => anuncio._id !== anuncio._id) });
     } catch (err) {
       ErrorHandler(err);
     } finally {

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { screenBreakingPoint, theme } from '../../config/styled/styled';
 import { BiCog, BiLogOut, BiMenu } from 'react-icons/bi';
-import { useProfesor } from '../../hooks/useProfesor';
 import { Icon } from '../../components/Shared/Icon/Icon';
 import { HandleLogOut } from '../../utils/axiosUtils';
 import { useState } from 'react';
 import DropDownMenu from './DropDownMenu';
+import { Teacher } from '../../types/users/profesor';
+import useAuth from '../../config/zustand/user';
 
 const HeaderContainer = styled.div`
   grid-column: 1 / 2;
@@ -46,7 +47,7 @@ const HeaderContainer = styled.div`
 `;
 
 export default function Header() {
-  const profesor = useProfesor((state) => state.profesor);
+  const profesor = useAuth().user as unknown as Teacher;
   const [showDropDown, setShowDropDown] = useState(false);
   return (
     <HeaderContainer>
