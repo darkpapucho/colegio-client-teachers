@@ -6,7 +6,7 @@ import { GlobalStyle, theme } from './config/styled/styled.ts';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './config/reactQuery/reactQuery.ts';
 import { Toaster } from 'react-hot-toast';
-import './main.css';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <GlobalStyle />
@@ -16,5 +16,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <App />
       </QueryClientProvider>
     </ThemeProvider>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

@@ -1,5 +1,6 @@
 // import logo from '/logo.png';
 
+import { Container } from '../../components/Shared/Container/Container';
 import useAuth from '../../config/zustand/user';
 import { Teacher } from '../../types/users/profesor';
 import Anouncements from './Anouncements/Anouncements';
@@ -16,15 +17,17 @@ export default function IndexTeacher() {
   const profesor = useAuth().user as unknown as Teacher;
 
   return (
-    <div className="@container w-[100%] bg-white">
-      <div className="grid grid-cols-1 @[840px]:grid-cols-3 w-full h-max gap-[2rem]">
+    <Container $width="100%" $direction="column">
+      <Container $direction="row" $width="100%">
         {/* LEFT */}
-        <div className="col-span-1 @[840px]:col-span-2  h-max">{profesor && profesor.salones && <TeacherSchedule />}</div>
+        <Container $width="70%" $direction="row" $height="100%">
+          {profesor && profesor.salones && <TeacherSchedule />}
+        </Container>
         {/* RIGHT */}
-        <div className="col-span-1 p-4 ">
+        <Container $width="30%" $direction="column" $height="100dvh">
           <Anouncements />
-        </div>
-      </div>
-    </div>
+        </Container>
+      </Container>
+    </Container>
   );
 }

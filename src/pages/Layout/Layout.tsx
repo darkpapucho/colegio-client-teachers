@@ -23,6 +23,7 @@ const MainContainer = styled.div`
   justify-content: flex-start;
   background-color: tertiary;
   background-color: white;
+  width: 100%;
   @media (width>${screenBreakingPoint}) {
     grid-column: 2 / 3;
     padding: 2rem;

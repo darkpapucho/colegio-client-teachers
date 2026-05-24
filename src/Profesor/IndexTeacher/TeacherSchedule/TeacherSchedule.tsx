@@ -8,7 +8,11 @@ import { Button } from '../../../components/Shared/Button/Button';
 import Loader from '../../../components/Shared/Loader/Loader';
 import ErrorHandler from '../../../utils/errorManagment';
 import { Profesor } from '../../../models/Profesor/Profesor';
-import { convertNumberToDayName, parseSalonToDisplayCalendarSalon, praseCursoToDisplayCalendarCurso } from './scheduleData';
+import {
+  convertNumberToDayName,
+  parseSalonToDisplayCalendarSalon,
+  praseCursoToDisplayCalendarCurso,
+} from './scheduleData';
 import { updateToken } from '../../../utils/axiosUtils';
 import toast from 'react-hot-toast';
 import moment from 'moment-timezone';
@@ -16,12 +20,14 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import './style.css';
 import useAuth from '../../../config/zustand/user';
 import { Teacher } from '../../../types/users/profesor';
+import { Container } from '../../../components/Shared/Container/Container';
+import { Text } from '../../../components/Shared/Text/Text';
 
 moment.locale('es');
 moment.tz.setDefault('America/Lima');
 const localizer = momentLocalizer(moment);
 
-const views: View[] = ['work_week', 'day'];
+const views: View[] = ['work_week'];
 const minHour = new Date(StaticDate[0], StaticDate[1], StaticDate[2], 8, 0, 0);
 const maxHour = new Date(StaticDate[0], StaticDate[1], StaticDate[2], 18, 30, 0);
 interface MyEvent extends Event {
@@ -33,14 +39,16 @@ interface MyEvent extends Event {
 }
 
 const TouchCalendar = withDragAndDrop(Calendar<MyEvent>);
+
+//lo que se va  mostrar en el calendario(cada casilla)
 const CustomEvent = ({ event }: EventProps<MyEvent>) => {
   return (
-    <div className="rbc-event-content">
-      <div className="flex flex-col w-full justify-center items-center @ gap-[4px]">
-        <div className="text-[10px]">{parseSalonToDisplayCalendarSalon(event.salon!)}</div>
-        <div className="text-[10px]">{praseCursoToDisplayCalendarCurso(event.curso!)}</div>
-      </div>
-    </div>
+    <Container $direction="column" $height="34px" $width="17rem" $gap=".3rem" $justifyContent="flex-start">
+      <Text $fontSize="small" $color="black" $primary $fontWeight="300">
+        {parseSalonToDisplayCalendarSalon(event.salon!)}
+      </Text>
+      <Text $fontSize="small">{praseCursoToDisplayCalendarCurso(event.curso!)}</Text>
+    </Container>
   );
 };
 
@@ -67,11 +75,13 @@ export default function TeacherSchedule() {
   const [editMode, setEditMode] = useState(false);
 
   return (
-    <div className="w-full h-max p-4">
+    <Container $width="100%" $height="100%" $padding="2rem" $direction="column">
       {loading && <Loader />}
       {selectedEmptySlot && <AgregarCeldaHorario onCloseModal={onCloseModal} startTime={selectedEmptySlot} />}
-      <div className="flex flex-row items-center justify-between h-[10%] bg-white">
-        <p className="text-[22px] font-semibold m-px">Horario</p>
+      <Container $direction="row" $alignItems="center" $justifyContent="space-between" $height="10%">
+        <Text $fontSize="32px" $fontWeight="500">
+          Horario
+        </Text>
         {editMode ? (
           <Button $width="max-content" $color="#449ff5" onClick={() => setEditMode(false)}>
             <BiSave />
@@ -81,31 +91,30 @@ export default function TeacherSchedule() {
             <BiEdit />
           </Button>
         )}
-      </div>
-      <div className="w-full h-[90%] bg-white ">
-        <TouchCalendar
-          // Important for mobile
-          // Mobile-specific props:
-          longPressThreshold={200}
-          components={{ event: CustomEvent }}
-          onNavigate={() => {}}
-          onSelectSlot={handleClickSlot}
-          onSelectEvent={handleSelectEvent}
-          date={defaultDate}
-          localizer={localizer}
-          events={horario}
-          startAccessor="start"
-          endAccessor="end"
-          views={views}
-          onView={setView}
-          view={view}
-          step={22.5}
-          min={minHour}
-          max={maxHour}
-          selectable={true}
-        />
-      </div>
-    </div>
+      </Container>
+
+      <TouchCalendar
+        // Important for mobile
+        // Mobile-specific props:
+        longPressThreshold={200}
+        components={{ event: CustomEvent }}
+        onNavigate={() => {}}
+        onSelectSlot={handleClickSlot}
+        onSelectEvent={handleSelectEvent}
+        date={defaultDate}
+        localizer={localizer}
+        events={horario}
+        startAccessor="start"
+        endAccessor="end"
+        views={views}
+        onView={setView}
+        view={view}
+        step={22.5}
+        min={minHour}
+        max={maxHour}
+        selectable={true}
+      />
+    </Container>
   );
   function handleClickSlot(slotInfo: SlotInfo) {
     if (!editMode) return;
@@ -129,11 +138,20 @@ export default function TeacherSchedule() {
         )
       )
         return;
-      const response = await Profesor.eliminarHorarioCell({ startTime: event.start!, endTime: event.end!, curso, salon, profesorId: profesor._id });
+      const response = await Profesor.eliminarHorarioCell({
+        startTime: event.start!,
+        endTime: event.end!,
+        curso,
+        salon,
+        profesorId: profesor._id,
+      });
       updateToken(response);
       if (!response.data.ok) throw new Error(response.data.message);
       const updatedHorario = profesor.horario.filter((record) => {
-        return new Date(record.startTime).toString() != event.start!.toString() && new Date(record.endTime).toString() != event.end!.toString();
+        return (
+          new Date(record.startTime).toString() != event.start!.toString() &&
+          new Date(record.endTime).toString() != event.end!.toString()
+        );
       });
 
       updateUser({ horario: updatedHorario });
