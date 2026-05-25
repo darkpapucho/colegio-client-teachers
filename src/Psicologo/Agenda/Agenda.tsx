@@ -38,9 +38,9 @@ const components: Components = {
     const type = eventProps.event.data.type;
     switch (type) {
       case 'uno':
-        return <div>UNO</div>;
+        return <div>UNO!</div>;
       case 'dos':
-        return <div>DOS</div>;
+        return <div>DOS!</div>;
     }
   },
   week: {
