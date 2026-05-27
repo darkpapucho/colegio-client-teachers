@@ -1,5 +1,5 @@
-import { momentLocalizer, Calendar, View, SlotInfo, Event, EventProps } from 'react-big-calendar';
-import { useState } from 'react';
+import { momentLocalizer, Calendar, View, SlotInfo, Event, EventProps, type Components } from 'react-big-calendar';
+import { useEffect, useState } from 'react';
 import AgregarCeldaHorario from './AgregarCeldaHorario';
 import { StaticDate } from '../../../var/DateForCalendarBigReact';
 import { HorarioCell } from '../../../types/horario';
@@ -44,14 +44,20 @@ const TouchCalendar = withDragAndDrop(Calendar<MyEvent>);
 const CustomEvent = ({ event }: EventProps<MyEvent>) => {
   return (
     <Container $direction="column" $height="34px" $width="17rem" $gap=".3rem" $justifyContent="flex-start">
-      <Text $fontSize="small" $color="black" $primary $fontWeight="300">
+      <Text $fontSize="small" $color="white" $primary $fontWeight="300">
         {parseSalonToDisplayCalendarSalon(event.salon!)}
       </Text>
       <Text $fontSize="small">{praseCursoToDisplayCalendarCurso(event.curso!)}</Text>
     </Container>
   );
 };
-
+const components: Components = {
+  event: CustomEvent,
+  header: (prop: any) => {
+    console.log({ info: prop });
+    return <div>{new Date(prop.date).toLocaleDateString('es-ES', { weekday: 'long' }).toUpperCase()}</div>;
+  },
+};
 export default function TeacherSchedule() {
   const profesor = useAuth().user as unknown as Teacher;
   const updateUser = useAuth().updateUser;
@@ -73,9 +79,14 @@ export default function TeacherSchedule() {
   const [view, setView] = useState<View>('work_week');
   const [selectedEmptySlot, setSelectedEmptySlot] = useState<Date | null>(null);
   const [editMode, setEditMode] = useState(false);
-
+  useEffect(() => {
+    onLoadSchedule();
+  }, []);
+  useEffect(() => {
+    onEditMode();
+  }, [editMode]);
   return (
-    <Container $width="100%" $height="100%" $padding="2rem" $direction="column">
+    <Container $width="100%" $height="100%" $padding="2rem" $direction="column" id="horario-teacher">
       {loading && <Loader />}
       {selectedEmptySlot && <AgregarCeldaHorario onCloseModal={onCloseModal} startTime={selectedEmptySlot} />}
       <Container $direction="row" $alignItems="center" $justifyContent="space-between" $height="10%">
@@ -96,8 +107,19 @@ export default function TeacherSchedule() {
       <TouchCalendar
         // Important for mobile
         // Mobile-specific props:
+        culture="es"
+        messages={{
+          week: 'Semana',
+          work_week: 'Semana de trabajo',
+          day: 'Día',
+          month: 'Mes',
+          previous: 'Atrás',
+          next: 'Después',
+          today: 'Hoy',
+          agenda: 'El Diario',
+        }}
         longPressThreshold={200}
-        components={{ event: CustomEvent }}
+        components={components}
         onNavigate={() => {}}
         onSelectSlot={handleClickSlot}
         onSelectEvent={handleSelectEvent}
@@ -109,10 +131,12 @@ export default function TeacherSchedule() {
         views={views}
         onView={setView}
         view={view}
-        step={22.5}
+        timeslots={1}
+        step={45}
         min={minHour}
         max={maxHour}
         selectable={true}
+        toolbar={false}
       />
     </Container>
   );
@@ -164,5 +188,26 @@ export default function TeacherSchedule() {
   }
   function onCloseModal() {
     setSelectedEmptySlot(null);
+  }
+  function onLoadSchedule() {
+    const horario = document.getElementById('horario-teacher');
+    const allDayCells = horario!.getElementsByClassName('rbc-allday-cell');
+    const allDayCellsArray = Array.from(allDayCells) as HTMLElement[];
+    allDayCellsArray.forEach((ele) => (ele.style.display = 'none'));
+    //disable buttons
+    const buttons = horario!.getElementsByClassName('rbc-button-link');
+    const buttonsArray = Array.from(buttons) as HTMLElement[];
+    buttonsArray.forEach((ele) => {
+      ele.style.width = '100%';
+      ele.style.cursor = 'default';
+      ele.setAttribute('disable', 'true');
+    });
+  }
+  function onEditMode() {
+    // const horario = document.getElementById('horario-teacher');
+    // const timeSlotGroups = Array.from(horario!.getElementsByClassName('rbc-timeslot-group')) as HTMLElement[];
+    // timeSlotGroups.forEach((ele) => {
+    //   ele.classList.toggle('onHoverTimeSlot');
+    // });
   }
 }
