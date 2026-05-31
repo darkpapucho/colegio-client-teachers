@@ -10,7 +10,7 @@ import { Button } from '../../components/Shared/Button/Button';
 import { Text } from '../../components/Shared/Text/Text';
 import { theme } from '../../config/styled/styled';
 import useAuth from '../../config/zustand/user';
-import { Teacher } from '../../types/users/profesor';
+import { Teacher } from '../../config/zustand/types/teacher';
 export default function CambiarPassword() {
   const currentPasswordRef = useRef<HTMLInputElement | null>(null);
   const profesor = useAuth().user as unknown as Teacher;
@@ -21,7 +21,13 @@ export default function CambiarPassword() {
 
   return (
     <Container $direction="column" $width="100%">
-      <Input vertical ref={currentPasswordRef} width="38rem" name="currentPassword" label="contraseña actual" type="password"></Input>
+      <Input
+        vertical
+        ref={currentPasswordRef}
+        width="38rem"
+        name="currentPassword"
+        label="contraseña actual"
+        type="password"></Input>
       <Input
         vertical
         width="38rem"
@@ -33,7 +39,10 @@ export default function CambiarPassword() {
         isError={newPasswordError}></Input>
       {newPasswordError && (
         <Container $bgColor={theme.colors.tertiary.light} $width="38rem">
-          <Text $color={theme.colors.red.dark}>la nueva contraseña debe ser de 8 caracteres y contener al menos una letra y un numero sin símbolos ni caracteres especiales</Text>
+          <Text $color={theme.colors.red.dark}>
+            la nueva contraseña debe ser de 8 caracteres y contener al menos una letra y un numero sin símbolos ni
+            caracteres especiales
+          </Text>
         </Container>
       )}
       <Input
@@ -53,7 +62,16 @@ export default function CambiarPassword() {
         </Container>
       )}
 
-      <Button $width="max-content" $primary onClick={() => handleChangePassword({ userId: profesor!.userId, newPassword, currentPassword: currentPasswordRef.current!.value })}>
+      <Button
+        $width="max-content"
+        $primary
+        onClick={() =>
+          handleChangePassword({
+            userId: profesor!.userId,
+            newPassword,
+            currentPassword: currentPasswordRef.current!.value,
+          })
+        }>
         Cambiar contraseña
       </Button>
     </Container>
@@ -84,9 +102,18 @@ export default function CambiarPassword() {
       setConfirmPasswordError(false);
     }
   }
-  async function handleChangePassword({ userId, newPassword, currentPassword }: { currentPassword: string; userId: string; newPassword: string }) {
+  async function handleChangePassword({
+    userId,
+    newPassword,
+    currentPassword,
+  }: {
+    currentPassword: string;
+    userId: string;
+    newPassword: string;
+  }) {
     try {
-      if (!currentPassword || currentPassword.length < 8) throw new Error('Su contraseña actual debe contener al menos 8 caracteres');
+      if (!currentPassword || currentPassword.length < 8)
+        throw new Error('Su contraseña actual debe contener al menos 8 caracteres');
       if (newPasswordError || confirmPasswordError) throw new Error('debe corregir todos los errores');
       const response = await Profesor.changeProfesorPassword({ userId, newPassword, currentPassword });
       updateToken(response);

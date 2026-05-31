@@ -12,6 +12,7 @@ import PensionesByGradoSeccion from '../Pensiones/PorSalon/PensionesByGradoSecci
 import Registro from '../Registro/Registro';
 import TeacherLayout from '../Layout/TeacherLayout';
 import RequireRole from '../../components/Guards/RequireRole';
+import MisSalones from '../MisSalones/MisSalones';
 
 export const teacherRoutes = (
   <Route element={<RequireRole allowedRoles={['profesor']} fallback="/unauthorized" />} path="/menu">
@@ -27,6 +28,7 @@ export const teacherRoutes = (
       <Route element={<Board />} path="board" />
       <Route element={<PensionesByGradoSeccion />} path="pensiones" />
       <Route element={<GenerarLibretas />} path="generar-libretas" />
+      <Route element={<MisSalones />} path="mis-salones" />
       <Route path="*" element={<DefaultPage />} />
     </Route>
   </Route>

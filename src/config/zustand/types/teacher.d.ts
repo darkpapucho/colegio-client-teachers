@@ -1,14 +1,21 @@
-import { HorarioCell } from '../../../types/horario';
-import { AllowedUserRoles, UserProps } from './user';
+import { UserProps } from './user';
+
+export type Curso = {
+  label: string;
+  key: string;
+  short: string;
+  code: string;
+};
 
 export type SalonProfesor = {
   tutor: boolean;
   label: string;
   value: { grado: Grado; seccion: Seccion };
   order: number;
-  cursos: { label: string; key: string; short: string; code: string }[];
+  cursos: Curso[];
 };
-export type Profesor = UserProps & {
+
+export type Teacher = UserProps & {
   salones: SalonProfesor[];
   horario: HorarioCell[];
   anuncios: ProfesorAnnouncement[];

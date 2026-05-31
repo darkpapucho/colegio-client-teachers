@@ -13,7 +13,7 @@ import Loader from '../../../components/Shared/Loader/Loader';
 import SalonesFilter from '../../SalonesFilter.tsx/SalonesFilter';
 import { useSearchParams } from 'react-router-dom';
 import useAuth from '../../../config/zustand/user';
-import { Teacher } from '../../../types/users/profesor';
+import { Teacher } from '../../../config/zustand/types/teacher';
 
 export default function AsistenciaDiaria() {
   const [searchParams] = useSearchParams();
@@ -27,7 +27,10 @@ export default function AsistenciaDiaria() {
   });
   const [dayId, setDayId] = useState('');
   const { data, isFetching, refetch } = useFetchAsistenciaList({ month, day });
-  const [registroAsistencia, dispatch] = useImmerReducer<AsistenciasReducerState, AsistenciasReducerAction>(AsistenciasReducer, []);
+  const [registroAsistencia, dispatch] = useImmerReducer<AsistenciasReducerState, AsistenciasReducerAction>(
+    AsistenciasReducer,
+    [],
+  );
 
   const { mutate, isPending } = useUpdateAsistenciaList({
     registroAsistencia,
@@ -53,7 +56,12 @@ export default function AsistenciaDiaria() {
   return (
     <>
       {(isFetching || isPending) && <Loader />}
-      <Container $direction="row" $width="100%" $bgColor={theme.colors.tertiary.light} $padding="1rem 1rem 1rem 1rem" $gap="1rem">
+      <Container
+        $direction="row"
+        $width="100%"
+        $bgColor={theme.colors.tertiary.light}
+        $padding="1rem 1rem 1rem 1rem"
+        $gap="1rem">
         <Container $direction="row" $width="max-content" $gap="1rem">
           <SalonesFilter salones={salonesList} />
           <Button $primary onClick={() => refetch()} $width="max-content" $small disabled={isFetching}>
@@ -75,7 +83,9 @@ export default function AsistenciaDiaria() {
           })}`}</Text>
         </Container>
       )}
-      {data && registroAsistencia && <AsistenciasTable alumnos={registroAsistencia} dispatch={dispatch}></AsistenciasTable>}
+      {data && registroAsistencia && (
+        <AsistenciasTable alumnos={registroAsistencia} dispatch={dispatch}></AsistenciasTable>
+      )}
     </>
   );
   function selectListener(event: CustomEvent) {

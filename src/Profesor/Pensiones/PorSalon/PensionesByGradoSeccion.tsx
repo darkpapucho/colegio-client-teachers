@@ -16,7 +16,7 @@ import { generateGrados, generateSecciones } from '../../../utils/profesor';
 import usePensionesLastUpdateDate from '../../../hooks/usePensionesLastUpdateDate';
 import { Text } from '../../../components/Shared/Text/Text';
 import useAuth from '../../../config/zustand/user';
-import { Teacher } from '../../../types/users/profesor';
+import { Teacher } from '../../../config/zustand/types/teacher';
 
 export const PensionesByGradoSeccionContext = createContext<{
   setData: React.Dispatch<
@@ -40,7 +40,9 @@ export default function PensionesByGradoSeccion() {
     return salon.tutor;
   });
   const { grado, seccion } = useGradoSeccionSearchParams();
-  const [data, setData] = useState<{ alumnoId: string; numPensionesPagadas: number; pensiones: Pension[]; estudiante: AMatriculado }[]>([]);
+  const [data, setData] = useState<
+    { alumnoId: string; numPensionesPagadas: number; pensiones: Pension[]; estudiante: AMatriculado }[]
+  >([]);
   const [loading, setLoading] = useState(false);
   const { date, isFetching } = usePensionesLastUpdateDate();
   if (!salonesList || salonesList.length === 0) {
@@ -56,13 +58,31 @@ export default function PensionesByGradoSeccion() {
               Última actualización:{' '}
             </Text>
             <Text $color="#401004" $large $fontWeight="bold">
-              {new Date(date).toLocaleDateString('es-PE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}
+              {new Date(date).toLocaleDateString('es-PE', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
             </Text>
           </Container>
         )}
         <Container $direction="row" $width="max-content" $gap=".5rem">
-          <Select options={generateGrados(salonesList)} label="grado" name="grado" width={`${nivel === 'inicial' ? '12rem' : '9rem'}`}></Select>
-          {grado && <Select key={grado} options={generateSecciones(grado, salonesList)} width="9rem" name="seccion" label="sección" />}{' '}
+          <Select
+            options={generateGrados(salonesList)}
+            label="grado"
+            name="grado"
+            width={`${nivel === 'inicial' ? '12rem' : '9rem'}`}></Select>
+          {grado && (
+            <Select
+              key={grado}
+              options={generateSecciones(grado, salonesList)}
+              width="9rem"
+              name="seccion"
+              label="sección"
+            />
+          )}{' '}
           <Button $primary $width="max-content" onClick={fetchList}>
             Buscar
           </Button>
@@ -77,7 +97,11 @@ export default function PensionesByGradoSeccion() {
       setLoading(true);
       // const estadosMatricula = searchParams.get('estadosMatricula')?.split('-') as EstadoMatricula[];
       if (!grado || !seccion) throw new Error('grado o sección inválido');
-      const response = await Pensiones.fetchListByGradoSeccion({ grado, seccion, estadosMatricula: ['DEFINITIVA', 'EN PROCESO'] });
+      const response = await Pensiones.fetchListByGradoSeccion({
+        grado,
+        seccion,
+        estadosMatricula: ['DEFINITIVA', 'EN PROCESO'],
+      });
 
       updateToken(response);
       if (!response.data.ok) {

@@ -2,7 +2,7 @@ import { Container } from '../../../components/Shared/Container/Container';
 import Loader from '../../../components/Shared/Loader/Loader';
 import useAuth from '../../../config/zustand/user';
 import useFetchAnnouncements from '../../../hooks/useFetchAnnouncements';
-import { Teacher } from '../../../types/users/profesor';
+import { Teacher } from '../../../config/zustand/types/teacher';
 
 import AnnouncementsDisplayer from './AnouncementDisplayer';
 

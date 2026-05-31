@@ -12,7 +12,7 @@ type NuevoApoderado = {
   relacion: TipoApoderado;
 };
 
-type Apoderado = NuevoApoderado & { _id: string };
+type Apoderado = NuevoApoderado & { _id: string; issuer?: string };
 
 export interface AMatriculado {
   // Alumno Matriculado

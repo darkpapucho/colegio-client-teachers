@@ -4,11 +4,35 @@ import { API_URL } from '../../var/envData';
 import { Grado, Seccion } from '../../types/gradoSalon';
 import { AsistenciaList, AsistenciaValue, Month } from './types';
 import { API_END_POINTS } from '../../config/axios/endPoints';
-import { AMatriculado } from '../../types/alumno';
+import { AMatriculado, Apoderado, NuevoApoderado } from '../../types/alumno';
 setupAxiosInterceptorsTo(axios);
 
 export default class Alumno {
-  static async fetchAsistenciaList({ grado, seccion, month, day }: { month: string; day: number; grado: Grado; seccion: Seccion }) {
+  static async agregarApoderado({ alumnoId, nuevoApoderado }: { alumnoId: string; nuevoApoderado: NuevoApoderado }) {
+    const response = await axios.post<AxiosResponseSchema<boolean>>(API_URL + API_END_POINTS.AGREGAR_APODERADO, {
+      alumnoId,
+      apoderado: nuevoApoderado,
+    });
+    return response;
+  }
+  static async editarApoderado({ alumnoId, apoderado }: { alumnoId: string; apoderado: Apoderado }) {
+    const response = await axios.post<AxiosResponseSchema<boolean>>(API_URL + API_END_POINTS.EDITAR_APODERADO, {
+      alumnoId,
+      apoderado,
+    });
+    return response;
+  }
+  static async fetchAsistenciaList({
+    grado,
+    seccion,
+    month,
+    day,
+  }: {
+    month: string;
+    day: number;
+    grado: Grado;
+    seccion: Seccion;
+  }) {
     const API_END_POINT = API_END_POINTS.fetchAsistenciaList;
 
     const response = await axios.post<
@@ -26,7 +50,9 @@ export default class Alumno {
     return response;
   }
   static async fetchByGradoSeccion({ grado, seccion }: { grado: Grado; seccion: Seccion }) {
-    const response = await axios.get<AxiosResponseSchema<AMatriculado[]>>(API_URL + API_END_POINTS.FETCH_ALUMNOS_GRADO_SECCION + `?grado=${grado}&seccion=${seccion}`);
+    const response = await axios.get<AxiosResponseSchema<AMatriculado[]>>(
+      API_URL + API_END_POINTS.FETCH_ALUMNOS_GRADO_SECCION + `?grado=${grado}&seccion=${seccion}`,
+    );
     return response;
   }
 }

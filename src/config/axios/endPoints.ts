@@ -31,4 +31,6 @@ export const API_END_POINTS = {
   GENERAR_LIBRETAS_PRIMARIA: '/notas/generate-libretas-primaria-grado-seccion',
   GENERAR_LIBRETAS_INICIAL: '/documento/generar-boletas-notas-grado-seccion',
   FETCH_ALUMNOS_GRADO_SECCION: '/alumno/matriculados',
+  AGREGAR_APODERADO: '/alumno/agregar-apoderado',
+  EDITAR_APODERADO: '/alumno/editar-apoderado',
 };

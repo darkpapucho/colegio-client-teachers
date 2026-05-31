@@ -8,10 +8,17 @@ import toast from 'react-hot-toast';
 import ErrorHandler from '../../../utils/errorManagment';
 import { convertNumberToDayName } from './scheduleData';
 import useAuth from '../../../config/zustand/user';
-import { Teacher } from '../../../types/users/profesor';
-import { Profesor } from '../../../models/Profesor/Profesor';
 
-export default function AgregarCeldaHorario({ onCloseModal, startTime }: { onCloseModal: () => void; startTime: Date }) {
+import { Profesor } from '../../../models/Profesor/Profesor';
+import { Teacher } from '../../../config/zustand/types/teacher';
+
+export default function AgregarCeldaHorario({
+  onCloseModal,
+  startTime,
+}: {
+  onCloseModal: () => void;
+  startTime: Date;
+}) {
   const { user, updateUser } = useAuth();
   const profesor = user as unknown as Teacher;
   const salonCursosData = profesor.salones.map((record) => {
@@ -34,8 +41,17 @@ export default function AgregarCeldaHorario({ onCloseModal, startTime }: { onClo
         <div className="flex gap-4 w-full p-4 bg-yellow-200 items-center justify-center">
           {/* <Select options={diasSelectOpts} name="dia" label="Día" width="80px" /> */}
           <p className="text-[16px] font-bold">{convertNumberToDayName(day).toUpperCase()}</p>
-          <p className="text-[16px] font-bold">{startTime.getHours().toString().padStart(2, '0') + ':' + startTime.getMinutes().toString().padStart(2, '0') + ' - '}</p>
-          <p className="text-[16px] font-bold">{endTime.getHours().toString().padStart(2, '0') + ':' + endTime.getMinutes().toString().padStart(2, '0')} </p>
+          <p className="text-[16px] font-bold">
+            {startTime.getHours().toString().padStart(2, '0') +
+              ':' +
+              startTime.getMinutes().toString().padStart(2, '0') +
+              ' - '}
+          </p>
+          <p className="text-[16px] font-bold">
+            {endTime.getHours().toString().padStart(2, '0') +
+              ':' +
+              endTime.getMinutes().toString().padStart(2, '0')}{' '}
+          </p>
         </div>
 
         <div className="flex gap-2 items-center justify-between">

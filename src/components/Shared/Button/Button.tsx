@@ -24,6 +24,7 @@ export const Button = styled.button<{
   user-select: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   &:hover {
     filter: brightness(110%);
   }

@@ -16,7 +16,7 @@ import { yearState } from '../../config/zustand/year';
 import SalonesFilter from '../SalonesFilter.tsx/SalonesFilter';
 import useCurrentPeriodo from '../../hooks/useCurrentPeriodo';
 import useAuth from '../../config/zustand/user';
-import { Teacher } from '../../types/users/profesor';
+import { Teacher } from '../../config/zustand/types/teacher';
 
 export default function AsistenciaAlumnos() {
   const { currentPeriodo, isLoading } = useCurrentPeriodo();
@@ -61,7 +61,13 @@ export default function AsistenciaAlumnos() {
           <Button $width="max-content" $primary onClick={() => refetch()} type="button" disabled={isFetching} $small>
             Ver Lista
           </Button>
-          <Button $width="max-content" $primary onClick={() => downloadPDF()} type="button" disabled={isFetching} $small>
+          <Button
+            $width="max-content"
+            $primary
+            onClick={() => downloadPDF()}
+            type="button"
+            disabled={isFetching}
+            $small>
             Descargar PDF
           </Button>
         </Container>

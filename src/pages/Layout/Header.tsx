@@ -5,8 +5,9 @@ import { Icon } from '../../components/Shared/Icon/Icon';
 import { HandleLogOut } from '../../utils/axiosUtils';
 import { useState } from 'react';
 import DropDownMenu from './DropDownMenu';
-import { Teacher } from '../../types/users/profesor';
+
 import useAuth from '../../config/zustand/user';
+import { Teacher } from '../../config/zustand/types/teacher';
 
 const HeaderContainer = styled.div`
   grid-column: 1 / 2;
@@ -52,19 +53,40 @@ export default function Header() {
   return (
     <HeaderContainer>
       <div className="left-side">
-        <Icon $width="40px" $borderRadius="50%" $small $bgColor={theme.colors.tertiary.light} $pointer $primary onClick={() => toggleSideBar()} className="hamburger">
+        <Icon
+          $width="40px"
+          $borderRadius="50%"
+          $small
+          $bgColor={theme.colors.tertiary.light}
+          $pointer
+          $primary
+          onClick={() => toggleSideBar()}
+          className="hamburger">
           <BiMenu />
         </Icon>
         {profesor?.apellidos + ' ' + profesor?.nombres}
       </div>
       <div className="content">
         <div className="cog-container">
-          <Icon $width="40px" $borderRadius="50%" $small $pointer $bgColor={theme.colors.tertiary.light} onClick={() => setShowDropDown((old) => !old)}>
+          <Icon
+            $width="40px"
+            $borderRadius="50%"
+            $small
+            $pointer
+            $bgColor={theme.colors.tertiary.light}
+            onClick={() => setShowDropDown((old) => !old)}>
             <BiCog />
           </Icon>
           {showDropDown && <DropDownMenu handler={() => setShowDropDown(false)}></DropDownMenu>}
         </div>
-        <Icon $width="40px" $borderRadius="50%" $small $bgColor={theme.colors.tertiary.light} $pointer $danger onClick={() => HandleLogOut()}>
+        <Icon
+          $width="40px"
+          $borderRadius="50%"
+          $small
+          $bgColor={theme.colors.tertiary.light}
+          $pointer
+          $danger
+          onClick={() => HandleLogOut()}>
           <BiLogOut />
         </Icon>
       </div>

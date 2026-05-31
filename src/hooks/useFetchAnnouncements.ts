@@ -6,7 +6,7 @@ import { updateToken } from '../utils/axiosUtils';
 import { useEffect } from 'react';
 import ErrorHandler from '../utils/errorManagment';
 import useAuth from '../config/zustand/user';
-import { Teacher } from '../types/users/profesor';
+import { Teacher } from '../config/zustand/types/teacher';
 
 export default function useFetchAnnouncements() {
   const nivel = nivelState((state) => state.nivel);

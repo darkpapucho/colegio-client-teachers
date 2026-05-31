@@ -1,17 +1,17 @@
 import { create } from 'zustand';
-import { Profesor } from './types/profesor';
 import { Psicologo } from './types/psicologo';
+import { Teacher } from './types/teacher';
 
-export type User = Profesor | Psicologo | undefined;
+export type User = Teacher | Psicologo | undefined;
 
 type State = {
   user: User;
   isLoading: boolean;
 };
 type Action = {
-  login: (userData: Profesor | Psicologo) => void;
+  login: (userData: Teacher | Psicologo) => void;
   logout: () => void;
-  updateUser: (data: Partial<Profesor | Psicologo>) => void;
+  updateUser: (data: Partial<Teacher | Psicologo>) => void;
   setIsLoading: (loading: boolean) => void;
 };
 
@@ -21,7 +21,7 @@ const useAuth = create<State & Action>((set) => ({
   setIsLoading: (loading: boolean) => {
     set({ isLoading: loading });
   },
-  login: (user: Profesor | Psicologo) => {
+  login: (user: Teacher | Psicologo) => {
     set({ user });
   },
   logout: () => {

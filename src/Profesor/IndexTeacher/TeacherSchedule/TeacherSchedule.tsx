@@ -19,7 +19,7 @@ import moment from 'moment-timezone';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import './style.css';
 import useAuth from '../../../config/zustand/user';
-import { Teacher } from '../../../types/users/profesor';
+import { Teacher } from '../../../config/zustand/types/teacher';
 import { Container } from '../../../components/Shared/Container/Container';
 import { Text } from '../../../components/Shared/Text/Text';
 

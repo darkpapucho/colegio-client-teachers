@@ -11,7 +11,7 @@ import Select from '../../components/Shared/Select/Select';
 import useCustomEvent from '../../hooks/useCustomEvent';
 import SalonCard from '../../components/Shared/SalonCard/SalonCard';
 import useAuth from '../../config/zustand/user';
-import { Teacher } from '../../types/users/profesor';
+import { Teacher } from '../../config/zustand/types/teacher';
 
 export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number; onCloseModal: () => void }) {
   const profesor = useAuth().user as unknown as Teacher;
@@ -19,7 +19,9 @@ export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number;
   const [loading, setLoading] = useState(false);
   const tituloRef = useRef<HTMLInputElement | null>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [salonesOptions, setSalonesOptions] = useState<{ label: string; value: string }[]>(profesor!.salones.map((salon) => ({ label: salon.label, value: salon.label })));
+  const [salonesOptions, setSalonesOptions] = useState<{ label: string; value: string }[]>(
+    profesor!.salones.map((salon) => ({ label: salon.label, value: salon.label })),
+  );
   const [selectedSalones, setSelectedSalones] = useState<string[]>([]);
   useCustomEvent('customSelect', selectListener);
   return (
@@ -36,7 +38,17 @@ export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number;
             </>
           )}
         </div>
-        <Input type="text" placeholder="Título" width="100%" name="titulo" label="Título" vertical labelColor="black" ref={tituloRef} maxLength={60} />
+        <Input
+          type="text"
+          placeholder="Título"
+          width="100%"
+          name="titulo"
+          label="Título"
+          vertical
+          labelColor="black"
+          ref={tituloRef}
+          maxLength={60}
+        />
         <p className="text-[16px]">Contenido (300 caracteres máximo)</p>
         <textarea
           maxLength={300}
@@ -55,11 +67,24 @@ export default function AddAnuncionModal({ posY, onCloseModal }: { posY: number;
       setLoading(true);
       const title = tituloRef.current!.value.trim().slice(0, 60);
       const content = textAreaRef.current!.value.trim().slice(0, 300);
-      const date = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const date = new Date().toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
 
-      if (!title || !content || !selectedSalones.length) throw new Error('debe haber un título y un contenido y seleccionar al menos 1 salón');
+      if (!title || !content || !selectedSalones.length)
+        throw new Error('debe haber un título y un contenido y seleccionar al menos 1 salón');
 
-      const response = await Profesor.agregarAnuncio({ title, content, date, profesorId: profesor!._id, salones: selectedSalones });
+      const response = await Profesor.agregarAnuncio({
+        title,
+        content,
+        date,
+        profesorId: profesor!._id,
+        salones: selectedSalones,
+      });
       updateToken(response);
       if (!response.data.ok) throw new Error(response.data.message);
       toast.success('anuncio agregado');

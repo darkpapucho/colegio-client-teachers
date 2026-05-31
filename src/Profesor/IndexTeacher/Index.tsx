@@ -2,7 +2,7 @@
 
 import { Container } from '../../components/Shared/Container/Container';
 import useAuth from '../../config/zustand/user';
-import { Teacher } from '../../types/users/profesor';
+import { Teacher } from '../../config/zustand/types/teacher';
 import Anouncements from './Anouncements/Anouncements';
 
 import TeacherSchedule from './TeacherSchedule/TeacherSchedule';

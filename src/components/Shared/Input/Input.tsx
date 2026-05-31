@@ -58,7 +58,7 @@ export const InputContainer = styled.div<{
   }};
 `;
 
-const Input = forwardRef(function (Props: InputProps, ref) {
+const Input = forwardRef(function (Props: InputProps, ref: React.ForwardedRef<HTMLInputElement>) {
   const { isError, name, label, vertical, type, width, icon, labelColor, ...rest } = Props;
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -70,9 +70,21 @@ const Input = forwardRef(function (Props: InputProps, ref) {
             {icon}
           </Icon>
         )}
-        <input {...rest} ref={ref as RefObject<HTMLInputElement>} type={type === 'password' ? (showPassword ? 'text' : 'password') : type} name={name} id={name} />
+        <input
+          {...rest}
+          ref={ref as RefObject<HTMLInputElement>}
+          type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
+          name={name}
+          id={name}
+        />
         {type === 'password' && (
-          <Icon $pointer $primary $small $width="20px" className="input-icon" onClick={() => setShowPassword((old) => !old)}>
+          <Icon
+            $pointer
+            $primary
+            $small
+            $width="20px"
+            className="input-icon"
+            onClick={() => setShowPassword((old) => !old)}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </Icon>
         )}

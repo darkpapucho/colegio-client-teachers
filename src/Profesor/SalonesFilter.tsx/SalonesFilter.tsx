@@ -4,7 +4,7 @@ import { generateGrados, generateSecciones } from '../../utils/profesor';
 import { nivelState } from '../../config/zustand/nivel';
 import { memo } from 'react';
 import useGradoSeccionSearchParams from '../../hooks/useGradoSeccionSearchParams';
-import { SalonProfesor } from '../../types/users/profesor';
+import { SalonProfesor } from '../../config/zustand/types/teacher';
 
 const SalonesFilter = memo(({ salones }: { salones: SalonProfesor[] }) => {
   const { grado } = useGradoSeccionSearchParams();

@@ -80,6 +80,10 @@ export default function Modal({
       document.body.style.touchAction = '';
     };
   }, []);
+  // const [scroll, setScroll] = useState({ x: 0, y: 0 });
+  // useLayoutEffect(() => {
+  //   obtenerCoordenadasElemento(ref.current!);
+  // }, []);
   return createPortal(
     <ModalContainer ref={ref}>
       <StyledModal $width={width} $marginTop={marginTop} $marginLeft={marginLeft}>
@@ -105,9 +109,22 @@ export default function Modal({
       </StyledModal>
       <Overlay />
     </ModalContainer>,
-    document.querySelector('#portal')!
+    document.querySelector('#portal')!,
   );
   // function onDrag(event:React.PointerEvent<HTMLDivElement>){
   //   const target = event.target;
+  // }
+  // function obtenerCoordenadasElemento(_element: HTMLElement) {
+  //   // const rect = element.getBoundingClientRect();
+
+  //   // const width = rect.width;
+  //   // const height = rect.height;
+
+  //   const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+
+  //   // Posición horizontal del scroll
+  //   const scrollX = window.scrollX || window.pageXOffset || document.documentElement.scrollLeft;
+
+  //   setScroll({ x: scrollX, y: scrollY });
   // }
 }

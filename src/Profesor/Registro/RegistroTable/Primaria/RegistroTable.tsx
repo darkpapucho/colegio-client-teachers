@@ -18,9 +18,17 @@ import EditConClusionesDescriptivasModal from '../EditConclusionesDescriptivasMo
 import Loader from '../../../../components/Shared/Loader/Loader';
 import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
 import useAuth from '../../../../config/zustand/user';
-import { Teacher } from '../../../../types/users/profesor';
+import { Teacher } from '../../../../config/zustand/types/teacher';
 
-export default function RegistroTable({ cursosProfesor, registro, periodo }: { cursosProfesor: CURSO_SALON[]; registro: RecordNotas[]; periodo: Periodo }) {
+export default function RegistroTable({
+  cursosProfesor,
+  registro,
+  periodo,
+}: {
+  cursosProfesor: CURSO_SALON[];
+  registro: RecordNotas[];
+  periodo: Periodo;
+}) {
   const profesor = useAuth().user as unknown as Teacher;
   const [showCDModal, setShowCDModal] = useState<boolean>(false);
   const [selectedRecord, setSelectedRecord] = useState<RecordNotas | undefined>(undefined);
@@ -98,29 +106,59 @@ export default function RegistroTable({ cursosProfesor, registro, periodo }: { c
                   <>
                     <Table.Body.Item>
                       <Container $width="100%" $direction="row" $bgColor="white" $gap="1px" $padding="0">
-                        <Container $width="50%" $bgColor={theme.colors.tertiary.light} $height="30px" $alignItems="center" $justifyContent="center">
+                        <Container
+                          $width="50%"
+                          $bgColor={theme.colors.tertiary.light}
+                          $height="30px"
+                          $alignItems="center"
+                          $justifyContent="center">
                           {row.tardanzas.justificadas[ConvertPeriodoToIndex(periodo)]}
                         </Container>
-                        <Container $width="50%" $bgColor={theme.colors.tertiary.light} $height="30px" $alignItems="center" $justifyContent="center">
+                        <Container
+                          $width="50%"
+                          $bgColor={theme.colors.tertiary.light}
+                          $height="30px"
+                          $alignItems="center"
+                          $justifyContent="center">
                           {row.tardanzas.injustificadas[ConvertPeriodoToIndex(periodo)]}
                         </Container>
                       </Container>
                     </Table.Body.Item>
                     <Table.Body.Item>
                       <Container $width="100%" $direction="row" $bgColor="white" $gap="1px" $padding="0">
-                        <Container $width="50%" $bgColor={theme.colors.tertiary.light} $height="30px" $alignItems="center" $justifyContent="center">
+                        <Container
+                          $width="50%"
+                          $bgColor={theme.colors.tertiary.light}
+                          $height="30px"
+                          $alignItems="center"
+                          $justifyContent="center">
                           {row.inasistencias.justificadas[ConvertPeriodoToIndex(periodo)]}
                         </Container>
-                        <Container $width="50%" $bgColor={theme.colors.tertiary.light} $height="30px" $alignItems="center" $justifyContent="center">
+                        <Container
+                          $width="50%"
+                          $bgColor={theme.colors.tertiary.light}
+                          $height="30px"
+                          $alignItems="center"
+                          $justifyContent="center">
                           {row.inasistencias.injustificadas[ConvertPeriodoToIndex(periodo)]}
                         </Container>
                       </Container>
                     </Table.Body.Item>
                     <Table.Body.Item>
-                      <ConductaTab initValue={row.conducta[ConvertPeriodoToIndex(periodo)]} alumnoId={row.alumnoId} periodo={periodo} field="alumno" />
+                      <ConductaTab
+                        initValue={row.conducta[ConvertPeriodoToIndex(periodo)]}
+                        alumnoId={row.alumnoId}
+                        periodo={periodo}
+                        field="alumno"
+                      />
                     </Table.Body.Item>
                     <Table.Body.Item>
-                      <ConductaTab initValue={row.conductaPPFF[ConvertPeriodoToIndex(periodo)]} alumnoId={row.alumnoId} periodo={periodo} field="PPFF" />
+                      <ConductaTab
+                        initValue={row.conductaPPFF[ConvertPeriodoToIndex(periodo)]}
+                        alumnoId={row.alumnoId}
+                        periodo={periodo}
+                        field="PPFF"
+                      />
                     </Table.Body.Item>
                     <Table.Body.Item>
                       <Container

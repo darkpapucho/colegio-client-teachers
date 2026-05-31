@@ -23,7 +23,7 @@ import RegistroTableBody from './RegistroTableBody';
 import SalonesFilter from '../../../SalonesFilter.tsx/SalonesFilter';
 import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
 import useAuth from '../../../../config/zustand/user';
-import { Teacher } from '../../../../types/users/profesor';
+import { Teacher } from '../../../../config/zustand/types/teacher';
 
 export const RegistroContext = createContext<{
   dispatch: (action: RegistroInicialReducerAction) => void;
@@ -68,7 +68,10 @@ export default function RegistroTableInicial() {
     // enabled: grado != null && seccion != null,
     enabled: false,
   });
-  const [registro, dispatchRegistro] = useImmerReducer<RegistroNotasInicialProfesor[], RegistroInicialReducerAction>(RegistroInicialReducer, []);
+  const [registro, dispatchRegistro] = useImmerReducer<RegistroNotasInicialProfesor[], RegistroInicialReducerAction>(
+    RegistroInicialReducer,
+    [],
+  );
 
   const {
     mutate,
@@ -79,7 +82,10 @@ export default function RegistroTableInicial() {
     mutationFn: () => updateRegistroProfesor(registro, isTutor),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['registro-profesor', grado, seccion] });
-      queryClient.prefetchQuery({ queryKey: ['registro-profesor', grado, seccion], queryFn: () => fetchRegistro({ grado, seccion }) });
+      queryClient.prefetchQuery({
+        queryKey: ['registro-profesor', grado, seccion],
+        queryFn: () => fetchRegistro({ grado, seccion }),
+      });
     },
   });
 
@@ -146,7 +152,13 @@ export default function RegistroTableInicial() {
               Descargar Registro
             </Button>
             {data && registro && (
-              <Button $width="max-content" $color="green" onClick={() => mutate()} type="button" disabled={isPending} $small>
+              <Button
+                $width="max-content"
+                $color="green"
+                onClick={() => mutate()}
+                type="button"
+                disabled={isPending}
+                $small>
                 Grabar Cambios
               </Button>
             )}
@@ -154,7 +166,11 @@ export default function RegistroTableInicial() {
           {gridTemplateColumns && cursosList && (
             <Table $gridTempCols={gridTemplateColumns} $justifyContent="center" $alignItems="center" $height="30px">
               <RegistroTableHeader cursosList={cursosList!} isTutor={isTutor!} />
-              <RegistroTableBody periodo={periodo as Periodo} registro={{ isTutor, notas: registro as any }} cursosList={cursosList!} />
+              <RegistroTableBody
+                periodo={periodo as Periodo}
+                registro={{ isTutor, notas: registro as any }}
+                cursosList={cursosList!}
+              />
             </Table>
           )}
         </RegistroContext.Provider>

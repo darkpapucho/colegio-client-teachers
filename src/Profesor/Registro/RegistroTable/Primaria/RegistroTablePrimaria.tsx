@@ -16,7 +16,7 @@ import { updateToken } from '../../../../utils/axiosUtils';
 import toaster from 'react-hot-toast';
 import useGradoSeccionSearchParams from '../../../../hooks/useGradoSeccionSearchParams';
 import useAuth from '../../../../config/zustand/user';
-import { Teacher } from '../../../../types/users/profesor';
+import { Teacher } from '../../../../config/zustand/types/teacher';
 
 type ContextType = {
   registro: RecordNotas[];
@@ -58,13 +58,23 @@ export default function RegistroTablePrimaria({ periodo }: { periodo: Periodo })
             Buscar{' '}
           </Button>
           {registro && registro.length > 0 && (
-            <Button $width="max-content" $primary onClick={() => updateRegistro({ registro, isTutor, cursosProfesor })} type="button" disabled={loading} $small>
+            <Button
+              $width="max-content"
+              $primary
+              onClick={() => updateRegistro({ registro, isTutor, cursosProfesor })}
+              type="button"
+              disabled={loading}
+              $small>
               Grabar Cambios
             </Button>
           )}
         </Container>
         <Container $width="100%" $direction="column" $gap="1rem">
-          {registro && registro.length > 0 ? <RegistroTable registro={registro} cursosProfesor={cursosProfesor} periodo={periodo} /> : <></>}
+          {registro && registro.length > 0 ? (
+            <RegistroTable registro={registro} cursosProfesor={cursosProfesor} periodo={periodo} />
+          ) : (
+            <></>
+          )}
         </Container>
       </Container>
     </RegistroPrimariaContext.Provider>
@@ -84,7 +94,15 @@ export default function RegistroTablePrimaria({ periodo }: { periodo: Periodo })
       ErrorHandler(error);
     }
   }
-  async function updateRegistro({ registro, isTutor, cursosProfesor }: { registro: RecordNotas[]; isTutor: boolean; cursosProfesor: CURSO_SALON[] }) {
+  async function updateRegistro({
+    registro,
+    isTutor,
+    cursosProfesor,
+  }: {
+    registro: RecordNotas[];
+    isTutor: boolean;
+    cursosProfesor: CURSO_SALON[];
+  }) {
     try {
       if (!registro || !cursosProfesor) throw new Error('falta el registro o la lista de cursos del profesor');
       setLoading(true);

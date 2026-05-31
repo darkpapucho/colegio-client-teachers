@@ -8,7 +8,8 @@ import { updateToken } from '../../utils/axiosUtils';
 import toast from 'react-hot-toast';
 import { Announcement, ProfesorAnnouncement } from '../../types/announcements';
 import useAuth from '../../config/zustand/user';
-import { Teacher } from '../../types/users/profesor';
+import { Teacher } from '../../config/zustand/types/teacher';
+
 interface AnuncioCardProfesorProps {
   type: 'teacher';
   anuncio: ProfesorAnnouncement;

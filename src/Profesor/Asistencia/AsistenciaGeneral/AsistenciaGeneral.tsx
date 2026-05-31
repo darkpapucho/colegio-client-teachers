@@ -19,7 +19,7 @@ import useUpdateAsistenciaListGeneral from '../../../hooks/useUpdateAsistenciaLi
 import { DaysContainer } from './DaysContainer';
 import SalonesFilter from '../../SalonesFilter.tsx/SalonesFilter';
 import useAuth from '../../../config/zustand/user';
-import { Teacher } from '../../../types/users/profesor';
+import { Teacher } from '../../../config/zustand/types/teacher';
 
 export default function PasarAsistencia() {
   const profesor = useAuth().user as unknown as Teacher;
@@ -33,9 +33,16 @@ export default function PasarAsistencia() {
   const [selectedMonth, setSelectedMonth] = useState<MONTH_NAME>(getCurrentMonthName());
   const [selectedDay, setSelectedDay] = useState<Omit<CalendarioList, 'month'> | undefined>(undefined);
 
-  const { data, isLoading, refetch: fetchAsistenciaList } = useFetchAsistenciaListByDayId({ searchParams, dayId: selectedDay?._id, month: selectedMonth });
+  const {
+    data,
+    isLoading,
+    refetch: fetchAsistenciaList,
+  } = useFetchAsistenciaListByDayId({ searchParams, dayId: selectedDay?._id, month: selectedMonth });
 
-  const [registroAsistencia, dispatch] = useImmerReducer<AsistenciasReducerState, AsistenciasReducerAction>(AsistenciasReducer, []);
+  const [registroAsistencia, dispatch] = useImmerReducer<AsistenciasReducerState, AsistenciasReducerAction>(
+    AsistenciasReducer,
+    [],
+  );
 
   const { mutate, isPending: isUpdating } = useUpdateAsistenciaListGeneral({
     searchParams,
@@ -94,7 +101,9 @@ export default function PasarAsistencia() {
                       key={element._id}
                       $padding=".5rem"
                       $border="1px solid black"
-                      $bgColor={selectedDay?._id === element._id ? theme.colors.primary.light : theme.colors.secondary.light}
+                      $bgColor={
+                        selectedDay?._id === element._id ? theme.colors.primary.light : theme.colors.secondary.light
+                      }
                       $pointer
                       onClick={() => setSelectedDay(element)}>
                       {element.day}
