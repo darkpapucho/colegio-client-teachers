@@ -7,7 +7,38 @@ import { API_END_POINTS } from '../../config/axios/endPoints';
 import { AMatriculado, Apoderado, NuevoApoderado } from '../../types/alumno';
 setupAxiosInterceptorsTo(axios);
 
+type TipoIncidencia = 'Indiciplina' | 'Agresión Física' | 'Agresión Verbal' | 'Hurto' | 'Daño a bienes materiales';
+
+export type RecordIncidencias = {
+  alumnoId: string;
+  fecha: string;
+  incidencia: TipoIncidencia;
+  detalles: string;
+  reportante: {
+    nombreCompleto: string;
+    userId: string;
+  };
+};
+
+export type AlumnoInfo = {
+  _id: string;
+  nombres: string;
+  apellidos: string;
+  dni?: string;
+  codigoEstudiante?: string;
+  grado: Grado;
+  seccion: Seccion;
+  pensiones: Pension[];
+  incidencias: RecordIncidencias;
+};
+
 export default class Alumno {
+  static async fetchAlumnoInfo({ alumnoId }: { alumnoId: string }) {
+    const response = await axios.get<AxiosResponseSchema<null>>(API_URL + API_END_POINTS.FETCH_ALUMNO_INFO);
+
+    console.log({ alumnoId });
+    return response;
+  }
   static async agregarApoderado({ alumnoId, nuevoApoderado }: { alumnoId: string; nuevoApoderado: NuevoApoderado }) {
     const response = await axios.post<AxiosResponseSchema<boolean>>(API_URL + API_END_POINTS.AGREGAR_APODERADO, {
       alumnoId,

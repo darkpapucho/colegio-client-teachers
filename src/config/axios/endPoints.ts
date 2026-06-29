@@ -33,4 +33,5 @@ export const API_END_POINTS = {
   FETCH_ALUMNOS_GRADO_SECCION: '/alumno/matriculados',
   AGREGAR_APODERADO: '/alumno/agregar-apoderado',
   EDITAR_APODERADO: '/alumno/editar-apoderado',
+  FETCH_ALUMNO_INFO: '/alumno/fetch-alumno-info',
 };
